@@ -1,0 +1,7 @@
+# Ignore .vscode
+.vscode
+
+.DS_Store
+*.o
+*.out
+*.dSYM/
