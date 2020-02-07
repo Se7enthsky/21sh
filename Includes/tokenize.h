@@ -1,7 +1,7 @@
 #include "21sh.h"
 
 /*
- * List of available tokens.
+ * List of all available tokens.
  */
 
 # define FULL_COMMAND	1
@@ -37,22 +37,6 @@ struct	s_tokens
 };
 
 /*
- *  Lexer Functions.
- */
-
-void	ft_tokenize(t_tokens **head, char *command);
-char	*ft_get_tokenname(int token_id);
-int		ft_get_tokenid(char *token_value);
-
-/*
- * Functions for manipulating tokens list.
- */
-
-t_tokens	*ft_lstnew_token(int token, char *value);
-void		ft_lstdel_token(t_tokens **node);
-void		ft_lstappend_token(t_tokens **node, int token, char *value);
-
-/*
  * Struct of tokens and their respactive identifier.
  */
 
@@ -62,3 +46,17 @@ typedef struct	s_id
     int         id;
 	char		*name;
 }				t_id;
+/*
+ *  Lexer Functions.
+ */
+
+void    ft_tokenize(t_tokens **head, char *command, const t_id seperators[]);
+int		ft_strchri(const char *str, char c);
+int		ft_get_tokenid(const char *value, int id);
+/*
+ * Functions for manipulating tokens list.
+ */
+
+t_tokens	*ft_lstnew_token(int token, char *value);
+void		ft_lstdel_token(t_tokens **node);
+void		ft_lstappend_token(t_tokens **node, int token, char *value);
