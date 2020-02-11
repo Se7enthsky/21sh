@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 07:09:08 by mobounya          #+#    #+#             */
-/*   Updated: 2020/02/05 18:04:15 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/02/10 16:51:15 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ int		ft_strequ(char const *s1, char const *s2)
 			return (0);
 		i++;
 	}
-	return (1);
+	return (s1[i] == s2[i]);
 }

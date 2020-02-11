@@ -20,7 +20,6 @@ int     main(void)
 {
     char        *cmd;
     t_tokens    *head;
-    t_tokens    *temp;
 
     head = NULL;
     while (1)
@@ -31,17 +30,7 @@ int     main(void)
             ft_get_cmd(head);
             while (head)
             {
-                if (head->token_id == FULL_COMMAND)
-                {
-                    printf("Full command == %s\n", head->value);
-                    temp = head->command_tokens;
-                    while (temp)
-                    {
-                        printf("<%d, %s\n", temp->token_id, temp->value);
-                        temp = temp->next;
-                    }
-                    printf("-------------------\n");
-                }
+                printf("%s\n", head->value);
                 head = head->next;
             }
         }
