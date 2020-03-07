@@ -1,35 +1,5 @@
 #include "tokenize.h"
 
-/*
- * Tokens
- */
-static const t_id tokens[] =
-{
-	{"&&", AND, "AND"},
-	{"||", OR, "OR"},
-	{"|", PIPE, "Pipe"},
-	{";", SEMI, "Semi"},
-	{"<<", DLESS, "Dless"},
-	{"<", LESS, "less"},
-	{">>", DGREAT, "Dgreat"},
-	{">", GREAT, "Great"}
-};
-
-int		ft_get_tokenid(const char *value, int id)
-{
-	unsigned int i;
-
-	i = 0;
-	while (i < 8)
-	{
-		if (ft_strcmp(tokens[i].token_value, value) == 0) {
-			return (tokens[i].id);
-		}
-		i++;
-	}
-	return (id);
-}
-
 int		ft_strchri(const char *str, char c)
 {
 	int i;
@@ -38,7 +8,7 @@ int		ft_strchri(const char *str, char c)
 	while (str[i])
 	{
 		if (str[i] == c)
-			break;
+			break ;
 		i++;
 	}
 	return (i);
@@ -46,11 +16,11 @@ int		ft_strchri(const char *str, char c)
 
 void	ft_tokenize(t_tokens **head, char *command, const t_id separators[])
 {
-	int i;
-	int separators_index;
-	int last_index;
-	char *value;
-	char *value2;
+	int		i;
+	int		separators_index;
+	int		last_index;
+	char	*value;
+	char	*value2;
 
 	i = 0;
 	last_index = 0;
@@ -69,9 +39,7 @@ void	ft_tokenize(t_tokens **head, char *command, const t_id separators[])
 				value = ft_strsub(command, last_index, i - last_index);
 				value = ft_strtrim(value);
 				if (value && *value)
-				{
 					ft_lstappend_token(head, ft_get_tokenid(value, 1), value);
-				}
 				value2 = ft_strsub(command, i, ft_strlen(separators[separators_index].token_value));
 				if (value2 && *value2)
 				{
@@ -80,7 +48,7 @@ void	ft_tokenize(t_tokens **head, char *command, const t_id separators[])
 				}
 				i += ft_strlen(separators[separators_index].token_value);
 				last_index = i;
-				break;
+				break ;
 			}
 			separators_index++;
 		}

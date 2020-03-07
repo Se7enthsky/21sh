@@ -44,7 +44,7 @@ void	ft_get_cmd(t_tokens *head)
 {
 	while (head)
 	{
-		if (head->token_id == FULL_COMMAND)
+		if (head->token_id == SIMPLE_COMMAND)
 			ft_tokenize_cmd(&head->command_tokens, head->value);
 		head = head->next;
 	}
