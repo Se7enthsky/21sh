@@ -25,7 +25,7 @@ int     main(void)
     t_tokens	*head;
     char		*cmd;
     int         *and_or;
-
+ 
     head = NULL;
     while (1)
     {

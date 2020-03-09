@@ -34,10 +34,12 @@ typedef struct	s_tokens t_tokens;
 
 struct	s_tokens
 {
-    int				token_id;
-    char            *value;
-    t_tokens        *next;
-    t_tokens        *command_tokens;
+    char		*value;
+    int			token_id;
+    int			pipe_after;
+    int			pipe_before;
+    t_tokens	*next;
+    t_tokens	*command_tokens;
 };
 
 /*

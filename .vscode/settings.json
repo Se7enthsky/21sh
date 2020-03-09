@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "libft.h": "c",
+        "21sh.h": "c",
+        "stdio.h": "c",
+        "tokenize.h": "c",
+        "parser.h": "c",
+        "execute.h": "c"
+    },
+
+    "includePath": [
+        "${workspaceFolder}/Include",
+    ],
+}

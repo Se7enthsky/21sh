@@ -6,11 +6,12 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:37:46 by mobounya          #+#    #+#             */
-/*   Updated: 2020/03/06 19:41:55 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/03/08 17:50:56 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
 # define ARRAY_SIZE 13
 
 /*
@@ -134,6 +135,11 @@ void	ft_ast_split(t_ast **root, int token_id)
 			left = temp;
 			right = lst->next->next;
 			current = lst->next;
+			if (current->token_id == PIPE)
+			{
+				right->pipe_before = 1;
+				left->pipe_after = 1;
+			}
 			lst->next->next = NULL;
 			lst->next = NULL;
 			(*root)->token = current;
