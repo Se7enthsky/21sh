@@ -38,6 +38,8 @@ struct	s_tokens
     int			token_id;
     int			pipe_after;
     int			pipe_before;
+    int         read;
+    int         write;
     t_tokens	*next;
     t_tokens	*command_tokens;
 };
