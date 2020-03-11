@@ -5,7 +5,8 @@
         "stdio.h": "c",
         "tokenize.h": "c",
         "parser.h": "c",
-        "execute.h": "c"
+        "execute.h": "c",
+        "types.h": "c"
     },
 
     "includePath": [
