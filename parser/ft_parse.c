@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:37:46 by mobounya          #+#    #+#             */
-/*   Updated: 2020/03/10 13:30:34 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/03/14 17:51:55 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ void	ft_get_alernative_ids(int token_id, int alt[], int size)
 		alt[2] = SQ_STRING;
 		alt[3] = DQ_STRING;
 		alt[4] = FD_AGR;
-		i = 5;
+		alt[5] = FD_FILE;
+		alt[6] = FD_GREAT;
+		i = 7;
 	}
 	if (token_id == SIMPLE_COMMAND)
 	{
@@ -45,14 +47,22 @@ void	ft_get_alernative_ids(int token_id, int alt[], int size)
 		alt[0] = SIMPLE_COMMAND;
 		i = 1;
 	}
-	else if (token_id >= 7 && token_id <= 10)
+	else if (token_id >= 7 && token_id <= 11)
 	{
-		alt[0] = WORD;
-		alt[1] = SQ_STRING;
-		alt[2] = DQ_STRING;
-		i = 3;
+		if (token_id == DLESS)
+		{
+			alt[0] = WORD;
+			alt[1] = SQ_STRING;
+			alt[2] = DQ_STRING;
+			i = 3;
+		}
+		else
+		{
+			alt[0] = FILENAME;
+			i = 1;
+		}
 	}
-	else if (token_id >= 11 && token_id <= 14)
+	else if (token_id >= 12 && token_id <= 17)
 	{
 		alt[0] = LESS;
 		alt[1] = DLESS;
@@ -63,7 +73,9 @@ void	ft_get_alernative_ids(int token_id, int alt[], int size)
 		alt[6] = DQ_STRING;
 		alt[7] = FD_AGR;
 		alt[8] = SEMI;
-		i = 9;
+		alt[9] = FD_GREAT;
+		alt[10] = FD_FILE;
+		i = 11;
 	}
 	while (i < size)
 		alt[i++] = 0;
@@ -92,7 +104,7 @@ int		ft_verify_syntax(t_tokens *lst)
 		if (found == 0)
 			return (0);
 		if (lst->token_id != SEMI && (lst->token_id >= 2 \
-			&& lst->token_id <= 10))
+			&& lst->token_id <= 11))
 		{
 			if (lst->next == NULL)
 				return (0);
@@ -167,7 +179,6 @@ void	ft_ast_insert(t_ast **root, int token_id)
 	ft_ast_insert(&(*root)->right, token_id);
 }
 
-
 t_ast	*ft_build_ast(t_tokens *lst)
 {
 	t_ast			*root;
@@ -207,14 +218,12 @@ t_ast			*ft_parse(t_tokens *lst)
 	if (ft_verify_syntax(lst) == 0)
 	{
 		ft_putendl("1");
-		exit(1);
 		return (NULL);
 	}
 	root = ft_build_ast(lst);
 	if (ft_traverse_verify(root) == 0)
 	{
 		ft_putendl("2");
-		exit(1);
 		return (NULL);
 	}
 	return (root);

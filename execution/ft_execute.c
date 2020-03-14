@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/03/11 20:32:58 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/03/14 20:54:26 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ char	**ft_lsttoa(t_tokens *list)
 	temp = list;
 	while (temp)
 	{
-		size++;
+		if (temp->token_id == WORD || temp->token_id == SQ_STRING \
+			|| temp->token_id == DQ_STRING)
+			size++;
 		temp = temp->next;
 	}
 	if ((cmd = malloc(sizeof(char *) * (size + 1))) == NULL)
@@ -63,17 +65,17 @@ char	**ft_lsttoa(t_tokens *list)
 			list->value[ft_strlen(list->value) - 1] = '\0';
 			string = ft_strdup(list->value + 1);
 			free(list->value);
+			cmd[index] = string;
+			index++;
 		}
-		else
-			string = list->value;
-		cmd[index] = string;
+		else if (list->token_id == WORD)
+			cmd[index++] = list->value;
 		list = list->next;
-		index++;
 	}
 	return (cmd);
 }
 
-int		is_builtin(char	**cmd)
+int		is_builtin(char **cmd)
 {
 	uint i;
 
@@ -93,30 +95,40 @@ int		is_builtin(char	**cmd)
 int		ft_run_binary(char *path, char **args, char **env)
 {
 	if (access(path, F_OK))
-	{
-		printf("exist\n");
 		return (1);
-	}
 	if (access(path, X_OK))
-	{
-		printf("no perm\n");
 		return (1);
-	}
 	if (execve(path, args, env) == -1)
 		exit(1);
+	return (0);
+}
+
+int		ft_run_command(t_tokens *lst)
+{
+	char	**command;
+	pid_t	pid;
+
+	command = ft_lsttoa(lst);
+	pid = fork();
+	if (pid == 0)
+	{
+		ft_set_redirs(lst);
+		ft_run_binary(command[0], command, NULL);
+		exit(0);
+	}
+	else
+		wait(NULL);
 	return (0);
 }
 
 int		ft_execute_command(t_tokens *lst)
 {
 	static int	*pipefd;
-	char		**command;
 
 	if (lst->pipe_before || lst->pipe_after)
-	{
-		command = ft_lsttoa(lst->command_tokens);
-		pipefd = ft_handle_pipe(lst, pipefd, command);
-	}
+		pipefd = ft_handle_pipe(lst, pipefd);
+	else
+		ft_run_command(lst->command_tokens);
 	return (0);
 }
 

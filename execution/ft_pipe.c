@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 20:30:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/03/11 20:33:00 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/03/14 20:15:42 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,21 @@ int		*ft_create_pipe(void)
 	return (newpipefd);
 }
 
-int		ft_dupexecute(char **command, int write_end, int read_end)
+int		ft_set_redirs(t_tokens *lst);
+
+int		ft_dupexecute(t_tokens *lst, int write_end, int read_end)
 {
 	pid_t	pid;
+	char	**command;
 
+	command = ft_lsttoa(lst);
 	if ((pid = fork()) == 0)
 	{
 		if (read_end > 0)
 			dup2(read_end, STDIN_FILENO);
 		if (write_end > 0)
 			dup2(write_end, STDOUT_FILENO);
+		ft_set_redirs(lst);
 		if (is_builtin(command) == 0)
 			g_exit_code = 0;
 		else if (ft_run_binary(command[0], command, NULL))
@@ -92,7 +97,7 @@ int		ft_dupexecute(char **command, int write_end, int read_end)
 	return (pid);
 }
 
-int		*ft_handle_pipe(t_tokens *lst, int *pipefd, char **command)
+int		*ft_handle_pipe(t_tokens *lst, int *pipefd)
 {
 	int		*newpipefd;
 	pid_t	pid;
@@ -101,19 +106,20 @@ int		*ft_handle_pipe(t_tokens *lst, int *pipefd, char **command)
 	if (lst->pipe_before && lst->pipe_after)
 	{
 		newpipefd = ft_create_pipe();
-		pid = ft_dupexecute(command, newpipefd[WRITE_END], pipefd[READ_END]);
+		pid = ft_dupexecute(lst->command_tokens, \
+			newpipefd[WRITE_END], pipefd[READ_END]);
 		ft_add_process(&g_procs_lst, pid);
 		ft_memdel((void**)&pipefd);
 	}
 	else if (lst->pipe_after)
 	{
 		newpipefd = ft_create_pipe();
-		pid = ft_dupexecute(command, newpipefd[WRITE_END], -1);
+		pid = ft_dupexecute(lst->command_tokens, newpipefd[WRITE_END], -1);
 		ft_add_process(&g_procs_lst, pid);
 	}
 	else if (lst->pipe_before)
 	{
-		pid = ft_dupexecute(command, -1, pipefd[READ_END]);
+		pid = ft_dupexecute(lst->command_tokens, -1, pipefd[READ_END]);
 		ft_add_process(&g_procs_lst, pid);
 		ft_lstprocs_wait(g_procs_lst);
 		ft_memdel((void**)&pipefd);

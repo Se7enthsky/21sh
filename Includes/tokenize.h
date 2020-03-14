@@ -16,10 +16,14 @@
 # define DLESS          8
 # define GREAT			9
 # define DGREAT			10
-# define WORD           11
-# define SQ_STRING      12
-# define DQ_STRING      13
-# define FD_AGR         14
+# define FD_GREAT       11
+
+# define WORD           12
+# define SQ_STRING      13
+# define DQ_STRING      14
+# define FD_AGR         15
+# define FD_FILE        16
+# define FILENAME       17
 
 /*
  * Ends Here.

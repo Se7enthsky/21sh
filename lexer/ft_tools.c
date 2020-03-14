@@ -4,6 +4,8 @@
  * Tokens
  */
 
+// ***************** 2>& ***********************
+
 static const t_id tokens[] =
 {
 	{"&&", AND, "AND"},
@@ -32,13 +34,22 @@ char	*ft_get_token_name(int id)
 
 int		ft_get_tokenid(const char *value, int id)
 {
-	unsigned int i;
+	unsigned int	i;
+	int				len;
 
 	i = 0;
-	if (ft_strlen(value) >= 2)
+	len = ft_strlen(value);
+	if (id == WORD && len >= 2)
 	{
 		if (ft_isdigit(*value) && *(value + 1) == '>')
-			return (FD_AGR);
+		{
+			if (len > 2 && value[2] == '&')
+				return (FD_AGR);
+			else if (len > 2 && value[2] != '&')
+				return (FD_FILE);
+			else if (len == 2)
+				return (FD_GREAT);
+		}
 	}
 	while (i < 8)
 	{
