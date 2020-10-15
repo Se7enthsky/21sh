@@ -5,7 +5,6 @@
  *    Example of full command : "echo "foo" >> bar | pwd ; cat -e << EOF && ls -l dir1 dir2"
  */
 
-void ft_get_cmd(t_tokens *head);
 
 static const t_id seperators[] =
 {
@@ -16,6 +15,7 @@ static const t_id seperators[] =
     {NULL, 0, NULL},
 };
 
+void    ft_get_cmd(t_tokens *head);
 t_ast   *ft_parse(t_tokens *lst);
 int     *ft_execute(t_ast *root);
 

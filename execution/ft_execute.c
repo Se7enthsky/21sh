@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/03/14 20:54:26 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/10/15 14:20:15 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,12 @@ int				g_exit_code = 0;
 const t_builtin_matcher g_builtin_tab[1] =
 {
 	{"echo", &ft_echo},
+	{"exit", &ft_exit},
+	{"cd", &ft_changedir},
+	{"setenv", &ft_setenv},
+	{"unsetenv", &ft_unsetenv},
+	{"env", &ft_env},
 };
-
-int		ft_echo(const char **strings)
-{
-	uint index;
-
-	index = 1;
-	while (strings[index])
-	{
-		ft_putstr(strings[index]);
-		if (strings[index + 1])
-			ft_putchar_fd(' ', 1);
-		index++;
-	}
-	ft_putchar_fd('\n', 1);
-	return (1);
-}
 
 char	**ft_lsttoa(t_tokens *list)
 {

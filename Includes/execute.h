@@ -39,4 +39,15 @@ char	**ft_lsttoa(t_tokens *list);
  */
 
 int		ft_set_redirs(t_tokens *lst);
+
+/*
+ *	Builtin Functions
+ */
+
+int		ft_echo(const char **command);
+int		ft_exit(const char **command);
+int		ft_changedir(const char **command);
+int		ft_setenv(const char **command);
+int		ft_unsetenv(const char **command);
+int		ft_env(const char **command);
 #endif
