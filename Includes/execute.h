@@ -18,7 +18,6 @@ typedef struct			s_processes
 	struct	s_processes *next;
 }						t_processes;
 
-int		ft_echo(const char **strings);
 int		is_builtin(char	**cmd);
 int		ft_run_binary(char *path, char **args, char **env);
 
@@ -44,10 +43,10 @@ int		ft_set_redirs(t_tokens *lst);
  *	Builtin Functions
  */
 
-int		ft_echo(const char **command);
-int		ft_exit(const char **command);
-int		ft_changedir(const char **command);
-int		ft_setenv(const char **command);
-int		ft_unsetenv(const char **command);
-int		ft_env(const char **command);
+int		ft_echo(const char **command, char **env);
+int		ft_exit(const char **command, char **env);
+int		ft_changedir(const char **command, char **env);
+int		ft_setenv(const char **command, char **env);
+int		ft_unsetenv(const char **command, char **env);
+int		ft_env(char **env);
 #endif

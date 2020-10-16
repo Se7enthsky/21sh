@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/10/15 14:20:15 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/10/16 12:03:49 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 t_processes		*g_procs_lst = NULL;
 int				g_exit_code = 0;
 
-const t_builtin_matcher g_builtin_tab[1] =
+const t_builtin_matcher g_builtin_tab[7] =
 {
 	{"echo", &ft_echo},
 	{"exit", &ft_exit},
@@ -24,6 +24,7 @@ const t_builtin_matcher g_builtin_tab[1] =
 	{"setenv", &ft_setenv},
 	{"unsetenv", &ft_unsetenv},
 	{"env", &ft_env},
+	{NULL, NULL},
 };
 
 char	**ft_lsttoa(t_tokens *list)
@@ -69,7 +70,7 @@ int		is_builtin(char **cmd)
 	uint i;
 
 	i = 0;
-	while (i < 1)
+	while (i < 7)
 	{
 		if (!ft_strcmp(g_builtin_tab[i].name, cmd[0]))
 		{
