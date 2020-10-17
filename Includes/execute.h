@@ -20,6 +20,7 @@ typedef struct			s_processes
 
 int		is_builtin(char	**cmd);
 int		ft_run_binary(char *path, char **args, char **env);
+int		ft_arraysize(char **ar);
 
 /*
  *  Set of functions for piping.
@@ -43,10 +44,22 @@ int		ft_set_redirs(t_tokens *lst);
  *	Builtin Functions
  */
 
-int		ft_echo(const char **command, char **env);
-int		ft_exit(const char **command, char **env);
-int		ft_changedir(const char **command, char **env);
-int		ft_setenv(const char **command, char **env);
-int		ft_unsetenv(const char **command, char **env);
-int		ft_env(char **env);
+int		ft_echo(const char **command, char ***env);
+int		ft_exit(const char **command, char ***env);
+int		ft_changedir(const char **command, char ***env);
+int		ft_setenv(const char **command, char ***env);
+int		ft_unsetenv(const char **command, char ***env);
+int		ft_env(char ***env);
+
+/*
+ *	Functions for dealing with env array.
+ */
+
+char    *ft_getenv(char *var, char **env);
+char	*ft_get_varname(char *cmd);
+void	ft_replace_env(char *var_name, char *new_value, char **env);
+int		ft_find_replace(char *var, char *new_value, char **env);
+int		ft_append_env(char *var_name, char *value, char ***env);
+int		ft_replace_add_env(char *cmd, char ***env);
+
 #endif
