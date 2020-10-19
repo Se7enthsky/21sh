@@ -6,14 +6,14 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 13:54:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/10/17 14:40:12 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/10/19 18:08:27 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include <sys/errno.h>
 
-int		ft_echo(const char **command, char ***env)
+int		ft_echo(char **command, char ***env)
 {
 	unsigned int index;
 
@@ -30,7 +30,7 @@ int		ft_echo(const char **command, char ***env)
 	return (1);
 }
 
-int			ft_exit(const char **command, char ***env)
+int			ft_exit(char **command, char ***env)
 {
     unsigned int    i;
     int             status;
@@ -41,7 +41,10 @@ int			ft_exit(const char **command, char ***env)
     while (command[i])
         i++;
     if (i > 2)
+    {
         ft_putendl_fd("exit: too many arguments", 2);
+        return (1);
+    }
     else if (command[1])
         status = ft_atoi(command[1]);
     exit(status);
@@ -49,7 +52,7 @@ int			ft_exit(const char **command, char ***env)
 }
 
 
-int			ft_changedir(const char **command, char ***env)
+int			ft_changedir(char **command, char ***env)
 {
     unsigned int    size;
     char            *path;
@@ -58,7 +61,7 @@ int			ft_changedir(const char **command, char ***env)
     while (command[size])
         size++;
     if (size == 1)
-        path = ft_getenv("HOME", env);
+        path = ft_getenv("HOME", *env);
     else if (size > 2)
     {
         ft_putendl_fd("cd: too many arguments", 2);
@@ -77,9 +80,10 @@ int			ft_changedir(const char **command, char ***env)
 		free(path);
 		return (0);
 	}
+    return (1);
 }
 
-int			ft_setenv(const char **command, char ***env)
+int			ft_setenv(char **command, char ***env)
 {
     unsigned int    i;
 
@@ -96,6 +100,7 @@ int			ft_setenv(const char **command, char ***env)
     i = 1;
     while (command[i])
     {
+        ft_putendl(command[i]);
         ft_replace_add_env(command[i], env);
         i++;
     }
@@ -133,15 +138,16 @@ int			ft_unsetenv(char **command, char ***env)
     return (0);
 }
 
-int			ft_env(char ***env)
+int			ft_env(char **cmd, char ***env)
 {
     unsigned int    i;
 
     i = 0;
+    cmd = NULL;
     while ((*env)[i])
     {
-        ft_putendl((*env)[i]);
-        i++;
+       ft_putendl((*env)[i]);
+       i++;
     }
     return (0);
 }

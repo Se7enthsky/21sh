@@ -1,5 +1,7 @@
 #include "tokenize.h"
 
+char    *ft_getenv(char *var, char **env);
+
 void	ft_tokenize_cmd(t_tokens **head, char *command)
 {
 	uint	i;
@@ -62,7 +64,48 @@ void	ft_set_filenames(t_tokens *list)
 	}
 }
 
-void	ft_get_cmd(t_tokens *head)
+void	ft_replace(t_tokens *list, char **env)
+{
+	char	*var_name;
+	char	*var_value;
+	char	*temp;
+
+	while (list)
+	{
+		if ((ft_strlen(list->value) > 1) && (list->value[0] == '$'))
+		{
+			var_name = (list->value + 1);
+			free(list->value);
+			if ((var_value = ft_getenv(var_name, env)))
+			{
+				if (var_value)
+					list->value = var_value;
+				else
+					var_value = ft_strdup("");
+			}
+		}
+		else if ((list->value[0] == '~' && ft_strlen(list->value) == 1) || \
+			(ft_strlen(list->value) > 1 && list->value[0] == '~' && list->value[1] == '/'))
+		{
+			var_value = ft_getenv("HOME", env);
+			if (var_value && *var_value)
+			{
+				temp = ft_strjoin(var_value, list->value + 1);
+				free(list->value);
+				free(var_value);
+				list->value = temp;
+			}
+			else
+			{
+				free(list->value);
+				list->value = ft_strdup("");
+			}
+		}
+		list = list->next;
+	}
+}
+
+void	ft_get_cmd(t_tokens *head, char **env)
 {
 	while (head)
 	{
@@ -70,6 +113,7 @@ void	ft_get_cmd(t_tokens *head)
 		{
 			ft_tokenize_cmd(&head->command_tokens, head->value);
 			ft_set_filenames(head->command_tokens);
+			ft_replace(head->command_tokens, env);
 		}
 		head = head->next;
 	}

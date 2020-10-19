@@ -6,12 +6,15 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 12:43:19 by mobounya          #+#    #+#             */
-/*   Updated: 2020/10/17 14:40:01 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/10/19 18:16:46 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <sys/errno.h>
+#include <stdio.h>
+
+int		ft_strchri(const char *str, char c);
 
 int		ft_arraysize(char **ar)
 {
@@ -62,6 +65,7 @@ void		ft_replace_env(char *var_name, char *new_value, char **env)
 {
 	char	*temp;
 
+	ft_putendl(*env);
 	temp = ft_strjoin(var_name, "=");
 	*env = ft_strjoin(temp, new_value);
 	free(temp);
@@ -120,7 +124,9 @@ int			ft_replace_add_env(char *cmd, char ***env)
 	char	*value;
 
 	var_name = ft_get_varname(cmd);
+	ft_putendl(var_name);
 	value = ft_strdup(cmd + ft_strlen(var_name) + 1);
+	ft_putendl(value);
 	if (ft_find_replace(var_name, value, *env))
         ft_append_env(var_name, value, env);
 	return (0);

@@ -18,7 +18,7 @@ typedef struct			s_processes
 	struct	s_processes *next;
 }						t_processes;
 
-int		is_builtin(char	**cmd);
+int		is_builtin(char **cmd, char ***env);
 int		ft_run_binary(char *path, char **args, char **env);
 int		ft_arraysize(char **ar);
 
@@ -29,8 +29,8 @@ int		ft_arraysize(char **ar);
 void	ft_add_process(t_processes **lst, pid_t pid);
 void	ft_lstprocs_wait(t_processes *lst);
 int		*ft_create_pipe(void);
-int		ft_dupexecute(t_tokens *lst, int write_end, int read_end);
-int		*ft_handle_pipe(t_tokens *lst, int *pipefd);
+int		ft_dupexecute(t_tokens *lst, int write_end, int read_end, char ***env);
+int		*ft_handle_pipe(t_tokens *lst, int *pipefd, char ***env);
 char	**ft_lsttoa(t_tokens *list);
 
 /*
@@ -44,12 +44,12 @@ int		ft_set_redirs(t_tokens *lst);
  *	Builtin Functions
  */
 
-int		ft_echo(const char **command, char ***env);
-int		ft_exit(const char **command, char ***env);
-int		ft_changedir(const char **command, char ***env);
-int		ft_setenv(const char **command, char ***env);
-int		ft_unsetenv(const char **command, char ***env);
-int		ft_env(char ***env);
+int		ft_echo(char **command, char ***env);
+int		ft_exit(char **command, char ***env);
+int		ft_changedir(char **command, char ***env);
+int		ft_setenv(char **command, char ***env);
+int		ft_unsetenv(char **command, char ***env);
+int		ft_env(char **command, char ***env);
 
 /*
  *	Functions for dealing with env array.
