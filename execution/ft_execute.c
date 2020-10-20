@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/10/19 18:17:11 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/10/20 14:10:55 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,35 +95,15 @@ char	**ft_getpath(char **env)
 
 int		ft_run_binary(char *bin, char **args, char **env)
 {
-	char			**paths;
-	unsigned int	i;
-	int				error;
-	char			*bin_path;
-	char			*temp;
-
-	i = 0;
-	error = 0;
-	paths = ft_getpath(env);
-	while (paths[i])
-	{
-		if (bin[0] != '.' && bin[0] != '/')
-		{
-			temp = ft_strjoin(paths[i], "/");
-			bin_path = ft_strjoin(temp, bin);
-			free(temp);
-		}
-		else
-			bin_path = bin;
-		if (access(bin_path, F_OK))
-			error = 1;
-		else if (access(bin_path, X_OK))
-			error = 1;
-		else if (execve(bin_path, args, env) == -1)
-			exit(1);
-		i++;
-	}
-	return (error);
+	if (access(bin, F_OK))
+		return (1);
+	else if (access(bin, X_OK))
+		return (1);
+	else if (execve(bin, args, env) == -1)
+		exit(1);
+	return (0);
 }
+
 
 int		ft_run_command(t_tokens *lst, char **env)
 {
@@ -146,12 +126,10 @@ int		ft_run_command(t_tokens *lst, char **env)
 int		ft_execute_command(t_tokens *lst, char ***env)
 {
 	static int	*pipefd;
-	char		**command;
 
-	command = ft_lsttoa(lst->command_tokens);
 	if (lst->pipe_before || lst->pipe_after)
 		pipefd = ft_handle_pipe(lst, pipefd, env);
-	else if (is_builtin(command, env))
+	else
 		ft_run_command(lst->command_tokens, *env);
 	return (0);
 }

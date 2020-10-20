@@ -75,13 +75,15 @@ void	ft_replace(t_tokens *list, char **env)
 		if ((ft_strlen(list->value) > 1) && (list->value[0] == '$'))
 		{
 			var_name = (list->value + 1);
-			free(list->value);
 			if ((var_value = ft_getenv(var_name, env)))
 			{
-				if (var_value)
-					list->value = var_value;
-				else
-					var_value = ft_strdup("");
+				free(list->value);
+				list->value = var_value;;
+			}
+			else
+			{
+				free(list->value);
+				list->value = ft_strdup("");
 			}
 		}
 		else if ((list->value[0] == '~' && ft_strlen(list->value) == 1) || \
@@ -117,4 +119,5 @@ void	ft_get_cmd(t_tokens *head, char **env)
 		}
 		head = head->next;
 	}
+	env = NULL;
 }

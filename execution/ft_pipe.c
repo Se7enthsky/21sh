@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 20:30:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/10/19 13:57:23 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/10/20 14:12:49 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int		ft_dupexecute(t_tokens *lst, int write_end, int read_end, char ***env)
 		ft_set_redirs(lst);
 		if (is_builtin(command, env) == 0)
 			g_exit_code = 0;
-		else if (ft_run_binary(command[0], command, *env))
+		else if (ft_run_binary(command[0], command, NULL))
 			g_exit_code = 1;
 		exit(0);
 	}

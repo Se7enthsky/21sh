@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 13:54:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/10/19 18:08:27 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/10/20 10:50:14 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int			ft_changedir(char **command, char ***env)
     }
     else
         path = ft_strdup(command[1]);
-    if (path)
+    if (path && *path)
 	{
 		if (access(path, F_OK) != 0)
 			ft_putendl_fd("cd: no such file or directory", 2);
