@@ -119,5 +119,4 @@ void	ft_get_cmd(t_tokens *head, char **env)
 		}
 		head = head->next;
 	}
-	env = NULL;
 }

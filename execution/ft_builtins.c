@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 13:54:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/10/20 10:50:14 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/10/26 12:40:16 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int			ft_setenv(char **command, char ***env)
     i = 1;
     while (command[i])
     {
-        ft_putendl(command[i]);
         ft_replace_add_env(command[i], env);
         i++;
     }

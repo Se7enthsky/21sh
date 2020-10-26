@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/10/20 14:10:55 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/10/26 13:07:39 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,21 +105,26 @@ int		ft_run_binary(char *bin, char **args, char **env)
 }
 
 
-int		ft_run_command(t_tokens *lst, char **env)
+int		ft_run_command(t_tokens *lst, char ***env)
 {
 	char	**command;
 	pid_t	pid;
+	int		i;
 
 	command = ft_lsttoa(lst);
-	pid = fork();
-	if (pid == 0)
+	i = 42;
+	if (is_builtin(command, env) == 1)
 	{
-		ft_set_redirs(lst);
-		ft_run_binary(command[0], command, env);
-		exit(0);
+		pid = fork();
+		if (pid == 0)
+		{
+			ft_set_redirs(lst);
+			ft_run_binary(command[0], command, *env);
+			exit(0);
+		}
+		else
+			wait(NULL);
 	}
-	else
-		wait(NULL);
 	return (0);
 }
 
@@ -130,7 +135,7 @@ int		ft_execute_command(t_tokens *lst, char ***env)
 	if (lst->pipe_before || lst->pipe_after)
 		pipefd = ft_handle_pipe(lst, pipefd, env);
 	else
-		ft_run_command(lst->command_tokens, *env);
+		ft_run_command(lst->command_tokens, env);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 12:43:19 by mobounya          #+#    #+#             */
-/*   Updated: 2020/10/20 13:53:22 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/10/26 12:51:07 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,20 @@ char    *ft_getenv(char *var, char **env)
 	char            *value;
 	unsigned int	len;
 
-	ft_putendl("I'm heeeeeeere");
 	i = 0;
 	while (env[i])
 	{
-		ft_putendl("I'm heeeeeeere 1");
 		split_index = ft_strchri(env[i], '=');
-		ft_putendl("I'm heeeeeeere 2");
 		var_name = ft_strncpy(ft_strnew(split_index + 1), env[i], split_index);
-		ft_putendl("I'm heeeeeeere 3");
 		if (ft_strcmp(var, var_name) == 0)
 		{
-			ft_putendl("I'm heeeeeeere 4");
 			ft_memdel((void**)&var_name);
-			ft_putendl("I'm heeeeeeere 5");
 			len = ft_strlen(env[i] + split_index);
-			ft_putendl("I'm heeeeeeere 6");
 			value = ft_strncpy(ft_strnew(len + 1), env[i] + split_index + 1, len);
-			ft_putendl("I'm heeeeeeere 7");
 			return (value);
 		}
 		i++;
 	}
-	ft_putendl("I'm doooooooone");
 	return (NULL);
 }
 
@@ -133,9 +124,7 @@ int			ft_replace_add_env(char *cmd, char ***env)
 	char	*value;
 
 	var_name = ft_get_varname(cmd);
-	ft_putendl(var_name);
 	value = ft_strdup(cmd + ft_strlen(var_name) + 1);
-	ft_putendl(value);
 	if (ft_find_replace(var_name, value, *env))
         ft_append_env(var_name, value, env);
 	return (0);
