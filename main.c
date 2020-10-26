@@ -1,4 +1,5 @@
 #include "main.h"
+#include "execute.h"
 #include <sys/errno.h>
 #include <unistd.h>
 
@@ -29,6 +30,7 @@ char    **ft_envinit(void)
     char			**new_env;
     size_t			size;
     unsigned int    i;
+    g_exit_code = 0;
 
 	i = 0;
     size = ft_arraysize(environ);

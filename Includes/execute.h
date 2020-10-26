@@ -3,9 +3,10 @@
 #include "tokenize.h"
 #include <sys/types.h>
 #include <fcntl.h>
+#include <errno.h>
 
 typedef int				t_builtin_function();
-
+int						g_exit_code;
 typedef struct			s_builtin_matcher
 {
 	char				*name;
@@ -19,7 +20,7 @@ typedef struct			s_processes
 }						t_processes;
 
 int		is_builtin(char **cmd, char ***env);
-int		ft_run_binary(char *path, char **args, char **env);
+int		ft_run_binary(t_tokens *lst, char *bin, char **args, char **env);
 int		ft_arraysize(char **ar);
 
 /*

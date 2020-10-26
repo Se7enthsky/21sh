@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/10/26 13:07:39 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/10/26 19:30:52 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "execute.h"
 
 t_processes		*g_procs_lst = NULL;
-int				g_exit_code = 0;
 
 const t_builtin_matcher g_builtin_tab[7] =
 {
@@ -93,38 +92,57 @@ char	**ft_getpath(char **env)
 	return (paths);
 }
 
-int		ft_run_binary(char *bin, char **args, char **env)
+int		ft_execbin(t_tokens *lst, char *path, char **args, char **env)
 {
-	if (access(bin, F_OK))
-		return (1);
-	else if (access(bin, X_OK))
-		return (1);
-	else if (execve(bin, args, env) == -1)
+	if (access(path, F_OK))
+		exit(ENOENT);
+	if (access(path, X_OK))
+		exit(EACCES);
+	if (lst)
+		ft_set_redirs(lst);
+	if (execve(path, args, env) == -1)
 		exit(1);
 	return (0);
 }
 
+int		ft_run_binary(t_tokens *lst, char *bin, char **args, char **env)
+{
+	char	**paths;
+	char	*temp;
+	char	*bin_path;
+	uint	i;
+	int		pid;
+	int		status;
+
+	i = 0;
+	paths = ft_getpath(env);
+	while (paths[i])
+	{
+		temp = ft_strjoin(paths[i], "/");
+		bin_path = ft_strjoin(temp, bin);
+		free(temp);
+		pid = fork();
+		if (pid == 0)
+			ft_execbin(lst, bin_path, args, env);
+		else
+			waitpid(pid, &status, 0);
+		if (status == 2)
+		{
+			g_exit_code = status;
+			break;
+		}
+		i++;
+	}
+	return (0);
+}
 
 int		ft_run_command(t_tokens *lst, char ***env)
 {
 	char	**command;
-	pid_t	pid;
-	int		i;
 
 	command = ft_lsttoa(lst);
-	i = 42;
 	if (is_builtin(command, env) == 1)
-	{
-		pid = fork();
-		if (pid == 0)
-		{
-			ft_set_redirs(lst);
-			ft_run_binary(command[0], command, *env);
-			exit(0);
-		}
-		else
-			wait(NULL);
-	}
+		ft_run_binary(lst, command[0], command, *env);
 	return (0);
 }
 
@@ -156,7 +174,7 @@ int		*ft_execute(t_ast *root, char ***env)
 			((and_or[1] == 1 && g_exit_code != 0) \
 				|| (and_or[0] == 1 && g_exit_code == 0)))
 		{
-			g_exit_code = ft_execute_command(root->token, env);
+			ft_execute_command(root->token, env);
 			and_or[0] = -1;
 			and_or[1] = -1;
 		}
