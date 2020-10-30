@@ -13,6 +13,7 @@ int		ft_redirect_to_file(int oflag, int old_fd, char *filename)
 		return (1);
 	}
 	dup2(new_fd, old_fd);
+	close(new_fd);
 	return (0);
 }
 

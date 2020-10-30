@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/10/26 19:30:52 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/10/30 13:58:17 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	**ft_lsttoa(t_tokens *list)
 	return (cmd);
 }
 
-int		is_builtin(char **cmd, char ***env)
+t_builtin_function	*is_builtin(char **cmd)
 {
 	uint i;
 
@@ -72,13 +72,10 @@ int		is_builtin(char **cmd, char ***env)
 	while (i < 6)
 	{
 		if (!ft_strcmp(g_builtin_tab[i].name, cmd[0]))
-		{
-			g_builtin_tab[i].function(cmd, env);
-			return (0);
-		}
+			return g_builtin_tab[i].function;
 		i++;
 	}
-	return (1);
+	return (NULL);
 }
 
 char	**ft_getpath(char **env)
@@ -92,57 +89,91 @@ char	**ft_getpath(char **env)
 	return (paths);
 }
 
-int		ft_execbin(t_tokens *lst, char *path, char **args, char **env)
+void	reset_stds(int save, int reset)
 {
-	if (access(path, F_OK))
-		exit(ENOENT);
-	if (access(path, X_OK))
-		exit(EACCES);
-	if (lst)
-		ft_set_redirs(lst);
-	if (execve(path, args, env) == -1)
-		exit(1);
-	return (0);
+	static int	stdin_copy;
+	static int	stdout_copy;
+	static int	stder_copy;
+
+	if (save)
+	{
+		stdin_copy = dup(0);
+		stdout_copy = dup(1);
+		stder_copy = dup(2);
+	}
+	if (reset)
+	{
+		dup2(stdin_copy, 0);
+		dup2(stdout_copy, 1);
+		dup2(stder_copy, 2);
+		close(stdin_copy);
+		close(stdout_copy);
+		close(stder_copy);
+	}
 }
 
-int		ft_run_binary(t_tokens *lst, char *bin, char **args, char **env)
+char	*access_bin(char *bin, char **env)
 {
 	char	**paths;
 	char	*temp;
-	char	*bin_path;
-	uint	i;
-	int		pid;
-	int		status;
+	char	*path_bin;
+	int		i;
+	int		error;
 
 	i = 0;
+	error = 0;
 	paths = ft_getpath(env);
 	while (paths[i])
 	{
 		temp = ft_strjoin(paths[i], "/");
-		bin_path = ft_strjoin(temp, bin);
+		path_bin = ft_strjoin(temp, bin);
 		free(temp);
-		pid = fork();
-		if (pid == 0)
-			ft_execbin(lst, bin_path, args, env);
-		else
-			waitpid(pid, &status, 0);
-		if (status == 2)
+		if (access(path_bin, F_OK))
+			g_exit_code = ENOENT;
+		else if (access(path_bin, X_OK))
 		{
-			g_exit_code = status;
-			break;
+			free(path_bin);
+			g_exit_code = EACCES;
+			return NULL;
 		}
+		else
+			return (path_bin);
+		free(path_bin);
 		i++;
 	}
-	return (0);
+	return (NULL);
 }
-
 int		ft_run_command(t_tokens *lst, char ***env)
 {
-	char	**command;
+	char				**command;
+	t_builtin_function	*builtin;
+	int					pid;
+	char				*path_bin;
+	int					status;
 
 	command = ft_lsttoa(lst);
-	if (is_builtin(command, env) == 1)
-		ft_run_binary(lst, command[0], command, *env);
+	if ((builtin = is_builtin(command)) == NULL)
+	{
+		if ((path_bin = access_bin(command[0], *env)))
+		{
+			if ((pid = fork()) == 0)
+			{
+				ft_set_redirs(lst);
+				execve(path_bin, command, *env);
+				exit(1);
+			}
+			else
+				waitpid(pid, &status, 0);
+			g_exit_code = status;
+		}
+	}
+	else
+	{
+		reset_stds(1, 0);
+		ft_set_redirs(lst);
+		builtin(command, env);
+		reset_stds(0, 1);
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 20:30:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/10/26 18:58:35 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/10/30 14:46:03 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,11 @@ int		ft_set_redirs(t_tokens *lst);
 
 int		ft_dupexecute(t_tokens *lst, int write_end, int read_end, char ***env)
 {
-	pid_t	pid;
-	char	**command;
+	pid_t				pid;
+	char				**command;
+	t_builtin_function	*builtin;
+	char				*path_bin;
+	int					status;
 
 	command = ft_lsttoa(lst);
 	if ((pid = fork()) == 0)
@@ -86,14 +89,20 @@ int		ft_dupexecute(t_tokens *lst, int write_end, int read_end, char ***env)
 		if (write_end > 0)
 			dup2(write_end, STDOUT_FILENO);
 		ft_set_redirs(lst);
-		if (is_builtin(command, env) == 0)
-			g_exit_code = 0;
-		else if (ft_run_binary(NULL, command[0], command, *env))
-			g_exit_code = 1;
+		if ((builtin = is_builtin(command)) == NULL)
+		{
+			if ((path_bin = access_bin(command[0], *env)))
+				execve(path_bin, command, *env);
+		}
+		else
+			builtin(command, env);
 		exit(0);
 	}
 	else
-		wait(NULL);
+	{
+		waitpid(pid, &status, 0);
+		g_exit_code = status;
+	}
 	if (write_end)
 		close(write_end);
 	return (pid);
