@@ -6,12 +6,13 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 20:30:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/10/30 14:46:03 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/03 03:36:20 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "tokenize.h"
+#include "errors.h"
 
 # define READ_END 0
 # define WRITE_END 1
@@ -82,6 +83,7 @@ int		ft_dupexecute(t_tokens *lst, int write_end, int read_end, char ***env)
 	int					status;
 
 	command = ft_lsttoa(lst);
+	g_exit_code = 0;
 	if ((pid = fork()) == 0)
 	{
 		if (read_end > 0)
@@ -93,10 +95,19 @@ int		ft_dupexecute(t_tokens *lst, int write_end, int read_end, char ***env)
 		{
 			if ((path_bin = access_bin(command[0], *env)))
 				execve(path_bin, command, *env);
+			else
+			{
+				ft_putstr_fd("21sh : command not found: ", 2);
+				ft_putendl_fd(command[0], 2);
+			}
 		}
 		else
+		{
 			builtin(command, env);
-		exit(0);
+			if (g_exit_code)
+				ft_errors();
+		}
+		exit(g_exit_code);
 	}
 	else
 	{

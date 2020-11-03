@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 13:54:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/10/26 16:26:48 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/03 01:50:35 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ int			ft_exit(char **command, char ***env)
         i++;
     if (i > 2)
     {
-        ft_putendl_fd("exit: too many arguments", 2);
-        g_exit_code = 1;
-        return (1);
+        g_exit_code = 2;
+        return (g_exit_code);
     }
     else if (command[1])
         status = ft_atoi(command[1]);
@@ -65,30 +64,23 @@ int			ft_changedir(char **command, char ***env)
         path = ft_getenv("HOME", *env);
     else if (size > 2)
     {
-        ft_putendl_fd("cd: too many arguments", 2);
-        g_exit_code = 1;
-        return (1);
+        ft_memdel((void**)&path);
+        g_exit_code = 2;
+        return (g_exit_code);
     }
     else
         path = ft_strdup(command[1]);
     if (path && *path)
 	{
 		if (access(path, F_OK) != 0)
-        {
-			ft_putendl_fd("cd: no such file or directory", 2);
             g_exit_code = 1;
-        }
 		else if (access(path, X_OK) != 0)
-        {
-			ft_putendl_fd("cd: permission denied", 2);
-            g_exit_code = 1;
-        }
+            g_exit_code = 3;
 		else
 			chdir(path);
-		free(path);
-		return (0);
+		ft_memdel((void**)&path);
 	}
-    return (1);
+    return (g_exit_code);
 }
 
 int			ft_setenv(char **command, char ***env)
@@ -102,7 +94,7 @@ int			ft_setenv(char **command, char ***env)
         {
             ft_putendl_fd("Usage: setenv VARIABLE=VALUE", 2);
             g_exit_code = 1;
-            return (1);
+            return (g_exit_code);
         }
         i++;
     }
@@ -126,8 +118,7 @@ int			ft_unsetenv(char **command, char ***env)
     size = ft_arraysize(command);
     if (size > 2)
     {
-        ft_putendl_fd("exit: too many arguments", 2);
-        g_exit_code = 1;
+        g_exit_code = 2;
         return (1);
     }
     size = ft_arraysize(*env);
@@ -143,6 +134,7 @@ int			ft_unsetenv(char **command, char ***env)
         size++;
     }
     new_env[j] = NULL;
+    free(*env);
     *env = new_env;
     return (0);
 }

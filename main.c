@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/03 02:02:23 by mobounya          #+#    #+#             */
+/*   Updated: 2020/11/03 02:50:41 by mobounya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 #include "execute.h"
 #include <sys/errno.h>
@@ -9,6 +21,7 @@ void    ft_get_cmd(t_tokens *head, char **env);
 t_ast   *ft_parse(t_tokens *lst);
 int     *ft_execute(t_ast *root, char ***env);
 int		ft_arraysize(char **ar);
+void    ft_free_ast(t_ast   **root);
 
 /*
  *  Seperators for the full command, coming directly from user input.
@@ -71,8 +84,8 @@ int     main(void)
                     and_or[0] = -1;
                     and_or[1] = -1;
                 }
-                ft_memdel((void **)&root);
-                ft_memdel((void **)&head);
+                ft_free_ast(&root);
+                head = NULL;
             }
         }
         else

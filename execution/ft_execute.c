@@ -6,12 +6,13 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/10/30 13:58:17 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/03 04:16:48 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "execute.h"
+#include "errors.h"
 
 t_processes		*g_procs_lst = NULL;
 
@@ -54,6 +55,7 @@ char	**ft_lsttoa(t_tokens *list)
 			list->value[ft_strlen(list->value) - 1] = '\0';
 			string = ft_strdup(list->value + 1);
 			free(list->value);
+			list->value = string;
 			cmd[index] = string;
 			index++;
 		}
@@ -129,15 +131,18 @@ char	*access_bin(char *bin, char **env)
 		path_bin = ft_strjoin(temp, bin);
 		free(temp);
 		if (access(path_bin, F_OK))
-			g_exit_code = ENOENT;
+			g_exit_code = 1;
 		else if (access(path_bin, X_OK))
 		{
 			free(path_bin);
-			g_exit_code = EACCES;
+			g_exit_code = 3;
 			return NULL;
 		}
 		else
+		{
+			g_exit_code = 0;
 			return (path_bin);
+		}
 		free(path_bin);
 		i++;
 	}
@@ -151,6 +156,7 @@ int		ft_run_command(t_tokens *lst, char ***env)
 	char				*path_bin;
 	int					status;
 
+	g_exit_code = 0;
 	command = ft_lsttoa(lst);
 	if ((builtin = is_builtin(command)) == NULL)
 	{
@@ -166,12 +172,24 @@ int		ft_run_command(t_tokens *lst, char ***env)
 				waitpid(pid, &status, 0);
 			g_exit_code = status;
 		}
+		else
+		{
+			if (g_exit_code == 1)
+			{
+				ft_putstr_fd("21sh: command not found: ", 2);
+				ft_putendl_fd(command[0], 2);
+			}
+			else if (g_exit_code == 3)
+				ft_errors();
+		}
 	}
 	else
 	{
 		reset_stds(1, 0);
 		ft_set_redirs(lst);
 		builtin(command, env);
+		if (g_exit_code)
+			ft_errors();
 		reset_stds(0, 1);
 	}
 	return (0);
