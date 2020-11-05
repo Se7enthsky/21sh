@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 13:54:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/03 01:50:35 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/05 18:29:22 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int			ft_changedir(char **command, char ***env)
         path = ft_getenv("HOME", *env);
     else if (size > 2)
     {
-        ft_memdel((void**)&path);
         g_exit_code = 2;
         return (g_exit_code);
     }

@@ -50,14 +50,19 @@ void	ft_set_filenames(t_tokens *list)
 	{
 		token_id = list->token_id;
 		if (token_id == GREAT || token_id == DGREAT || \
-			token_id == LESS || token_id == FD_GREAT)
+			token_id == LESS || token_id == FD_GREAT || token_id == DLESS)
 		{
 			if (list->next)
 			{
 				token_id = list->next->token_id;
 				if (token_id == WORD || token_id == SQ_STRING || \
 					token_id == DQ_STRING)
-					list->next->token_id = FILENAME;
+				{
+					if (list->token_id == DLESS)
+						list->next->token_id = DELIMITER;
+					else
+						list->next->token_id = FILENAME;
+				}
 			}
 		}
 		list = list->next;

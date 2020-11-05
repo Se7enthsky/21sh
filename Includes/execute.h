@@ -22,6 +22,7 @@ typedef struct			s_processes
 t_builtin_function	*is_builtin(char **cmd);
 int					ft_run_binary(t_tokens *lst, char *bin, char **args, char **env);
 int					ft_arraysize(char **ar);
+void				ft_exec_command(char **command, char **env);
 
 /*
  *  Set of functions for piping.

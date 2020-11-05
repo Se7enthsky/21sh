@@ -24,6 +24,7 @@
 # define FD_AGR         15
 # define FD_FILE        16
 # define FILENAME       17
+# define DELIMITER		18
 
 /*
  * Ends Here.
@@ -39,11 +40,10 @@ typedef struct	s_tokens t_tokens;
 struct	s_tokens
 {
     char		*value;
+    char        *heredoc;
     int			token_id;
     int			pipe_after;
     int			pipe_before;
-    int         read;
-    int         write;
     t_tokens	*next;
     t_tokens	*command_tokens;
 };

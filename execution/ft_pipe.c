@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 20:30:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/03 03:36:20 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/05 14:27:02 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,15 @@ int		*ft_create_pipe(void)
 
 int		ft_set_redirs(t_tokens *lst);
 
+/*
+ * duplicate the right file descriptors and execute.
+ */
+
 int		ft_dupexecute(t_tokens *lst, int write_end, int read_end, char ***env)
 {
 	pid_t				pid;
 	char				**command;
 	t_builtin_function	*builtin;
-	char				*path_bin;
 	int					status;
 
 	command = ft_lsttoa(lst);
@@ -91,21 +94,18 @@ int		ft_dupexecute(t_tokens *lst, int write_end, int read_end, char ***env)
 		if (write_end > 0)
 			dup2(write_end, STDOUT_FILENO);
 		ft_set_redirs(lst);
-		if ((builtin = is_builtin(command)) == NULL)
-		{
-			if ((path_bin = access_bin(command[0], *env)))
-				execve(path_bin, command, *env);
-			else
-			{
-				ft_putstr_fd("21sh : command not found: ", 2);
-				ft_putendl_fd(command[0], 2);
-			}
-		}
+		if (g_exit_code)
+			ft_errors();
 		else
 		{
-			builtin(command, env);
-			if (g_exit_code)
-				ft_errors();
+			if ((builtin = is_builtin(command)) == NULL)
+				ft_exec_command(command, *env);
+			else
+			{
+				builtin(command, env);
+				if (g_exit_code)
+					ft_errors();
+			}
 		}
 		exit(g_exit_code);
 	}
@@ -118,6 +118,10 @@ int		ft_dupexecute(t_tokens *lst, int write_end, int read_end, char ***env)
 		close(write_end);
 	return (pid);
 }
+
+/*
+ * Create pipe for reading and writing, and pass it to ft_dupexecute for executing.
+ */
 
 int		*ft_handle_pipe(t_tokens *lst, int *pipefd, char ***env)
 {

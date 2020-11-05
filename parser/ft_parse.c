@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:37:46 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/03 01:54:18 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/05 18:56:05 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,8 @@ void	ft_get_alernative_ids(int token_id, int alt[], int size)
 	{
 		if (token_id == DLESS)
 		{
-			alt[0] = WORD;
-			alt[1] = SQ_STRING;
-			alt[2] = DQ_STRING;
-			i = 3;
+			alt[0] = DELIMITER;
+			i = 1;
 		}
 		else
 		{
@@ -211,6 +209,39 @@ int		ft_traverse_verify(t_ast *root)
 	return (1);
 }
 
+void	ft_parse_heredoc(t_tokens *head)
+{
+	char	*delimiter;
+	char	*line;
+	char	*temp;
+	t_tokens	*list;
+
+	list = head;
+	while (head)
+	{
+		if (head->next && head->next->token_id == DLESS)
+		{
+			if (head->next->next)
+				delimiter = head->next->next->value;
+			head->next->heredoc = ft_strdup("");
+			while (1)
+			{
+				line = readline("heredoc> ");
+				if (ft_strcmp(delimiter, line))
+				{
+					line = ft_strjoin(line, "\n");
+					temp = ft_strjoin(head->next->heredoc, line);
+					ft_memdel((void**)&head->next->heredoc);
+					head->next->heredoc = temp;
+				}
+				else
+					break;
+			}
+		}
+		head = head->next;
+	}
+}
+
 t_ast			*ft_parse(t_tokens *lst)
 {
 	t_ast			*root;
@@ -220,5 +251,11 @@ t_ast			*ft_parse(t_tokens *lst)
 	root = ft_build_ast(lst);
 	if (ft_traverse_verify(root) == 0)
 		return (NULL);
+	while (lst)
+	{
+		if (lst->token_id == SIMPLE_COMMAND)
+			ft_parse_heredoc(lst->command_tokens);
+		lst = lst->next;
+	}
 	return (root);
 }

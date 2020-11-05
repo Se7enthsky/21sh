@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 02:02:23 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/03 02:50:41 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/05 14:02:48 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ extern char		**environ;
 
 void    ft_get_cmd(t_tokens *head, char **env);
 t_ast   *ft_parse(t_tokens *lst);
-int     *ft_execute(t_ast *root, char ***env);
+int     *ft_trav_exec(t_ast *root, char ***env);
 int		ft_arraysize(char **ar);
 void    ft_free_ast(t_ast   **root);
 
@@ -80,7 +80,7 @@ int     main(void)
                     ft_putendl_fd("21sh: parse error", 2);
                 else
                 {
-                    and_or = ft_execute(root, &env);
+                    and_or = ft_trav_exec(root, &env);
                     and_or[0] = -1;
                     and_or[1] = -1;
                 }

@@ -1,19 +1,31 @@
 #include "execute.h"
+#include <errno.h>
 
 int		ft_redirect_to_file(int oflag, int old_fd, char *filename)
 {
 	char	*path;
 	int		new_fd;
 
-	path = ft_strjoin("./", filename);
-	new_fd = open(filename, oflag, S_IRWXU);
-	if (new_fd == -1)
+	g_exit_code = 0;
+	if (*filename == '.' || *filename == '/')
+		path = ft_strdup(filename);
+	else
+		path = ft_strjoin("./", filename);
+	if (access(path, F_OK) == 0)
 	{
-		ft_putendl_fd("open failed", 2);
-		return (1);
+		if (old_fd == 1 && access(path, W_OK))
+			g_exit_code = 3;
+		else if (old_fd == 0 && access(path, R_OK))\
+			g_exit_code = 3;
 	}
+	else if ((oflag | O_RDONLY) == 0)
+		g_exit_code = 1;
+	if (g_exit_code)
+		return (g_exit_code);
+	new_fd = open(path, oflag, S_IRUSR | S_IWUSR);
 	dup2(new_fd, old_fd);
-	close(new_fd);
+	free(path);
+	// close(new_fd);
 	return (0);
 }
 
@@ -45,6 +57,16 @@ void	ft_fd_to_file(char *value)
 	free(filename);
 }
 
+void	ft_heredoc(char *value)
+{
+	int		fd;
+
+	fd = open("/Users/mobounya/Library/.temp", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+	write(fd, value, ft_strlen(value));
+	close(fd);
+	ft_redirect_to_file(O_RDONLY, STDIN_FILENO, "/Users/mobounya/Library/.temp");
+}
+
 int		ft_set_redirs(t_tokens *lst)
 {
 	int		oflag;
@@ -66,6 +88,8 @@ int		ft_set_redirs(t_tokens *lst)
 		else if (lst->token_id == FD_GREAT)
 			ft_redirect_to_file(O_TRUNC | O_WRONLY | O_CREAT, \
 			lst->value[0], lst->next->value);
+		else if (lst->token_id == DLESS)
+			ft_heredoc(lst->heredoc);
 		else if (lst->token_id == LESS)
 			ft_redirect_to_file(O_RDONLY, 0, lst->next->value);
 		lst = lst->next;

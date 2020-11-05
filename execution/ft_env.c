@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 12:43:19 by mobounya          #+#    #+#             */
-/*   Updated: 2020/10/26 12:51:07 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/03 05:52:03 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,12 @@ int			ft_append_env(char *var_name, char *value, char ***env)
 	*env = new_env;
 	return (0);
 }
+
+/*
+ *	Get the name and value pair (NAME=VALUE), find the right
+ *	enviroment variable and replace it in the env array, else
+ *	append it to the end of the list.
+ */
 
 int			ft_replace_add_env(char *cmd, char ***env)
 {
