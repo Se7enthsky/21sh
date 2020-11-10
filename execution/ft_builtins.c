@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 13:54:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/05 18:29:22 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/10 13:07:08 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int			ft_unsetenv(char **command, char ***env)
         temp = ft_get_varname((*env)[size]);
         if (ft_strcmp(command[1], temp) != 0)
             new_env[j++] = ft_strdup((*env)[size]);
+        free((*env)[size]);
         free(temp);
         size++;
     }

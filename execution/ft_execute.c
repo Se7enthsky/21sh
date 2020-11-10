@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/05 20:04:00 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/10 13:42:05 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,10 +159,14 @@ char	*access_bin(char *bin, char **env)
 				path_bin = ft_strjoin(temp, bin);
 				free(temp);
 				if (ft_permission(path_bin) == 0)
+				{
+					ft_free_arr(paths);
 					return (path_bin);
+				}
 				free(path_bin);
 				i++;
 			}
+			ft_free_arr(paths);
 		}
 		else
 			g_exit_code = 1;

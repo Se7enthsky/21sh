@@ -6,12 +6,25 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 02:21:13 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/03 02:49:51 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/10 13:36:36 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenize.h"
 #include "parser.h"
+
+void    ft_free_arr(char **ar)
+{
+    unsigned int i;
+
+    i = 0;
+    while (ar[i])
+    {
+        free(ar[i]);
+        i++;
+    }
+    free(ar);
+}
 
 void	ft_free_tokens(t_tokens	*token)
 {

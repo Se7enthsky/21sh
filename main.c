@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 02:02:23 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/05 14:02:48 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/10 14:30:38 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,9 @@ int     main(void)
     env = ft_envinit();
     while (1)
     {
-        if ((cmd = readline("$> ")))
+        if ((cmd = ft_readline()))
         {
+            printf("Done\n");
             ft_tokenize(&head, cmd, seperators);
             if (head)
             {
@@ -87,8 +88,10 @@ int     main(void)
                 ft_free_ast(&root);
                 head = NULL;
             }
+            ft_memdel((void **)&cmd);
         }
         else
             ft_putchar('\n');
     }
+    ft_free_arr(env);
 }

@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:37:46 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/05 18:56:05 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/10 14:01:03 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,9 +211,10 @@ int		ft_traverse_verify(t_ast *root)
 
 void	ft_parse_heredoc(t_tokens *head)
 {
-	char	*delimiter;
-	char	*line;
-	char	*temp;
+	char		*delimiter;
+	char		*line;
+	char		*temp;
+	char		*temp2;
 	t_tokens	*list;
 
 	list = head;
@@ -226,20 +227,39 @@ void	ft_parse_heredoc(t_tokens *head)
 			head->next->heredoc = ft_strdup("");
 			while (1)
 			{
-				line = readline("heredoc> ");
-				if (ft_strcmp(delimiter, line))
+				if ((line = readline("heredoc> ")))
 				{
-					line = ft_strjoin(line, "\n");
-					temp = ft_strjoin(head->next->heredoc, line);
-					ft_memdel((void**)&head->next->heredoc);
-					head->next->heredoc = temp;
+					if (ft_strcmp(delimiter, line))
+					{
+						temp2 = ft_strjoin(line, "\n");
+						temp = ft_strjoin(head->next->heredoc, temp2);
+						ft_memdel((void**)&temp2);
+						ft_memdel((void**)&line);
+						ft_memdel((void**)&head->next->heredoc);
+						head->next->heredoc = temp;
+					}
+					else
+					{
+						ft_memdel((void**)&line);
+						break;
+					}
 				}
 				else
-					break;
+					ft_putchar('\n');
 			}
 		}
 		head = head->next;
 	}
+}
+
+void			ft_find_heredoc(t_ast *root)
+{
+	if (root == NULL)
+		return;
+	ft_find_heredoc(root->left);
+	if (root->token->token_id == SIMPLE_COMMAND)
+		ft_parse_heredoc(root->token->command_tokens);
+	ft_find_heredoc(root->right);
 }
 
 t_ast			*ft_parse(t_tokens *lst)
@@ -251,11 +271,6 @@ t_ast			*ft_parse(t_tokens *lst)
 	root = ft_build_ast(lst);
 	if (ft_traverse_verify(root) == 0)
 		return (NULL);
-	while (lst)
-	{
-		if (lst->token_id == SIMPLE_COMMAND)
-			ft_parse_heredoc(lst->command_tokens);
-		lst = lst->next;
-	}
+	ft_find_heredoc(root);
 	return (root);
 }

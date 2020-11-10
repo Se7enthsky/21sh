@@ -2,6 +2,7 @@
 #define PARSER_H
 
 #include "tokenize.h"
+#include "../readline/includes/to_sh_rl.h"
 
 typedef struct	s_ast t_ast;
 
@@ -13,4 +14,5 @@ struct  s_ast
 	t_ast		*left;
 };
 
+void    ft_free_arr(char **ar);
 #endif

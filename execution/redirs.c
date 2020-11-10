@@ -21,11 +21,14 @@ int		ft_redirect_to_file(int oflag, int old_fd, char *filename)
 	else if ((oflag | O_RDONLY) == 0)
 		g_exit_code = 1;
 	if (g_exit_code)
+	{
+		ft_memdel((void**)&path);
 		return (g_exit_code);
+	}
 	new_fd = open(path, oflag, S_IRUSR | S_IWUSR);
 	dup2(new_fd, old_fd);
-	free(path);
-	// close(new_fd);
+	ft_memdel((void**)&path);;
+	close(new_fd);
 	return (0);
 }
 
