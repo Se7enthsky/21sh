@@ -6,33 +6,36 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 02:21:13 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/10 13:36:36 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/12 13:29:52 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenize.h"
 #include "parser.h"
 
-void    ft_free_arr(char **ar)
+void	ft_free_arr(char **ar)
 {
-    unsigned int i;
+	unsigned int	i;
 
-    i = 0;
-    while (ar[i])
-    {
-        free(ar[i]);
-        i++;
-    }
-    free(ar);
+	i = 0;
+	if (ar == NULL || *ar == NULL)
+		return ;
+	while (ar[i])
+	{
+		free(ar[i]);
+		i++;
+	}
+	free(ar);
 }
 
-void	ft_free_tokens(t_tokens	*token)
+void	ft_free_tokens(t_tokens *token)
 {
 	t_tokens	*temp;
 
 	while (token)
 	{
 		ft_memdel((void**)&(token->value));
+		ft_memdel((void**)&(token->heredoc));
 		if (token->command_tokens)
 			ft_free_tokens(token->command_tokens);
 		temp = token->next;
@@ -41,11 +44,11 @@ void	ft_free_tokens(t_tokens	*token)
 	}
 }
 
-void    ft_free_ast(t_ast   **root)
+void	ft_free_ast(t_ast **root)
 {
-    if (root == NULL || *root == NULL)
-        return ;
-    ft_free_ast(&(*root)->left);
+	if (root == NULL || *root == NULL)
+		return ;
+	ft_free_ast(&(*root)->left);
 	if ((*root)->token)
 		ft_free_tokens((*root)->token);
 	ft_free_ast(&(*root)->right);

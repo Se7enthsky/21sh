@@ -6,13 +6,13 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:37:46 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/10 14:01:03 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/12 18:40:13 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-# define ARRAY_SIZE 13
+#define ARRAY_SIZE 13
 
 /*
  * First check of syntax
@@ -209,15 +209,43 @@ int		ft_traverse_verify(t_ast *root)
 	return (1);
 }
 
+void	ft_join_heredoc(char *line, char **doc_str)
+{
+	char	*temp2;
+	char	*temp;
+
+	temp2 = ft_strjoin(line, "\n");
+	temp = ft_strjoin(*doc_str, temp2);
+	ft_memdel((void**)&temp2);
+	ft_memdel((void**)doc_str);
+	*doc_str = temp;
+}
+
+void	ft_heredoc_prompt(char *delimiter, char **doc_str)
+{
+	char	*line;
+
+	while (1)
+	{
+		if ((line = readline("heredoc> ")))
+		{
+			if (ft_strcmp(delimiter, line))
+				ft_join_heredoc(line, doc_str);
+			else
+			{
+				ft_memdel((void**)&line);
+				break ;
+			}
+		}
+		else
+			ft_putchar('\n');
+	}
+}
+
 void	ft_parse_heredoc(t_tokens *head)
 {
 	char		*delimiter;
-	char		*line;
-	char		*temp;
-	char		*temp2;
-	t_tokens	*list;
 
-	list = head;
 	while (head)
 	{
 		if (head->next && head->next->token_id == DLESS)
@@ -225,28 +253,7 @@ void	ft_parse_heredoc(t_tokens *head)
 			if (head->next->next)
 				delimiter = head->next->next->value;
 			head->next->heredoc = ft_strdup("");
-			while (1)
-			{
-				if ((line = readline("heredoc> ")))
-				{
-					if (ft_strcmp(delimiter, line))
-					{
-						temp2 = ft_strjoin(line, "\n");
-						temp = ft_strjoin(head->next->heredoc, temp2);
-						ft_memdel((void**)&temp2);
-						ft_memdel((void**)&line);
-						ft_memdel((void**)&head->next->heredoc);
-						head->next->heredoc = temp;
-					}
-					else
-					{
-						ft_memdel((void**)&line);
-						break;
-					}
-				}
-				else
-					ft_putchar('\n');
-			}
+			ft_heredoc_prompt(delimiter, &(head->next->heredoc));
 		}
 		head = head->next;
 	}
@@ -255,7 +262,7 @@ void	ft_parse_heredoc(t_tokens *head)
 void			ft_find_heredoc(t_ast *root)
 {
 	if (root == NULL)
-		return;
+		return ;
 	ft_find_heredoc(root->left);
 	if (root->token->token_id == SIMPLE_COMMAND)
 		ft_parse_heredoc(root->token->command_tokens);

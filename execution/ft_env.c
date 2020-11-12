@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 12:43:19 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/10 13:30:24 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/11 13:43:25 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ int		ft_arraysize(char **ar)
 	return (i);
 }
 
-char    *ft_getenv(char *var, char **env)
+char	*ft_getenv(char *var, char **env)
 {
-	unsigned int    i;
-	unsigned int    split_index;
-	char            *var_name;
-	char            *value;
+	unsigned int	i;
+	unsigned int	split_index;
+	char			*var_name;
+	char			*value;
 	unsigned int	len;
 
 	i = 0;
@@ -43,7 +43,8 @@ char    *ft_getenv(char *var, char **env)
 		{
 			ft_memdel((void**)&var_name);
 			len = ft_strlen(env[i] + split_index);
-			value = ft_strncpy(ft_strnew(len + 1), env[i] + split_index + 1, len);
+			value = ft_strncpy(ft_strnew(len + 1), env[i] +
+				split_index + 1, len);
 			return (value);
 		}
 		ft_memdel((void**)&var_name);
@@ -52,9 +53,9 @@ char    *ft_getenv(char *var, char **env)
 	return (NULL);
 }
 
-char		*ft_get_varname(char *cmd)
+char	*ft_get_varname(char *cmd)
 {
-	unsigned int    split_index;
+	unsigned int	split_index;
 	char			*var_name;
 
 	split_index = ft_strchri(cmd, '=');
@@ -62,7 +63,7 @@ char		*ft_get_varname(char *cmd)
 	return (var_name);
 }
 
-void		ft_replace_env(char *var_name, char *new_value, char **env)
+void	ft_replace_env(char *var_name, char *new_value, char **env)
 {
 	char	*temp;
 
@@ -71,7 +72,7 @@ void		ft_replace_env(char *var_name, char *new_value, char **env)
 	free(temp);
 }
 
-int			ft_find_replace(char *var, char *new_value, char **env)
+int		ft_find_replace(char *var, char *new_value, char **env)
 {
 	unsigned int	i;
 	unsigned int	sign_index;
@@ -82,11 +83,11 @@ int			ft_find_replace(char *var, char *new_value, char **env)
 	{
 		sign_index = ft_strchri(env[i], '=');
 		var_name = ft_strncpy(ft_strnew(sign_index + 1), env[i], sign_index);
-        if (ft_strcmp(var, var_name) == 0)
+		if (ft_strcmp(var, var_name) == 0)
 		{
 			ft_memdel((void**)&var_name);
 			ft_replace_env(var, new_value, (env + i));
-            return (0);
+			return (0);
 		}
 		ft_memdel((void**)&var_name);
 		i++;
@@ -94,7 +95,7 @@ int			ft_find_replace(char *var, char *new_value, char **env)
 	return (1);
 }
 
-int			ft_append_env(char *var_name, char *value, char ***env)
+int		ft_append_env(char *var_name, char *value, char ***env)
 {
 	char	*var_value;
 	char	*temp;
@@ -103,13 +104,13 @@ int			ft_append_env(char *var_name, char *value, char ***env)
 	int		i;
 
 	i = 0;
-    temp = ft_strjoin(var_name, "=");
+	temp = ft_strjoin(var_name, "=");
 	var_value = ft_strjoin(temp, value);
 	free(temp);
 	size = ft_arraysize(*env);
 	if ((new_env = malloc(sizeof(char *) * (size + 2))) == NULL)
 		exit(ENOMEM);
-    while ((*env)[i])
+	while ((*env)[i])
 	{
 		new_env[i] = ft_strdup((*env)[i]);
 		free((*env)[i]);
@@ -128,7 +129,7 @@ int			ft_append_env(char *var_name, char *value, char ***env)
  *	append it to the end of the list.
  */
 
-int			ft_replace_add_env(char *cmd, char ***env)
+int		ft_replace_add_env(char *cmd, char ***env)
 {
 	char	*var_name;
 	char	*value;
@@ -136,7 +137,7 @@ int			ft_replace_add_env(char *cmd, char ***env)
 	var_name = ft_get_varname(cmd);
 	value = ft_strdup(cmd + ft_strlen(var_name) + 1);
 	if (ft_find_replace(var_name, value, *env))
-        ft_append_env(var_name, value, env);
+		ft_append_env(var_name, value, env);
 	ft_memdel((void**)&var_name);
 	ft_memdel((void**)&value);
 	return (0);

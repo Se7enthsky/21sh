@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirs.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/12 12:43:04 by mobounya          #+#    #+#             */
+/*   Updated: 2020/11/12 12:59:28 by mobounya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "execute.h"
 #include <errno.h>
 
@@ -7,10 +19,8 @@ int		ft_redirect_to_file(int oflag, int old_fd, char *filename)
 	int		new_fd;
 
 	g_exit_code = 0;
-	if (*filename == '.' || *filename == '/')
-		path = ft_strdup(filename);
-	else
-		path = ft_strjoin("./", filename);
+	path = ((*filename == '.' || *filename == '/')) ?
+			ft_strdup(filename) : ft_strjoin("./", filename);
 	if (access(path, F_OK) == 0)
 	{
 		if (old_fd == 1 && access(path, W_OK))
@@ -27,7 +37,7 @@ int		ft_redirect_to_file(int oflag, int old_fd, char *filename)
 	}
 	new_fd = open(path, oflag, S_IRUSR | S_IWUSR);
 	dup2(new_fd, old_fd);
-	ft_memdel((void**)&path);;
+	ft_memdel((void**)&path);
 	close(new_fd);
 	return (0);
 }
@@ -63,26 +73,27 @@ void	ft_fd_to_file(char *value)
 void	ft_heredoc(char *value)
 {
 	int		fd;
+	char	*doc_file;
 
-	fd = open("/Users/mobounya/Library/.temp", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+	doc_file = "/Users/mobounya/Library/.temp";
+	fd = open(doc_file, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	write(fd, value, ft_strlen(value));
 	close(fd);
-	ft_redirect_to_file(O_RDONLY, STDIN_FILENO, "/Users/mobounya/Library/.temp");
+	ft_redirect_to_file(O_RDONLY, STDIN_FILENO, doc_file);
 }
 
 int		ft_set_redirs(t_tokens *lst)
 {
-	int		oflag;
-
 	while (lst)
 	{
 		if ((lst->token_id == GREAT) || (lst->token_id == DGREAT))
 		{
 			if (lst->token_id == GREAT)
-				oflag = O_TRUNC | O_WRONLY | O_CREAT;
+				ft_redirect_to_file(O_TRUNC | O_WRONLY | O_CREAT, \
+					1, lst->next->value);
 			else if (lst->token_id == DGREAT)
-				oflag = O_WRONLY | O_APPEND | O_CREAT;
-			ft_redirect_to_file(oflag, 1, lst->next->value);
+				ft_redirect_to_file(O_WRONLY | O_APPEND | O_CREAT, \
+					1, lst->next->value);
 		}
 		else if (lst->token_id == FD_AGR)
 			ft_fdagr(lst->value);

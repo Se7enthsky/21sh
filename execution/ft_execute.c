@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/10 13:42:05 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/12 12:36:09 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include "execute.h"
 #include "errors.h"
 
-t_processes		*g_procs_lst = NULL;
+t_processes				*g_procs_lst = NULL;
 
-const t_builtin_matcher g_builtin_tab[7] =
+const t_builtin_matcher	g_builtin_tab[7] =
 {
 	{"echo", &ft_echo},
 	{"exit", &ft_exit},
@@ -27,16 +27,44 @@ const t_builtin_matcher g_builtin_tab[7] =
 	{NULL, NULL},
 };
 
-char	**ft_lsttoa(t_tokens *list)
+char					*ft_remove_quote(char *value)
+{
+	char	*string;
+
+	value[ft_strlen(value) - 1] = '\0';
+	string = ft_strdup(value + 1);
+	return (string);
+}
+
+void					fill_array(t_tokens *list, char **command)
+{
+	uint	index;
+	char	*string;
+
+	index = 0;
+	while (list)
+	{
+		if (list->token_id == DQ_STRING || list->token_id == SQ_STRING)
+		{
+			string = ft_remove_quote(list->value);
+			free(list->value);
+			list->value = string;
+			command[index] = string;
+			index++;
+		}
+		else if (list->token_id == WORD)
+			command[index++] = list->value;
+		list = list->next;
+	}
+}
+
+char					**ft_lsttoa(t_tokens *list)
 {
 	int			size;
 	char		**cmd;
-	int			index;
 	t_tokens	*temp;
-	char		*string;
 
 	size = 0;
-	index = 0;
 	temp = list;
 	while (temp)
 	{
@@ -48,25 +76,11 @@ char	**ft_lsttoa(t_tokens *list)
 	if ((cmd = malloc(sizeof(char *) * (size + 1))) == NULL)
 		exit(ENOMEM);
 	cmd[size] = NULL;
-	while (index < size)
-	{
-		if (list->token_id == DQ_STRING || list->token_id == SQ_STRING)
-		{
-			list->value[ft_strlen(list->value) - 1] = '\0';
-			string = ft_strdup(list->value + 1);
-			free(list->value);
-			list->value = string;
-			cmd[index] = string;
-			index++;
-		}
-		else if (list->token_id == WORD)
-			cmd[index++] = list->value;
-		list = list->next;
-	}
+	fill_array(list, cmd);
 	return (cmd);
 }
 
-t_builtin_function	*is_builtin(char **cmd)
+t_builtin_function		*is_builtin(char **cmd)
 {
 	uint i;
 
@@ -74,13 +88,13 @@ t_builtin_function	*is_builtin(char **cmd)
 	while (i < 6)
 	{
 		if (!ft_strcmp(g_builtin_tab[i].name, cmd[0]))
-			return g_builtin_tab[i].function;
+			return (g_builtin_tab[i].function);
 		i++;
 	}
 	return (NULL);
 }
 
-char	**ft_getpath(char **env)
+char					**ft_getpath(char **env)
 {
 	char	**paths;
 	char	*path_value;
@@ -96,7 +110,7 @@ char	**ft_getpath(char **env)
 	return (paths);
 }
 
-void	reset_stds(int save, int reset)
+void					reset_stds(int save, int reset)
 {
 	static int	stdin_copy;
 	static int	stdout_copy;
@@ -119,7 +133,7 @@ void	reset_stds(int save, int reset)
 	}
 }
 
-int		ft_permission(char *path_bin)
+int						ft_permission(char *path_bin)
 {
 	g_exit_code = 0;
 	if (access(path_bin, F_OK))
@@ -131,16 +145,38 @@ int		ft_permission(char *path_bin)
 	return (g_exit_code);
 }
 
-char	*access_bin(char *bin, char **env)
+char					*ft_search_path(char *binary, char **env)
 {
 	char	**paths;
+	uint	i;
 	char	*temp;
 	char	*path_bin;
-	int		i;
-	int		error;
 
 	i = 0;
-	error = 0;
+	path_bin = NULL;
+	if ((paths = ft_getpath(env)) != NULL)
+	{
+		while (paths[i])
+		{
+			temp = ft_strjoin(paths[i], "/");
+			path_bin = ft_strjoin(temp, binary);
+			ft_memdel((void**)&temp);
+			if (ft_permission(path_bin) == 0)
+				break ;
+			ft_memdel((void**)&path_bin);
+			i++;
+		}
+	}
+	else
+		g_exit_code = 1;
+	ft_free_arr(paths);
+	return (path_bin);
+}
+
+char					*ft_find_executable(char *bin, char **env)
+{
+	char	*path_bin;
+
 	if (bin && (*bin == '.' || *bin == '/'))
 	{
 		if (ft_permission(bin) == 0)
@@ -149,37 +185,22 @@ char	*access_bin(char *bin, char **env)
 			return (NULL);
 	}
 	else
-	{
-		paths = ft_getpath(env);
-		if (paths)
-		{
-			while (paths[i])
-			{
-				temp = ft_strjoin(paths[i], "/");
-				path_bin = ft_strjoin(temp, bin);
-				free(temp);
-				if (ft_permission(path_bin) == 0)
-				{
-					ft_free_arr(paths);
-					return (path_bin);
-				}
-				free(path_bin);
-				i++;
-			}
-			ft_free_arr(paths);
-		}
-		else
-			g_exit_code = 1;
-	}
-	return (NULL);
+		path_bin = ft_search_path(bin, env);
+	return (path_bin);
 }
 
-void	ft_exec_command(char **command, char **env)
+void					ft_exec_command(t_tokens *lst, char **command, char **env)
 {
-	char	*path_bin;
+	char	*executable;
 
-	if ((path_bin = access_bin(command[0], env)))
-		execve(path_bin, command, env);
+	ft_set_redirs(lst);
+	if (g_exit_code)
+		ft_errors();
+	else if ((executable = ft_find_executable(command[0], env)))
+	{
+		execve(executable, command, env);
+		exit(1);
+	}
 	else
 	{
 		if ((command[0][0] != '.' && command[0][0] != '/') && g_exit_code == 1)
@@ -192,55 +213,55 @@ void	ft_exec_command(char **command, char **env)
 	}
 }
 
-int		ft_run_command(t_tokens *lst, char ***env)
+void					ft_bin_exec(t_tokens *lst, char **cmd, char **env)
+{
+	int		pid;
+
+	if ((pid = fork()) == 0)
+	{
+		ft_exec_command(lst, cmd, env);
+		exit(g_exit_code);
+	}
+	else
+		waitpid(pid, &g_exit_code, 0);
+}
+
+void					ft_builtin_exec(t_builtin_function	*builtin, t_tokens *lst, char **cmd, char ***env)
+{
+	reset_stds(1, 0);
+	ft_set_redirs(lst);
+	if (g_exit_code)
+		ft_errors();
+	else
+	{
+		builtin(cmd, env);
+		if (g_exit_code)
+			ft_errors();
+	}
+	reset_stds(0, 1);
+}
+
+int						ft_run_command(t_tokens *lst, char ***env)
 {
 	char				**command;
 	t_builtin_function	*builtin;
-	int					pid;
-	int					status;
 
 	g_exit_code = 0;
 	command = ft_lsttoa(lst);
 	if ((builtin = is_builtin(command)) == NULL)
-	{
-		if ((pid = fork()) == 0)
-		{
-			ft_set_redirs(lst);
-			if (g_exit_code)
-				ft_errors();
-			else
-				ft_exec_command(command, *env);
-			exit(g_exit_code);
-		}
-		else
-		{
-			waitpid(pid, &status, 0);
-			g_exit_code = status;
-		}
-	}
+		ft_bin_exec(lst, command, *env);
 	else
-	{
-		reset_stds(1, 0);
-		ft_set_redirs(lst);
-		if (g_exit_code)
-			ft_errors();
-		else
-		{
-			builtin(command, env);
-			if (g_exit_code)
-				ft_errors();
-		}
-		reset_stds(0, 1);
-	}
+		ft_builtin_exec(builtin, lst, command, env);
 	return (0);
 }
 
 /*
  * If the command is followed or proceeded by pipe, ft_handle_pipe will setup
- * the correct redirections and execute. else ft_run_command will execute the command.
+ * the correct redirections and execute
+ * else ft_run_command will execute the command.
  */
 
-int		ft_execute(t_tokens *lst, char ***env)
+int						ft_execute(t_tokens *lst, char ***env)
 {
 	static int	*pipefd;
 
@@ -255,7 +276,7 @@ int		ft_execute(t_tokens *lst, char ***env)
  * Traverse AST and execute the token linked list.
  */
 
-int		*ft_trav_exec(t_ast *root, char ***env)
+int						*ft_trav_exec(t_ast *root, char ***env)
 {
 	static int		and_or[2] = {-1, -1};
 
