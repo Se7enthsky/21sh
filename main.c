@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 02:02:23 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/12 18:43:59 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/12 18:52:31 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		main(void)
 
 	head = NULL;
 	env = ft_envinit();
-	tcgetattr(0, &g_saved_attributes);
+	// tcgetattr(0, &g_saved_attributes);
 	his = open_hist();
 	if (!term_set())
 	{
