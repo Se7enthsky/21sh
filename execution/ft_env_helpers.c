@@ -1,57 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_env_helpers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 12:43:19 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/11 13:43:25 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/13 18:30:53 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <sys/errno.h>
 #include <stdio.h>
-
-int		ft_strchri(const char *str, char c);
-
-int		ft_arraysize(char **ar)
-{
-	int	i;
-
-	i = 0;
-	while (ar[i])
-		i++;
-	return (i);
-}
-
-char	*ft_getenv(char *var, char **env)
-{
-	unsigned int	i;
-	unsigned int	split_index;
-	char			*var_name;
-	char			*value;
-	unsigned int	len;
-
-	i = 0;
-	while (env[i])
-	{
-		split_index = ft_strchri(env[i], '=');
-		var_name = ft_strncpy(ft_strnew(split_index + 1), env[i], split_index);
-		if (ft_strcmp(var, var_name) == 0)
-		{
-			ft_memdel((void**)&var_name);
-			len = ft_strlen(env[i] + split_index);
-			value = ft_strncpy(ft_strnew(len + 1), env[i] +
-				split_index + 1, len);
-			return (value);
-		}
-		ft_memdel((void**)&var_name);
-		i++;
-	}
-	return (NULL);
-}
 
 char	*ft_get_varname(char *cmd)
 {

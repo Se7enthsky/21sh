@@ -6,12 +6,11 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 13:54:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/11 13:34:45 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/13 18:19:59 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
-#include <sys/errno.h>
 
 int		ft_echo(char **command, char ***env)
 {
@@ -77,75 +76,4 @@ int		ft_changedir(char **command, char ***env)
 		ft_memdel((void**)&path);
 	}
 	return (g_exit_code);
-}
-
-int		ft_setenv(char **command, char ***env)
-{
-	unsigned int	i;
-
-	i = 1;
-	while (command[i])
-	{
-		if (ft_strchr(command[i], '=') == 0)
-		{
-			ft_putendl_fd("Usage: setenv VARIABLE=VALUE", 2);
-			g_exit_code = 1;
-			return (g_exit_code);
-		}
-		i++;
-	}
-	i = 1;
-	while (command[i])
-	{
-		ft_replace_add_env(command[i], env);
-		i++;
-	}
-	return (0);
-}
-
-int		ft_unsetenv(char **command, char ***env)
-{
-	char			**new_env;
-	size_t			size;
-	char			*temp;
-	unsigned int	j;
-
-	j = 0;
-	size = ft_arraysize(command);
-	if (size > 2)
-	{
-		g_exit_code = 2;
-		return (1);
-	}
-	size = ft_arraysize(*env);
-	if ((new_env = malloc(sizeof(char *) * size)) == NULL)
-		exit(ENOMEM);
-	size = 0;
-	while ((*env)[size])
-	{
-		temp = ft_get_varname((*env)[size]);
-		if (ft_strcmp(command[1], temp) != 0)
-			new_env[j++] = ft_strdup((*env)[size]);
-		free((*env)[size]);
-		free(temp);
-		size++;
-	}
-	new_env[j] = NULL;
-	free(*env);
-	*env = new_env;
-	return (0);
-}
-
-int		ft_env(char **cmd, char ***env)
-{
-	unsigned int	i;
-
-	i = 0;
-	cmd = NULL;
-	while ((*env)[i])
-	{
-		ft_putendl((*env)[i]);
-		i++;
-	}
-	return (0);
 }

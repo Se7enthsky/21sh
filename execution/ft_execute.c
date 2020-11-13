@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/12 12:36:09 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/13 19:49:24 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,9 @@
 #include "execute.h"
 #include "errors.h"
 
-t_processes				*g_procs_lst = NULL;
+t_processes	*g_procs_lst = NULL;
 
-const t_builtin_matcher	g_builtin_tab[7] =
-{
-	{"echo", &ft_echo},
-	{"exit", &ft_exit},
-	{"cd", &ft_changedir},
-	{"setenv", &ft_setenv},
-	{"unsetenv", &ft_unsetenv},
-	{"env", &ft_env},
-	{NULL, NULL},
-};
-
-char					*ft_remove_quote(char *value)
+char		*ft_remove_quote(char *value)
 {
 	char	*string;
 
@@ -36,7 +25,7 @@ char					*ft_remove_quote(char *value)
 	return (string);
 }
 
-void					fill_array(t_tokens *list, char **command)
+void		fill_array(t_tokens *list, char **command)
 {
 	uint	index;
 	char	*string;
@@ -58,7 +47,7 @@ void					fill_array(t_tokens *list, char **command)
 	}
 }
 
-char					**ft_lsttoa(t_tokens *list)
+char		**ft_lsttoa(t_tokens *list)
 {
 	int			size;
 	char		**cmd;
@@ -80,21 +69,7 @@ char					**ft_lsttoa(t_tokens *list)
 	return (cmd);
 }
 
-t_builtin_function		*is_builtin(char **cmd)
-{
-	uint i;
-
-	i = 0;
-	while (i < 6)
-	{
-		if (!ft_strcmp(g_builtin_tab[i].name, cmd[0]))
-			return (g_builtin_tab[i].function);
-		i++;
-	}
-	return (NULL);
-}
-
-char					**ft_getpath(char **env)
+char		**ft_getpath(char **env)
 {
 	char	**paths;
 	char	*path_value;
@@ -110,7 +85,7 @@ char					**ft_getpath(char **env)
 	return (paths);
 }
 
-void					reset_stds(int save, int reset)
+void		reset_stds(int save, int reset)
 {
 	static int	stdin_copy;
 	static int	stdout_copy;
@@ -133,7 +108,7 @@ void					reset_stds(int save, int reset)
 	}
 }
 
-int						ft_permission(char *path_bin)
+int			ft_permission(char *path_bin)
 {
 	g_exit_code = 0;
 	if (access(path_bin, F_OK))
@@ -145,7 +120,7 @@ int						ft_permission(char *path_bin)
 	return (g_exit_code);
 }
 
-char					*ft_search_path(char *binary, char **env)
+char		*ft_search_path(char *binary, char **env)
 {
 	char	**paths;
 	uint	i;
@@ -173,7 +148,7 @@ char					*ft_search_path(char *binary, char **env)
 	return (path_bin);
 }
 
-char					*ft_find_executable(char *bin, char **env)
+char		*ft_find_executable(char *bin, char **env)
 {
 	char	*path_bin;
 
@@ -189,7 +164,7 @@ char					*ft_find_executable(char *bin, char **env)
 	return (path_bin);
 }
 
-void					ft_exec_command(t_tokens *lst, char **command, char **env)
+void		ft_exec_command(t_tokens *lst, char **command, char **env)
 {
 	char	*executable;
 
@@ -213,7 +188,7 @@ void					ft_exec_command(t_tokens *lst, char **command, char **env)
 	}
 }
 
-void					ft_bin_exec(t_tokens *lst, char **cmd, char **env)
+void		ft_bin_exec(t_tokens *lst, char **cmd, char **env)
 {
 	int		pid;
 
@@ -226,7 +201,7 @@ void					ft_bin_exec(t_tokens *lst, char **cmd, char **env)
 		waitpid(pid, &g_exit_code, 0);
 }
 
-void					ft_builtin_exec(t_builtin_function	*builtin, t_tokens *lst, char **cmd, char ***env)
+void		ft_builtin_exec(t_builtin_function *builtin, t_tokens *lst, char **cmd, char ***env)
 {
 	reset_stds(1, 0);
 	ft_set_redirs(lst);
@@ -241,7 +216,7 @@ void					ft_builtin_exec(t_builtin_function	*builtin, t_tokens *lst, char **cmd,
 	reset_stds(0, 1);
 }
 
-int						ft_run_command(t_tokens *lst, char ***env)
+int			ft_run_command(t_tokens *lst, char ***env)
 {
 	char				**command;
 	t_builtin_function	*builtin;
@@ -261,7 +236,7 @@ int						ft_run_command(t_tokens *lst, char ***env)
  * else ft_run_command will execute the command.
  */
 
-int						ft_execute(t_tokens *lst, char ***env)
+int			ft_execute(t_tokens *lst, char ***env)
 {
 	static int	*pipefd;
 
@@ -276,7 +251,7 @@ int						ft_execute(t_tokens *lst, char ***env)
  * Traverse AST and execute the token linked list.
  */
 
-int						*ft_trav_exec(t_ast *root, char ***env)
+int			*ft_trav_exec(t_ast *root, char ***env)
 {
 	static int		and_or[2] = {-1, -1};
 
@@ -287,6 +262,11 @@ int						*ft_trav_exec(t_ast *root, char ***env)
 		and_or[1] = 1;
 	else if (root->token->token_id == AND)
 		and_or[0] = 1;
+	else if (root->token->token_id == SEMI)
+	{
+		and_or[0] = -1;
+		and_or[1] = -1;
+	}
 	if (root->token->token_id == SIMPLE_COMMAND)
 	{
 		if ((and_or[0] == -1 && and_or[1] == -1) || \

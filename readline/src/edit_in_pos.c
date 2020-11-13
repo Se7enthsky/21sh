@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit_in_pos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 19:56:41 by awali-al          #+#    #+#             */
-/*   Updated: 2020/02/27 21:58:22 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/13 16:58:35 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void		add_in_pos(t_line *line)
 		tmp[i] = line->str[i - 1];
 		i++;
 	}
+	tmp[i] = '\0';
 	ft_strdel(&(line->str));
 	line->str = tmp;
 	put_in_pos(line->str + line->idx);
@@ -56,6 +57,7 @@ void		del_in_pos(t_line *line)
 		}
 		i++;
 	}
+	tmp[j] = '\0';
 	ft_strdel(&(line->str));
 	line->str = tmp;
 	put_in_pos(line->str + line->idx);

@@ -49,7 +49,7 @@ struct	s_tokens
 };
 
 /*
- * Struct of tokens and their respactive identifier.
+ * Struct of tokens and their identifier.
  */
 
 typedef struct	s_id
@@ -63,7 +63,7 @@ typedef struct	s_id
  *  Lexer Functions.
  */
 
-void    ft_tokenize(t_tokens **head, char *command, const t_id seperators[]);
+void	ft_tokenize(t_tokens **head, char *command, const t_id seps[]);
 int		ft_strchri(const char *str, char c);
 int		ft_get_tokenid(const char *value, int id);
 char	*ft_get_token_name(int id);
@@ -75,5 +75,9 @@ char	*ft_get_token_name(int id);
 t_tokens	*ft_lstnew_token(int token, char *value);
 void		ft_lstdel_token(t_tokens **node);
 void		ft_lstappend_token(t_tokens **node, int token, char *value);
+
+/*
+ * Functions for manipulating tokens list.
+ */
 
 #endif
