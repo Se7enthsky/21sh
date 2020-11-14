@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 18:05:47 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/13 18:14:47 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/14 14:20:28 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ void	ft_heredoc_prompt(char *delimiter, char **doc_str)
 
 	while (1)
 	{
-		if ((line = readline("heredoc> ")))
+		if ((line = get_line(NULL, "heredoc> ", 1)))
 		{
+			write(1, "\n", 1);
 			if (ft_strcmp(delimiter, line))
 				ft_join_heredoc(line, doc_str);
 			else

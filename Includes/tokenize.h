@@ -76,8 +76,4 @@ t_tokens	*ft_lstnew_token(int token, char *value);
 void		ft_lstdel_token(t_tokens **node);
 void		ft_lstappend_token(t_tokens **node, int token, char *value);
 
-/*
- * Functions for manipulating tokens list.
- */
-
 #endif

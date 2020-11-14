@@ -1,6 +1,17 @@
-#include "tokenize.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tokenize_command.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/14 14:04:24 by mobounya          #+#    #+#             */
+/*   Updated: 2020/11/14 14:06:20 by mobounya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char    *ft_getenv(char *var, char **env);
+#include "tokenize.h"
+#include "execute.h"
 
 void	ft_tokenize_cmd(t_tokens **head, char *command)
 {
@@ -15,7 +26,8 @@ void	ft_tokenize_cmd(t_tokens **head, char *command)
 			if ((temp = ft_strchr(command + 1, *command)))
 			{
 				value = ft_strsub(command, 0, (temp - command) + 1);
-				ft_lstappend_token(head, (*command == '\"') ? DQ_STRING : SQ_STRING, value);
+				ft_lstappend_token(head, (*command == '\"') ? \
+							DQ_STRING : SQ_STRING, value);
 				command = temp + 1;
 			}
 			else
@@ -83,7 +95,7 @@ void	ft_replace(t_tokens *list, char **env)
 			if ((var_value = ft_getenv(var_name, env)))
 			{
 				free(list->value);
-				list->value = var_value;;
+				list->value = var_value;
 			}
 			else
 			{
@@ -92,7 +104,8 @@ void	ft_replace(t_tokens *list, char **env)
 			}
 		}
 		else if ((list->value[0] == '~' && ft_strlen(list->value) == 1) || \
-			(ft_strlen(list->value) > 1 && list->value[0] == '~' && list->value[1] == '/'))
+			(ft_strlen(list->value) > 1 && list->value[0] == '~' \
+			&& list->value[1] == '/'))
 		{
 			var_value = ft_getenv("HOME", env);
 			if (var_value && *var_value)
