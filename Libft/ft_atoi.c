@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 22:18:27 by mobounya          #+#    #+#             */
-/*   Updated: 2019/04/08 23:58:39 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/17 14:46:10 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_strdig(const char *str)
 	int digits;
 
 	digits = 0;
-	while (IS_DIG(*str))
+	while (ft_isdigit(*str))
 	{
 		digits++;
 		str++;
@@ -35,7 +35,7 @@ int			ft_atoi(const char *str)
 	int integ;
 
 	integ = 0;
-	while (IS_BL(*str))
+	while ((*str >= 9 && *str <= 13) || *str == ' ')
 		str++;
 	neg = (*str == '-') ? 1 : 0;
 	str += (*str == '-' || *str == '+') ? 1 : 0;
@@ -45,7 +45,7 @@ int			ft_atoi(const char *str)
 		return ((neg == 1) ? 0 : -1);
 	while (*str != '\0')
 	{
-		if (IS_DIG(*str))
+		if (ft_isdigit(*str))
 		{
 			integ *= 10;
 			integ += (int)*str - 48;

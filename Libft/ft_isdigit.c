@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 21:27:28 by mobounya          #+#    #+#             */
-/*   Updated: 2019/03/27 21:32:29 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/17 14:37:28 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,8 @@
 
 int		ft_isdigit(int c)
 {
-	return (IS_DIG(c)) ? 1 : 0;
+	if (c >= '0' && c <= '9')
+		return (1);
+	else
+		return (0);
 }

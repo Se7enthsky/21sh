@@ -1,9 +1,21 @@
-unsigned int	ft_count_arr(void **ar)
-{	
-    unsigned int i;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_count_arr.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/17 14:33:35 by mobounya          #+#    #+#             */
+/*   Updated: 2020/11/17 14:34:05 by mobounya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-    i = 0;
-    while (ar[i])
-        i++;
-    return (i);
+unsigned int	ft_count_arr(void **ar)
+{
+	unsigned int i;
+
+	i = 0;
+	while (ar[i])
+		i++;
+	return (i);
 }

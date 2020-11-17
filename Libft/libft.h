@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 23:17:03 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/16 16:51:48 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/17 14:46:38 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,6 @@ typedef struct	s_list
 	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
-
-# define IS_ALP(c)	(c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z')
-# define IS_DIG(c)	(c >= '0' && c <= '9')
-# define IS_DEL(d)	(d == c)
-# define IS_WS(c)	(c == ' ' || c == '\n' || c == '\t')
-# define IS_BL(c)	((c >= 9 && c <= 13) || c == ' ')
 
 int				ft_atoi(const char *str);
 char			*ft_strmap(char const *s, char (*f)(char));

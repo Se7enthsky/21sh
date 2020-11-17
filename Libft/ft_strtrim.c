@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 06:41:53 by mobounya          #+#    #+#             */
-/*   Updated: 2019/04/04 06:43:36 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/17 14:41:45 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ char		*ft_strtrim(char const *s)
 	if (s == NULL)
 		return (NULL);
 	end = ft_strlen(s) - 1;
-	while (IS_WS(s[start]))
+	while (s[start] == ' ' || s[start] == '\n' || s[start] == '\t')
 		start++;
 	if (start == ft_strlen(s))
 		return (ft_strdup(""));
-	while (IS_WS(s[end]))
+	while (s[end] == ' ' || s[end] == '\n' || s[end] == '\t')
 		end--;
 	len = end - start + 1;
 	if ((str = malloc(sizeof(*str) * (len + 1))) == NULL)
