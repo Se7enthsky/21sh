@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 02:02:23 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/13 17:06:01 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/17 14:11:59 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,29 @@ char	**ft_envinit(void)
 	return (new_env);
 }
 
-int		main(void)
+t_ast	*ft_build_ast(char *cmd, char **env)
 {
 	t_ast		*root;
 	t_tokens	*head;
-	char		*cmd;
-	int			*and_or;
-	char		**env;
-	t_hist		*his;
-
 
 	head = NULL;
-	env = ft_envinit();
-	tcgetattr(0, &g_saved_attributes);
-	his = open_hist();
+	root = NULL;
+	ft_stageone_tokenizer(&head, cmd, g_seperators);
+	if (head)
+	{
+		ft_get_cmd(head, env);
+		if ((root = ft_parse(head)) == NULL)
+			ft_putendl_fd("21sh: parse error", 2);
+	}
+	return (root);
+}
+
+void	ft_prompt(t_hist *his, char **env)
+{
+	char		*cmd;
+	t_tokens	*head;
+	t_ast		*root;
+
 	if (!term_set())
 	{
 		while (1)
@@ -72,21 +81,12 @@ int		main(void)
 			if ((cmd = get_line(&his, NULL, 1)))
 			{
 				write(1, "\n", 1);
-				ft_tokenize(&head, cmd, g_seperators);
-				if (head)
-				{
-					ft_get_cmd(head, env);
-					if ((root = ft_parse(head)) == NULL)
-						ft_putendl_fd("21sh: parse error", 2);
-					else
-					{
-						and_or = ft_trav_exec(root, &env);
-						and_or[0] = -1;
-						and_or[1] = -1;
-					}
-					ft_free_ast(&root);
-					head = NULL;
-				}
+				if ((root = ft_build_ast(cmd, env)) == NULL)
+					ft_putendl_fd("21sh: parse error", 2);
+				else
+					ft_trav_exec(root, &env);
+				ft_free_ast(&root);
+				head = NULL;
 				ft_memdel((void **)&cmd);
 			}
 			else
@@ -94,4 +94,16 @@ int		main(void)
 		}
 		ft_free_arr(env);
 	}
+}
+
+int		main(void)
+{
+	char		**env;
+	t_hist		*his;
+
+	env = ft_envinit();
+	tcgetattr(0, &g_saved_attributes);
+	his = open_hist();
+	ft_prompt(his, env);
+	return (0);
 }

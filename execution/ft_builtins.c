@@ -6,13 +6,25 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 13:54:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/13 18:19:59 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/17 12:34:35 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
+#include "errors.h"
 
-int		ft_echo(char **command, char ***env)
+const t_builtin_matcher	g_builtin_tab[7] =
+{
+	{"echo", &ft_echo},
+	{"exit", &ft_exit},
+	{"cd", &ft_changedir},
+	{"setenv", &ft_setenv},
+	{"unsetenv", &ft_unsetenv},
+	{"env", &ft_env},
+	{NULL, NULL},
+};
+
+int						ft_echo(char **command, char ***env)
 {
 	unsigned int	index;
 
@@ -29,7 +41,7 @@ int		ft_echo(char **command, char ***env)
 	return (1);
 }
 
-int		ft_exit(char **command, char ***env)
+int						ft_exit(char **command, char ***env)
 {
 	unsigned int	i;
 	int				status;
@@ -50,7 +62,7 @@ int		ft_exit(char **command, char ***env)
 	return (0);
 }
 
-int		ft_changedir(char **command, char ***env)
+int						ft_changedir(char **command, char ***env)
 {
 	unsigned int	size;
 	char			*path;
@@ -76,4 +88,34 @@ int		ft_changedir(char **command, char ***env)
 		ft_memdel((void**)&path);
 	}
 	return (g_exit_code);
+}
+
+t_builtin_function		*is_builtin(char **cmd)
+{
+	uint i;
+
+	i = 0;
+	while (i < 6)
+	{
+		if (!ft_strcmp(g_builtin_tab[i].name, cmd[0]))
+			return (g_builtin_tab[i].function);
+		i++;
+	}
+	return (NULL);
+}
+
+void					ft_builtin_exec(t_builtin_function *builtin, \
+						t_tokens *lst, char **cmd, char ***env)
+{
+	reset_stds(1, 0);
+	ft_set_redirs(lst);
+	if (g_exit_code)
+		ft_errors();
+	else
+	{
+		builtin(cmd, env);
+		if (g_exit_code)
+			ft_errors();
+	}
+	reset_stds(0, 1);
 }

@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 20:30:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/12 12:39:37 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/16 14:07:57 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,52 +16,10 @@
 #define RD 0
 #define WR 1
 
-extern int g_exit_code;
-extern t_processes *g_procs_lst;
+extern int			g_exit_code;
+extern t_processes	*g_procs_lst;
 
-t_processes		*ft_lstnew_tprocs(pid_t pid)
-{
-	t_processes		*new_node;
-
-	if ((new_node = ft_memalloc(sizeof(t_processes))) == NULL)
-		exit(ENOMEM);
-	new_node->pid = pid;
-	return (new_node);
-}
-
-void			ft_add_process(t_processes **lst, pid_t pid)
-{
-	t_processes	*list;
-
-	if (lst == NULL)
-		return ;
-	if (*lst == NULL)
-		*lst = ft_lstnew_tprocs(pid);
-	else
-	{
-		list = *lst;
-		while (list)
-		{
-			if (list->next)
-				list = list->next;
-			else
-				break ;
-		}
-		list->next = ft_lstnew_tprocs(pid);
-	}
-	return ;
-}
-
-void			ft_lstprocs_wait(t_processes *lst)
-{
-	while (lst)
-	{
-		waitpid(lst->pid, NULL, 0);
-		lst = lst->next;
-	}
-}
-
-int				*ft_create_pipe(void)
+int					*ft_create_pipe(void)
 {
 	int		*newpipefd;
 
@@ -71,7 +29,7 @@ int				*ft_create_pipe(void)
 	return (newpipefd);
 }
 
-void			ft_set_pipe(int read_end, int write_end)
+void				ft_set_pipe(int read_end, int write_end)
 {
 	if (read_end > 0)
 		dup2(read_end, STDIN_FILENO);
@@ -79,8 +37,8 @@ void			ft_set_pipe(int read_end, int write_end)
 		dup2(write_end, STDOUT_FILENO);
 }
 
-int				ft_dup_exec(t_tokens *lst, int write_end, \
-				int read_end, char ***env)
+int					ft_dup_exec(t_tokens *lst, int write_end, \
+					int read_end, char ***env)
 {
 	pid_t				pid;
 	char				**command;

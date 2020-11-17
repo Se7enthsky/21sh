@@ -63,10 +63,13 @@ typedef struct	s_id
  *  Lexer Functions.
  */
 
-void	ft_tokenize(t_tokens **head, char *command, const t_id seps[]);
+void	ft_stageone_tokenizer(t_tokens **head, char *command, const t_id seps[]);
+void	ft_stagetwo_tokenizer(t_tokens **head, char *command);
 int		ft_strchri(const char *str, char c);
 int		ft_get_tokenid(const char *value, int id);
 char	*ft_get_token_name(int id);
+char	*ft_replace_variables(char *value, char **env);
+char	*ft_replace_home(char *value, char **env);
 
 /*
  * Functions for manipulating tokens list.

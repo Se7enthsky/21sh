@@ -6,21 +6,11 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:37:46 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/13 18:15:28 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/17 14:06:25 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-t_ast	*ft_new_astnode(t_tokens *node)
-{
-	t_ast	*ast_node;
-
-	if (!(ast_node = ft_memalloc(sizeof(t_ast))))
-		exit(ENOMEM);
-	ast_node->token = node;
-	return (ast_node);
-}
 
 void	ft_fill_ast(t_ast *root, t_tokens *left,\
 		t_tokens *current, t_tokens *right)
@@ -76,7 +66,7 @@ void	ft_ast_insert(t_ast **root, int token_id)
 	ft_ast_insert(&(*root)->right, token_id);
 }
 
-t_ast	*ft_build_ast(t_tokens *lst)
+t_ast	*ft_split_list(t_tokens *lst)
 {
 	t_ast			*root;
 	const int		seperators[4] = {SEMI, AND, OR, PIPE};
@@ -98,7 +88,7 @@ t_ast	*ft_parse(t_tokens *lst)
 
 	if (ft_verify_syntax(lst) == 0)
 		return (NULL);
-	root = ft_build_ast(lst);
+	root = ft_split_list(lst);
 	if (ft_traverse_verify(root) == 0)
 		return (NULL);
 	ft_find_heredoc(root);

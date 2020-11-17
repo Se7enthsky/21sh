@@ -35,7 +35,6 @@ void	ft_lstprocs_wait(t_processes *lst);
 int		*ft_create_pipe(void);
 int		ft_dupexecute(t_tokens *lst, int write_end, int read_end, char ***env);
 int		*ft_handle_pipe(t_tokens *lst, int *pipefd, char ***env);
-char	**ft_lsttoa(t_tokens *list);
 
 /*
  *  Function for handling different kinds of redirections, in redirs.c file
@@ -66,5 +65,22 @@ void	ft_replace_env(char *var_name, char *new_value, char **env);
 int		ft_find_replace(char *var, char *new_value, char **env);
 int		ft_append_env(char *var_name, char *value, char ***env);
 int		ft_replace_add_env(char *cmd, char ***env);
+char	**ft_getpath(char **env);
+
+/*
+ *	Functions for dealing with processes created with pipes.
+ */
+
+void	ft_add_process(t_processes **lst, pid_t pid);
+void	ft_lstprocs_wait(t_processes *lst);
+
+/*
+ *	Functions in ft_execute_helpers.c for helping with execution.
+ */
+
+char	*ft_find_executable(char *bin, char **env);
+void	reset_stds(int save, int reset);
+char	**ft_lsttoa(t_tokens *list);
+void	ft_reset(int *and_or);
 
 #endif

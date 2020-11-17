@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tokenize.c                                      :+:      :+:    :+:   */
+/*   ft_stageone_tokenizer.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 13:06:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/13 18:24:55 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/16 17:12:37 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_split_commande(t_tokens **head, char *cmd, int start, size_t len)
 	ft_memdel((void**)&value);
 }
 
-void	ft_tokenize(t_tokens **head, char *command, const t_id seps[])
+void	ft_stageone_tokenizer(t_tokens **head, char *command, const t_id seps[])
 {
 	int		i;
 	int		sep_index;

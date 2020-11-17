@@ -15,6 +15,9 @@ struct  s_ast
 };
 
 void    ft_free_arr(char **ar);
+int		ft_compare_token(int token_id, int alt[]);
+void	ft_get_alernative_ids(int token_id, int alt[], int size);
+t_ast	*ft_new_astnode(t_tokens *node);
 
 /*
  *	Functions to verify syntax in both stages
@@ -29,4 +32,6 @@ int		ft_traverse_verify(t_ast *root);
  */
 
 void    ft_find_heredoc(t_ast *root);
+
+#define ARRAY_SIZE 13
 #endif
