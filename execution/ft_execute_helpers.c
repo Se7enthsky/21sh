@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:34:21 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/16 14:34:22 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/18 13:33:50 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ char		*ft_search_path(char *binary, char **env)
 
 	i = 0;
 	path_bin = NULL;
-	if ((paths = ft_getpath(env)) != NULL)
+	paths = ft_getpath(env);
+	if (paths != NULL)
 	{
 		while (paths[i])
 		{
@@ -72,7 +73,9 @@ char		*ft_search_path(char *binary, char **env)
 		}
 	}
 	else
+	{
 		g_exit_code = 1;
+	}
 	ft_free_arr(paths);
 	return (path_bin);
 }

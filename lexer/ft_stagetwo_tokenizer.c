@@ -6,12 +6,20 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 14:04:24 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/16 17:18:23 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/18 12:12:15 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenize.h"
 #include "execute.h"
+
+static int		is_ws(char c)
+{
+	if (c == ' ' || c == '\n' || c == '\t')
+		return (1);
+	else
+		return (0);
+}
 
 char	*cut_append_qstring(t_tokens **head, char *command)
 {
@@ -35,7 +43,7 @@ char	*cut_append_word(t_tokens **head, char *command)
 	char			*value;
 
 	i = 0;
-	while (command[i] && !IS_WS(command[i]) && \
+	while (command[i] && !is_ws(command[i]) && \
 		command[i] != '\"' && command[i] != '\'')
 		i++;
 	value = ft_strsub(command, 0, i);
@@ -63,7 +71,7 @@ void	ft_stagetwo_tokenizer(t_tokens **head, char *command)
 		else
 		{
 			i = 0;
-			while (*command && IS_WS(*command))
+			while (*command && is_ws(*command))
 				command++;
 			if (*command && *command != '\'' && *command != '\"')
 				command = cut_append_word(head, command);

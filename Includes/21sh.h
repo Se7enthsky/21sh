@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <readline/readline.h>
-#include "libft.h"
+#include "../Libft/libft.h"
 #include <errno.h>
 #include <unistd.h>
 

@@ -3,68 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 11:48:41 by awali-al          #+#    #+#             */
-/*   Updated: 2018/10/20 22:04:46 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/18 13:27:48 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	**job(const char *s, char c)
+static int		countwords(char const *str, char c)
 {
-	int		i;
-	int		j;
-	char	**ar;
+	int count;
+	int is_word;
 
-	i = 1;
-	j = 0;
-	if (!s)
-		return (NULL);
-	if (s[0] != c)
-		j++;
-	while (s[i])
+	count = 0;
+	is_word = 0;
+	while (*str)
 	{
-		if (s[i] == c && s[i + 1] != c && s[i + 1])
-			j++;
-		i++;
+		if ((*str == c))
+		{
+			(void)(is_word && count++);
+			is_word = 0;
+		}
+		else
+			is_word = 1;
+		str++;
 	}
-	if (j == 0)
-	{
-		ar = (char**)malloc(sizeof(char*));
-		ar[0] = ft_strnew(1);
-		return (ar);
-	}
-	if (!(ar = (char**)malloc((j + 1) * sizeof(char*))))
-		return (NULL);
-	return (ar);
+	(void)(is_word && count++);
+	return (count);
 }
 
-char		**ft_strsplit(const char *s, char c)
+static int		cnt_ch(char const *s, char c)
 {
-	char	**ar;
+	int i;
+
+	i = 0;
+	while (s[i] != '\0' && (s[i] == c))
+		i++;
+	return (i);
+}
+
+char			**ft_strsplit(char const *s, char c)
+{
+	char	**res;
 	int		i;
 	int		j;
 	int		k;
 
 	i = 0;
 	j = 0;
-	if (!(ar = job(s, c)))
+	if (!s || !(res = malloc(sizeof(char*) * (countwords(s, c) + 1))))
 		return (NULL);
-	while (s[i] != '\0')
+	while (s[i])
 	{
-		k = 0;
-		while (s[i + k] != '\0' && s[i + k] != c)
-			k++;
-		if (k > 0)
+		while ((s[i] == c) && s[i])
+			i++;
+		if (s[i])
 		{
-			ar[j] = ft_strsub(s, i, k);
-			j++;
-			i = i + k - 1;
+			k = 0;
+			if (!(res[j] = malloc(sizeof(char) * cnt_ch(s + i, c) + 1)))
+				return (NULL);
+			while ((s[i] == c) && s[i])
+				res[j][k++] = s[i++];
+			res[j++][k] = '\0';
 		}
-		i++;
 	}
-	ar[j] = NULL;
-	return (ar);
+	res[j] = NULL;
+	return (res);
 }
