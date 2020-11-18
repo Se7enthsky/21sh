@@ -6,14 +6,14 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 14:04:24 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/18 12:12:15 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/18 14:43:55 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenize.h"
 #include "execute.h"
 
-static int		is_ws(char c)
+static int	is_ws(char c)
 {
 	if (c == ' ' || c == '\n' || c == '\t')
 		return (1);
@@ -21,7 +21,7 @@ static int		is_ws(char c)
 		return (0);
 }
 
-char	*cut_append_qstring(t_tokens **head, char *command)
+char		*cut_append_qstring(t_tokens **head, char *command)
 {
 	char	*temp;
 	char	*value;
@@ -37,7 +37,7 @@ char	*cut_append_qstring(t_tokens **head, char *command)
 	return (temp);
 }
 
-char	*cut_append_word(t_tokens **head, char *command)
+char		*cut_append_word(t_tokens **head, char *command)
 {
 	unsigned int	i;
 	char			*value;
@@ -51,7 +51,7 @@ char	*cut_append_word(t_tokens **head, char *command)
 	return (command + i);
 }
 
-void	ft_stagetwo_tokenizer(t_tokens **head, char *command)
+void		ft_stagetwo_tokenizer(t_tokens **head, char *command)
 {
 	uint	i;
 

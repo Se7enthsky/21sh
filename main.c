@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 02:02:23 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/18 13:09:10 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/18 14:46:44 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,17 @@ t_ast	*ft_build_ast(char *cmd, char **env)
 	{
 		ft_get_cmd(head, env);
 		if ((root = ft_parse(head)) == NULL)
-			ft_putendl_fd("21sh: parse error", 2);
+			return (NULL);
 	}
 	return (root);
 }
 
-void	ft_prompt(t_hist *his)
+void	ft_prompt(t_hist *his, char **env)
 {
 	char		*cmd;
 	t_tokens	*head;
 	t_ast		*root;
-	char		**env;
 
-	env = ft_envinit();
 	if (!term_set())
 	{
 		while (1)
@@ -101,9 +99,11 @@ void	ft_prompt(t_hist *his)
 int		main(void)
 {
 	t_hist		*his;
+	char		**env;
 
+	env = ft_envinit();
 	tcgetattr(0, &g_saved_attributes);
 	his = open_hist();
-	ft_prompt(his);
+	ft_prompt(his, env);
 	return (0);
 }

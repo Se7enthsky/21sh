@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 18:19:28 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/18 13:32:45 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/18 13:48:53 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_setenv(char **command, char ***env)
 		if (ft_strchr(command[i], '=') == 0)
 		{
 			ft_putendl_fd("Usage: setenv VARIABLE=VALUE", 2);
-			g_exit_code = 1;
+			g_exit_code = 5;
 			return (g_exit_code);
 		}
 		i++;

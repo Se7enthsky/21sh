@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 12:43:24 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/17 12:44:13 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/18 14:30:45 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_get_alernative_ids(int token_id, int alt[], int size)
 		alt[0] = (token_id == DLESS) ? DELIMITER : FILENAME;
 		i = 1;
 	}
-	else if (token_id >= 12 && token_id <= 17)
+	else if (token_id >= 12 && token_id <= 18)
 		i = function(alt);
 	while (i < size)
 		alt[i++] = 0;

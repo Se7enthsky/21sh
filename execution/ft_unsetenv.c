@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:41:00 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/16 14:55:50 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/18 13:56:50 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ int		ft_unsetenv(char **command, char ***env)
 
 	j = 0;
 	size = ft_arraysize(command);
+	if (size < 2)
+	{
+		ft_putendl_fd("Usage: unsetenv VAR", 2);
+		g_exit_code = 5;
+		return (1);
+	}
 	if (size > 2)
 	{
 		g_exit_code = 2;
