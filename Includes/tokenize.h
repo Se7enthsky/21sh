@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenize.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/19 18:45:57 by awali-al          #+#    #+#             */
+/*   Updated: 2020/11/19 18:54:16 by awali-al         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef TOKENIZE_H
-#define TOKENIZE_H
-#include "21sh.h"
+# define TOKENIZE_H
+# include "to_sh.h"
 
 /*
- * List of all available tokens.
- */
+** List of all available tokens.
+*/
 
 # define SIMPLE_COMMAND	1
 # define PIPE			2
@@ -28,56 +40,57 @@
 # define DELIMITER		19
 
 /*
- * Ends Here.
- */
-
+** Ends Here.
+*/
 
 /*
- * Tokens linked list.
- */
+** Tokens linked list.
+*/
 
-typedef struct	s_tokens t_tokens;
+typedef struct s_tokens	t_tokens;
 
-struct	s_tokens
+struct					s_tokens
 {
-    char		*value;
-    char        *heredoc;
-    int			token_id;
-    int			pipe_after;
-    int			pipe_before;
-    t_tokens	*next;
-    t_tokens	*command_tokens;
+	char				*value;
+	char				*heredoc;
+	int					token_id;
+	int					pipe_after;
+	int					pipe_before;
+	t_tokens			*next;
+	t_tokens			*command_tokens;
 };
 
 /*
- * Struct of tokens and their identifier.
- */
+** Struct of tokens and their identifier.
+*/
 
-typedef struct	s_id
+typedef struct			s_id
 {
-    char		*token_value;
-    int         id;
-	char		*name;
-}				t_id;
+	char				*token_value;
+	int					id;
+	char				*name;
+}						t_id;
 
 /*
- *  Lexer Functions.
- */
+**  Lexer Functions.
+*/
 
-void	ft_stageone_tokenizer(t_tokens **head, char *command, const t_id seps[]);
-void	ft_stagetwo_tokenizer(t_tokens **head, char *command);
-int		ft_strchri(const char *str, char c);
-int		ft_get_tokenid(const char *value, int id);
-char	*ft_get_token_name(int id);
-char	*ft_replace_variables(char *value, char **env);
-char	*ft_replace_home(char *value, char **env);
+void					ft_stageone_tokenizer(t_tokens **head, char *command,
+		const t_id seps[]);
+void					ft_stagetwo_tokenizer(t_tokens **head, char *command);
+int						ft_strchri(const char *str, char c);
+int						ft_get_tokenid(const char *value, int id);
+char					*ft_get_token_name(int id);
+char					*ft_replace_variables(char *value, char **env);
+char					*ft_replace_home(char *value, char **env);
 
 /*
- * Functions for manipulating tokens list.
- */
+** Functions for manipulating tokens list.
+*/
 
-t_tokens	*ft_lstnew_token(int token, char *value);
-void		ft_lstdel_token(t_tokens **node);
-void		ft_lstappend_token(t_tokens **node, int token, char *value);
+t_tokens				*ft_lstnew_token(int token, char *value);
+void					ft_lstdel_token(t_tokens **node);
+void					ft_lstappend_token(t_tokens **node, int token,
+		char *value);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 02:02:23 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/19 13:32:23 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/19 18:38:09 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 #include <unistd.h>
 
 /*
- *  Seperators for the full command, coming directly from user input.
- *  Example of full command :
- *  "echo "foo" >> bar | pwd cat -e << EOF && ls -l dir1 dir2"
- */
+**  Seperators for the full command, coming directly from user input.
+**  Example of full command :
+**  "echo "foo" >> bar | pwd cat -e << EOF && ls -l dir1 dir2"
+*/
 
 static const t_id	g_seperators[] =
 {

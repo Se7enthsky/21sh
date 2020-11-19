@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_verify_syntx.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 17:52:45 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/17 12:44:16 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/19 18:37:48 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
 /*
- * First check of syntax
- */
+** First check of syntax
+*/
 
 int		ft_verify_syntax(t_tokens *lst)
 {

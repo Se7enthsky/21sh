@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   to_sh.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/19 18:51:10 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/19 18:54:22 by awali-al         ###   ########.fr       */
+/*   Created: 2020/11/19 18:54:33 by awali-al          #+#    #+#             */
+/*   Updated: 2020/11/19 18:55:09 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "to_sh.h"
-# include "tokenize.h"
-# include "parser.h"
+#ifndef TO_SH_H
+# define TO_SH_H
 
-typedef struct		s_env
-{
-	char			**env;
-	unsigned int	size;
-}					t_env;
-
-void				ft_get_cmd(t_tokens *head, char **env);
-t_ast				*ft_parse(t_tokens *lst);
-void				ft_trav_exec(t_ast *root, char ***env);
-int					ft_arraysize(char **ar);
-void				ft_free_ast(t_ast **root);
+# include <stdio.h>
+# include <readline/readline.h>
+# include "../Libft/libft.h"
+# include <errno.h>
+# include <unistd.h>
 
 #endif

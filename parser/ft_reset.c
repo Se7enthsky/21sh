@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_reset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 14:22:46 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/17 14:23:40 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/19 18:38:22 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 
 /*
- *  squeeze me, bsala dyal norm, my bad.
- */
+**  squeeze me, bsala dyal norm, my bad.
+*/
 
 void	ft_reset(int *and_or)
 {

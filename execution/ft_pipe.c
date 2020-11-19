@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+*/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
@@ -63,9 +63,9 @@ int					ft_dup_exec(t_tokens *lst, int write_end, \
 }
 
 /*
- * Create pipe for reading and writing,
- *	and pass it to ft_dupexecute for executing.
- */
+** Create pipe for reading and writing,
+**	and pass it to ft_dupexecute for executing.
+*/
 
 int					*ft_handle_pipe(t_tokens *lst, int *pipefd, char ***env)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/18 13:11:14 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/19 18:56:22 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ int			ft_run_command(t_tokens *lst, char ***env)
 }
 
 /*
- * If the command is followed or proceeded by pipe, ft_handle_pipe will setup
- * the correct redirections and execute
- * else ft_run_command will execute the command.
- */
+** If the command is followed or proceeded by pipe, ft_handle_pipe will setup
+** the correct redirections and execute
+** else ft_run_command will execute the command.
+*/
 
 int			ft_execute(t_tokens *lst, char ***env)
 {
@@ -85,8 +85,8 @@ int			ft_execute(t_tokens *lst, char ***env)
 }
 
 /*
- * Traverse AST and execute the token linked list.
- */
+** Traverse AST and execute the token linked list.
+*/
 
 void		ft_trav_exec(t_ast *root, char ***env)
 {

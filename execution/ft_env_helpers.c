@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_helpers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 12:43:19 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/13 18:30:53 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/19 18:56:51 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ int		ft_append_env(char *var_name, char *value, char ***env)
 }
 
 /*
- *	Get the name and value pair (NAME=VALUE), find the right
- *	enviroment variable and replace it in the env array, else
- *	append it to the end of the list.
- */
+**	Get the name and value pair (NAME=VALUE), find the right
+**	enviroment variable and replace it in the env array, else
+**	append it to the end of the list.
+*/
 
 int		ft_replace_add_env(char *cmd, char ***env)
 {

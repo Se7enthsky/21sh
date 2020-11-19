@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 12:43:04 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/19 16:19:09 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/19 18:41:55 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,10 @@ int		ft_set_redirs(t_tokens *lst)
 		if ((lst->token_id == GREAT) || (lst->token_id == DGREAT))
 		{
 			if (lst->token_id == GREAT)
-				ft_redirect_to_file(O_TRUNC | O_WRONLY | O_CREAT, \
+				ft_redirect_to_file(O_TRUNC | O_WRONLY | O_CREAT,
 					1, lst->next->value);
 			else if (lst->token_id == DGREAT)
-				ft_redirect_to_file(O_WRONLY | O_APPEND | O_CREAT, \
+				ft_redirect_to_file(O_WRONLY | O_APPEND | O_CREAT,
 					1, lst->next->value);
 		}
 		else if (lst->token_id == FD_GREAT_AGR || lst->token_id == FD_LESS_AGR)
@@ -100,10 +100,8 @@ int		ft_set_redirs(t_tokens *lst)
 		else if (lst->token_id == FD_FILE)
 			ft_fd_to_file(lst->value);
 		else if (lst->token_id == FD_GREAT)
-		{
-			ft_redirect_to_file(O_TRUNC | O_WRONLY | O_CREAT, \
-			lst->value[0] - 48, lst->next->value);
-		}
+			ft_redirect_to_file(O_TRUNC | O_WRONLY | O_CREAT,
+					lst->value[0] - 48, lst->next->value);
 		else if (lst->token_id == DLESS)
 			ft_heredoc(lst->heredoc);
 		else if (lst->token_id == LESS)

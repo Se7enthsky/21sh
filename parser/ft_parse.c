@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:37:46 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/19 13:17:09 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/19 18:37:33 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	ft_fill_ast(t_ast *root, t_tokens *left,\
 }
 
 /*
- *	Split linked list by (token_id), adding left half to the left tree node
- *	and right half to the right tree node.
- */
+**	Split linked list by (token_id), adding left half to the left tree node
+**	and right half to the right tree node.
+*/
 
 void	ft_ast_split(t_ast **root, int token_id)
 {
@@ -53,9 +53,9 @@ void	ft_ast_split(t_ast **root, int token_id)
 }
 
 /*
- *	Traverse Tree and split each linked list inside the node
- *	in the tree by (token_id)
- */
+**	Traverse Tree and split each linked list inside the node
+**	in the tree by (token_id)
+*/
 
 void	ft_ast_insert(t_ast **root, int token_id)
 {

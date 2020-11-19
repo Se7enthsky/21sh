@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tools.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 12:52:46 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/19 12:41:01 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/19 18:40:34 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenize.h"
 
 /*
- * Tokens
- */
+** Tokens
+*/
 
 static const t_id g_tokens[] =
 {
@@ -49,19 +49,17 @@ int		ft_get_tokenid(const char *value, int id)
 
 	i = 0;
 	len = ft_strlen(value);
-	if (id == WORD && len >= 2)
+	if (id == WORD && len >= 2 && (ft_isdigit(*value) &&
+			(*(value + 1) == '>' || *(value + 1) == '<')))
 	{
-		if (ft_isdigit(*value) && (*(value + 1) == '>' || *(value + 1) == '<'))
-		{
-			if (len > 2 && value[2] == '&' && value[1] == '>')
-				return (FD_GREAT_AGR);
-			else if (len > 2 && value[2] == '&' && value[1] == '<')
-				return (FD_LESS_AGR);
-			else if (len > 2 && value[2] != '&')
-				return (FD_FILE);
-			else if (len == 2 && *(value + 1) == '>')
-				return (FD_GREAT);
-		}
+		if (len > 2 && value[2] == '&' && value[1] == '>')
+			return (FD_GREAT_AGR);
+		else if (len > 2 && value[2] == '&' && value[1] == '<')
+			return (FD_LESS_AGR);
+		else if (len > 2 && value[2] != '&')
+			return (FD_FILE);
+		else if (len == 2 && *(value + 1) == '>')
+			return (FD_GREAT);
 	}
 	while (i < 8)
 	{
