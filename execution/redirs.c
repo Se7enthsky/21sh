@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 12:43:04 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/12 12:59:28 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/19 16:19:09 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,15 @@ int		ft_set_redirs(t_tokens *lst)
 				ft_redirect_to_file(O_WRONLY | O_APPEND | O_CREAT, \
 					1, lst->next->value);
 		}
-		else if (lst->token_id == FD_AGR)
+		else if (lst->token_id == FD_GREAT_AGR || lst->token_id == FD_LESS_AGR)
 			ft_fdagr(lst->value);
 		else if (lst->token_id == FD_FILE)
 			ft_fd_to_file(lst->value);
 		else if (lst->token_id == FD_GREAT)
+		{
 			ft_redirect_to_file(O_TRUNC | O_WRONLY | O_CREAT, \
-			lst->value[0], lst->next->value);
+			lst->value[0] - 48, lst->next->value);
+		}
 		else if (lst->token_id == DLESS)
 			ft_heredoc(lst->heredoc);
 		else if (lst->token_id == LESS)

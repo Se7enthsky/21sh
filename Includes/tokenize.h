@@ -21,10 +21,11 @@
 # define WORD           12
 # define SQ_STRING      13
 # define DQ_STRING      14
-# define FD_AGR         15
-# define FD_FILE        16
-# define FILENAME       17
-# define DELIMITER		18
+# define FD_LESS_AGR	15
+# define FD_GREAT_AGR	16
+# define FD_FILE        17
+# define FILENAME       18
+# define DELIMITER		19
 
 /*
  * Ends Here.

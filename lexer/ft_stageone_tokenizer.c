@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 13:06:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/16 17:12:37 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/19 13:14:35 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ uint	find_seperator(const char *command, const t_id seps[], int *sep_index)
 	while (command[i])
 	{
 		j = 0;
+		if (command[i] == '\"' || command[i] == '\'')
+			i += (ft_strchri(command + i + 1, command[i]) + 1) + 1;
 		while (seps[j].token_value)
 		{
 			token_value = seps[j].token_value;

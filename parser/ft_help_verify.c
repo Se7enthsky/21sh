@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 12:43:24 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/18 14:30:45 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/19 12:52:57 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ int		starter_ids(int alt[])
 	alt[1] = WORD;
 	alt[2] = SQ_STRING;
 	alt[3] = DQ_STRING;
-	alt[4] = FD_AGR;
-	alt[5] = FD_FILE;
-	alt[6] = FD_GREAT;
-	i = 7;
+	alt[4] = FD_LESS_AGR;
+	alt[5] = FD_GREAT_AGR;
+	alt[6] = FD_FILE;
+	alt[7] = FD_GREAT;
+	i = 8;
 	return (i);
 }
 
@@ -50,11 +51,12 @@ int		function(int alt[])
 	alt[4] = WORD;
 	alt[5] = SQ_STRING;
 	alt[6] = DQ_STRING;
-	alt[7] = FD_AGR;
-	alt[8] = SEMI;
-	alt[9] = FD_GREAT;
-	alt[10] = FD_FILE;
-	i = 11;
+	alt[7] = FD_GREAT_AGR;
+	alt[8] = FD_LESS_AGR;
+	alt[9] = SEMI;
+	alt[10] = FD_GREAT;
+	alt[11] = FD_FILE;
+	i = 12;
 	return (i);
 }
 
@@ -77,7 +79,7 @@ void	ft_get_alernative_ids(int token_id, int alt[], int size)
 		alt[0] = (token_id == DLESS) ? DELIMITER : FILENAME;
 		i = 1;
 	}
-	else if (token_id >= 12 && token_id <= 18)
+	else if (token_id >= 12 && token_id <= 19)
 		i = function(alt);
 	while (i < size)
 		alt[i++] = 0;
