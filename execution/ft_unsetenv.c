@@ -6,13 +6,13 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:41:00 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/18 13:56:50 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/19 19:43:09 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 
-int		to_remove(char *var_name, char *env_var)
+static int	to_remove(char *var_name, char *env_var)
 {
 	char	*temp;
 	int		remove;
@@ -26,13 +26,28 @@ int		to_remove(char *var_name, char *env_var)
 	return (remove);
 }
 
-int		ft_unsetenv(char **command, char ***env)
+static void	ft_fill_env(char **env, char **new_env, char *to_delete)
+{
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	j = 0;
+	while (env[i])
+	{
+		if (to_remove(to_delete, env[i]) == 0)
+			new_env[j] = ft_strdup(env[i]);
+		j++;
+		i++;
+	}
+	new_env[j] = NULL;
+}
+
+int			ft_unsetenv(char **command, char ***env)
 {
 	char			**new_env;
 	size_t			size;
-	unsigned int	j;
 
-	j = 0;
 	size = ft_arraysize(command);
 	if (size < 2)
 	{
@@ -48,14 +63,7 @@ int		ft_unsetenv(char **command, char ***env)
 	size = ft_arraysize(*env);
 	if ((new_env = malloc(sizeof(char *) * size)) == NULL)
 		exit(ENOMEM);
-	size = 0;
-	while ((*env)[size])
-	{
-		if (to_remove(command[1], (*env)[size]) == 0)
-			new_env[j++] = ft_strdup((*env)[size]);
-		size++;
-	}
-	new_env[j] = NULL;
+	ft_fill_env(*env, new_env, command[1]);
 	free(*env);
 	*env = new_env;
 	return (0);
