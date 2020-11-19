@@ -1,22 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   to_sh.h                                            :+:      :+:    :+:   */
+/*   get_curpos.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/19 18:54:33 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/19 19:08:57 by awali-al         ###   ########.fr       */
+/*   Created: 2020/11/12 18:24:04 by awali-al          #+#    #+#             */
+/*   Updated: 2020/11/19 19:10:50 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TO_SH_H
-# define TO_SH_H
+#include "../Includes/readline.h"
 
-# include <stdio.h>
-# include "Includes/readline.h"
-# include "../Libft/libft.h"
-# include <errno.h>
-# include <unistd.h>
+t_pos	get_curpos(void)
+{
+	t_pos	ret;
+	char	buf[30];
+	int		c;
+	int		i;
 
-#endif
+	ret.col = 0;
+	ret.row = 0;
+	c = 0;
+	i = 0;
+	write(1, "\033[6n", 4);
+	while (c != 'R')
+	{
+		read(0, &c, 1);
+		buf[i] = c;
+		i++;
+	}
+	buf[i] = '\0';
+	ret.col = ft_atoi(ft_strchr(buf, ';') + 1);
+	ret.row = ft_atoi(buf + 2);
+	return (ret);
+}

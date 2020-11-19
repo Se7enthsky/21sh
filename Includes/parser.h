@@ -6,7 +6,7 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:49:07 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/19 18:50:56 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/19 19:08:07 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PARSER_H
 
 # include "tokenize.h"
-# include "../readline/includes/to_sh_rl.h"
+# include "../readline/includes/readline.h"
 
 # define ARRAY_SIZE		13
 
