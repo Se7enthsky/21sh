@@ -6,19 +6,11 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 14:04:24 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/20 10:50:48 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 13:02:36 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
-
-static int	is_ws(char c)
-{
-	if (c == ' ' || c == '\n' || c == '\t')
-		return (1);
-	else
-		return (0);
-}
 
 char		*cut_append_qstring(t_tokens **head, char *command)
 {
@@ -42,7 +34,7 @@ char		*cut_append_word(t_tokens **head, char *command)
 	char			*value;
 
 	i = 0;
-	while (command[i] && !is_ws(command[i]) && \
+	while (command[i] && !is_ws(command[i]) &&
 		command[i] != '\"' && command[i] != '\'')
 		i++;
 	value = ft_strsub(command, 0, i);

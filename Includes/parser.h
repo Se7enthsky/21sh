@@ -6,12 +6,14 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:49:07 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/20 10:42:17 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 11:57:54 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
+
+# include "tokenize.h"
 
 # define ARRAY_SIZE		13
 

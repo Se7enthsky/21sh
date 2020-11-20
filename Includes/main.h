@@ -6,17 +6,17 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:51:10 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/20 10:41:48 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 11:55:00 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_H
 # define MAIN_H
+# include "tokenize.h"
 # include "errors.h"
 # include "execute.h"
-# include "parser"
+# include "parser.h"
 # include "readline.h"
-# include "tokenize.h"
 
 typedef struct		s_env
 {

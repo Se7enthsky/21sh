@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   ft_lstnmap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: awali-al <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/19 18:53:24 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/20 11:55:22 by awali-al         ###   ########.fr       */
+/*   Created: 2018/10/21 23:54:54 by awali-al          #+#    #+#             */
+/*   Updated: 2018/10/22 00:12:53 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include "libft.h"
 
-void	ft_errors(void);
+t_list	*ft_lstnmap(t_list *lst, t_list *(*f)(t_list *elem), int n)
+{
+	t_list	*r;
 
-#endif
+	if (!lst || !n)
+		return (NULL);
+	r = (t_list*)malloc(sizeof(t_list));
+	r = f(lst);
+	r->next = ft_lstnmap(lst->next, f, n - 1);
+	return (r);
+}

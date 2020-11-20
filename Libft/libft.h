@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 23:17:03 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/17 14:46:38 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/20 12:02:48 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,5 @@ size_t			ft_strlen(const char *s);
 void			ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 int				ft_strchri(const char *str, char c);
 int				ft_arraysize(char **ar);
+char			*ft_strndup(const char *s1, size_t n);
 #endif

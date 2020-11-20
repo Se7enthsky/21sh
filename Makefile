@@ -6,7 +6,7 @@
 #    By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/05 14:26:42 by aminewalial       #+#    #+#              #
-#    Updated: 2020/11/20 11:04:19 by awali-al         ###   ########.fr        #
+#    Updated: 2020/11/20 12:14:48 by awali-al         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ ERR_DIR = errors
 
 EXC_DIR = execution
 
-LEX_DIR = lexer˚∑
+LEX_DIR = lexer
 
 LNL_DIR = linked_lists
 
@@ -51,7 +51,7 @@ ft_reset.c ft_verify_syntx.c
 
 RDL_FILES = envirenement.c get_line.c term_set.c edit_in_pos.c \
 arrow_movement.c navigation.c extra.c his_nav.c history.c curmove.c ccp.c \
-positions.c highlight.c my_type.c
+positions.c highlight.c get_curpos.c
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
@@ -74,15 +74,16 @@ LIB = Libft/libft.a
 all : $(NAME)
 
 $(NAME) : $(OBJ) $(HDR)
-	echo $(OBJ)
 	make -C libft/
-	gcc $(FLAGS) -ltermcap -I $(HDR) $(OBJ) $(LIB) -o $(NAME)
+	gcc $(FLAGS) -ltermcap -I $(HDR_DIR) $(OBJ) $(LIB) -o $(NAME)
 
-$(OBJ) : $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | $(OBJ_DIR)
-	gcc $(FLAGS) -c $< -I $(HDR) -o $@
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | $(OBJ_DIR)
+	gcc $(FLAGS) -c $< -I $(HDR_DIR) -o $@
 
 $(OBJ_DIR):
-	mkdir $(OBJ_DIR)
+	mkdir $(OBJ_DIR) $(OBJ_DIR)/$(ERR_DIR) $(OBJ_DIR)/$(EXC_DIR) \
+	$(OBJ_DIR)/$(LEX_DIR) $(OBJ_DIR)/$(LNL_DIR) $(OBJ_DIR)/$(PRS_DIR) \
+	$(OBJ_DIR)/$(RDL_DIR)
 	
 clean :
 	make -C libft/ clean

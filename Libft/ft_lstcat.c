@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   ft_lstcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: awali-al <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/19 18:53:24 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/20 11:55:22 by awali-al         ###   ########.fr       */
+/*   Created: 2018/10/22 01:02:28 by awali-al          #+#    #+#             */
+/*   Updated: 2018/10/22 02:38:57 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include "libft.h"
 
-void	ft_errors(void);
+t_list	*ft_lstcat(t_list *lst1, t_list *lst2)
+{
+	t_list *r;
 
-#endif
+	r = lst1;
+	while (lst1)
+		lst1 = lst1->next;
+	lst1 = lst2;
+	return (r);
+}

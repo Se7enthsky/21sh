@@ -6,15 +6,18 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:42:39 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/20 10:42:08 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 11:57:02 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTE_H
 # define EXECUTE_H
+
 # include <sys/types.h>
 # include <fcntl.h>
 # include <errno.h>
+
+# include "tokenize.h"
 
 typedef int				t_builtin_function();
 int						g_exit_code;
