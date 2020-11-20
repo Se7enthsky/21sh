@@ -6,11 +6,11 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 01:36:11 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/19 19:10:08 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:50:11 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/readline.h"
+#include "../includes/main.h"
 
 static void	cpy(t_line *line)
 {

@@ -6,11 +6,11 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:37:46 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/19 18:37:33 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:50:22 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "../includes/main.h"
 
 void	ft_fill_ast(t_ast *root, t_tokens *left,\
 		t_tokens *current, t_tokens *right)

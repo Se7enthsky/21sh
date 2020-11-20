@@ -6,11 +6,11 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 23:34:31 by aminewalial       #+#    #+#             */
-/*   Updated: 2020/11/19 19:10:46 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:49:58 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/readline.h"
+#include "../includes/main.h"
 
 char	*char_join(char *str, int c)
 {

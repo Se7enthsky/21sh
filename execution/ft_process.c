@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:07:40 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/16 14:07:45 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:51:35 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execute.h"
-#include "tokenize.h"
-#include "errors.h"
+#include "../includes/main.h"
 
 t_processes			*ft_lstnew_tprocs(pid_t pid)
 {

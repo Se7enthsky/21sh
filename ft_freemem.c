@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_freemem.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 02:21:13 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/12 13:29:52 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:49:24 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenize.h"
-#include "parser.h"
+#include "includes/main.h"
 
 void	ft_free_arr(char **ar)
 {

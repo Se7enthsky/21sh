@@ -6,11 +6,11 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 01:29:39 by aminewalial       #+#    #+#             */
-/*   Updated: 2020/11/19 19:11:03 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:49:44 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/readline.h"
+#include "../includes/main.h"
 
 int			lines_in_cmd(char *str, int prm, int col)
 {

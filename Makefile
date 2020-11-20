@@ -6,25 +6,25 @@
 #    By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/05 14:26:42 by aminewalial       #+#    #+#              #
-#    Updated: 2020/11/19 19:37:31 by awali-al         ###   ########.fr        #
+#    Updated: 2020/11/20 11:04:19 by awali-al         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-˜NAME = 21sh
+NAME = 21sh
 
-FLAGS = -g -Wall -Wextra -Werror -ltermcap
+FLAGS = -g -Wall -Wextra -Werror
 
 SRC_DIR = .
 
 OBJ_DIR = .obj
 
-HDR_DIR = Includes
+HDR_DIR = includes
 
 ERR_DIR = errors
 
 EXC_DIR = execution
 
-LEX_DIR = lexer
+LEX_DIR = lexer˚∑
 
 LNL_DIR = linked_lists
 
@@ -32,10 +32,9 @@ PRS_DIR = parser
 
 RDL_DIR = readline
 
-SRC_FILES = $(ERR_FILES) $(EXC_FILES) $(LEX_FILES) $(LNL_FILES) $(PRS_FILES) \
-$(RDL_FILES) main.c ft_freemem.c
+SRC_FILES = $(ERR) $(EXC) $(LEX) $(LNL) $(PRS) $(RDL) main.c ft_freemem.c
 
-HDR_FILES = errors.h execute.h main.h parser.h readline.h to_sh.h tokenize.h
+HDR_FILES = errors.h execute.h main.h parser.h readline.h tokenize.h
 
 ERR_FILES = ft_errors.c
 
@@ -56,27 +55,28 @@ positions.c highlight.c my_type.c
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
-HDR = $(addprefix $(HDR_DIR)/, HDR_FILES)
+HDR = $(addprefix $(HDR_DIR)/, $(HDR_FILES))
 
-ERR = $(addprefix $(ERR_DIR)/, ERR_FILES)
+ERR = $(addprefix $(ERR_DIR)/, $(ERR_FILES))
 
-EXC = $(addprefix $(EXC_DIR)/, EXC_FILES)
+EXC = $(addprefix $(EXC_DIR)/, $(EXC_FILES))
 
-LEX = $(addprefix $(LEX_DIR)/, LEX_FILES)
+LEX = $(addprefix $(LEX_DIR)/, $(LEX_FILES))
 
-LNL = $(addprefix $(LNL_DIR)/, LNL_FILES)
+LNL = $(addprefix $(LNL_DIR)/, $(LNL_FILES))
 
-PRS = $(addprefix $(PRS_DIR)/, PRS_FILES)
+PRS = $(addprefix $(PRS_DIR)/, $(PRS_FILES))
 
-RDL = $(addprefix $(RDL_DIR)/, RDL_FILES)
+RDL = $(addprefix $(RDL_DIR)/, $(RDL_FILES))
 
 LIB = Libft/libft.a
 
 all : $(NAME)
 
 $(NAME) : $(OBJ) $(HDR)
+	echo $(OBJ)
 	make -C libft/
-	gcc $(FLAGS) -I $(HDR) $(OBJ) $(LIB) -o $(NAME) -ltermcap
+	gcc $(FLAGS) -ltermcap -I $(HDR) $(OBJ) $(LIB) -o $(NAME)
 
 $(OBJ) : $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | $(OBJ_DIR)
 	gcc $(FLAGS) -c $< -I $(HDR) -o $@

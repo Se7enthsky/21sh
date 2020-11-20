@@ -6,13 +6,12 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 20:30:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/19 19:04:51 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:51:41 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execute.h"
-#include "tokenize.h"
-#include "errors.h"
+#include "../includes/main.h"
+
 #define RD 0
 #define WR 1
 

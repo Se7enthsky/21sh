@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   t_tokens.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:31:32 by mobounya          #+#    #+#             */
-/*   Updated: 2020/03/11 20:13:47 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:50:32 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenize.h"
+#include "../includes/main.h"
 
 t_tokens	*ft_lstnew_token(int token, char *value)
 {

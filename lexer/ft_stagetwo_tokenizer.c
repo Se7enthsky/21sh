@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_stagetwo_tokenizer.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 14:04:24 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/19 13:11:36 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:50:48 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenize.h"
-#include "execute.h"
+#include "../includes/main.h"
 
 static int	is_ws(char c)
 {

@@ -6,11 +6,11 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 21:09:19 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/19 19:11:24 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:49:36 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/readline.h"
+#include "../includes/main.h"
 
 void	putc_in_pos(char c)
 {

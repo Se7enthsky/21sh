@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_help_verify.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 12:43:24 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/19 12:52:57 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:50:30 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "../includes/main.h"
 
 int		starter_ids(int alt[])
 {

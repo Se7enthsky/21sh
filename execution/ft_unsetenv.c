@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unsetenv.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:41:00 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/19 19:43:09 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:51:30 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execute.h"
+#include "../includes/main.h"
 
 static int	to_remove(char *var_name, char *env_var)
 {

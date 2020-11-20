@@ -6,12 +6,11 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 02:02:23 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/19 18:38:09 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:49:17 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-#include "execute.h"
+#include "includes/main.h"
 #include <sys/errno.h>
 #include <unistd.h>
 

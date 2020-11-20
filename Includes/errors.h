@@ -6,13 +6,12 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:53:24 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/19 18:53:29 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:42:03 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERRORS_H
 # define ERRORS_H
-# include "execute.h"
 
 void	ft_errors(void);
 

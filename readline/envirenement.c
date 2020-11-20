@@ -6,11 +6,11 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 11:06:42 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/19 19:10:42 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:50:00 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/readline.h"
+#include "../includes/main.h"
 
 char		*value_of(char **env, char *key)
 {

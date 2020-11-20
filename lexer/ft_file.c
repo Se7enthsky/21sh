@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_file.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 17:13:11 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/18 13:43:24 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:50:59 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenize.h"
-#include "execute.h"
+#include "../includes/main.h"
 
 void	ft_set_filenames(t_tokens *list)
 {

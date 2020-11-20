@@ -6,11 +6,11 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 12:43:04 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/19 18:41:55 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:51:21 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execute.h"
+#include "../includes/main.h"
 #include <errno.h>
 
 int		ft_redirect_to_file(int oflag, int old_fd, char *filename)

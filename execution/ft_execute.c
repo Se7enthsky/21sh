@@ -6,13 +6,11 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/19 18:56:22 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:51:49 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
-#include "execute.h"
-#include "errors.h"
+#include "../includes/main.h"
 
 t_processes	*g_procs_lst = NULL;
 

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_helpers.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:34:21 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/18 14:42:37 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:51:52 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
-#include "execute.h"
-#include "errors.h"
+#include "../includes/main.h"
 
 void		reset_stds(int save, int reset)
 {

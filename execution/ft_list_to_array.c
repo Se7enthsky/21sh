@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list_to_array.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:36:08 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/16 20:35:21 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:51:45 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "../includes/main.h"
 
 char		*ft_remove_quote(char *value)
 {

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_varsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:55:09 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/17 12:31:08 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:50:43 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenize.h"
-#include "execute.h"
+#include "../includes/main.h"
 
 char	*cut_varname(char *value)
 {

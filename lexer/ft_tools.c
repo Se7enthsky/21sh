@@ -6,11 +6,11 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 12:52:46 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/19 18:40:34 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:50:46 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenize.h"
+#include "../includes/main.h"
 
 /*
 ** Tokens

@@ -6,11 +6,11 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 17:52:45 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/19 18:37:48 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:50:16 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "../includes/main.h"
 
 /*
 ** First check of syntax

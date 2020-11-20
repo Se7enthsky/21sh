@@ -6,11 +6,11 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 20:46:12 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/19 19:10:34 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:50:08 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/readline.h"
+#include "../includes/main.h"
 
 void	cur_begn(t_line *line)
 {

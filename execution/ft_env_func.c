@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_func.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 18:19:28 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/18 13:48:53 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:52:02 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execute.h"
+#include "../includes/main.h"
 
 int		ft_setenv(char **command, char ***env)
 {

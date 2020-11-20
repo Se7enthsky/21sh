@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_new_astnode.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 12:37:34 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/17 12:37:36 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:50:24 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "../includes/main.h"
 
 t_ast	*ft_new_astnode(t_tokens *node)
 {

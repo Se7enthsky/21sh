@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_errors.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 13:15:00 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/11 13:15:06 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:52:10 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "errors.h"
+#include "../includes/main.h"
 
 void		ft_errors(void)
 {

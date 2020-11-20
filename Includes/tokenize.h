@@ -6,13 +6,12 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:45:57 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/19 18:54:16 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:42:25 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZE_H
 # define TOKENIZE_H
-# include "to_sh.h"
 
 /*
 ** List of all available tokens.

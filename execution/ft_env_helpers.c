@@ -6,13 +6,11 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 12:43:19 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/19 18:56:51 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:51:58 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <sys/errno.h>
-#include <stdio.h>
+#include "../includes/main.h"
 
 char	*ft_get_varname(char *cmd)
 {

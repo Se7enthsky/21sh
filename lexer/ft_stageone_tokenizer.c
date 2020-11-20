@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_stageone_tokenizer.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 13:06:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/19 13:14:35 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:50:51 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenize.h"
+#include "../includes/main.h"
 
 uint	find_seperator(const char *command, const t_id seps[], int *sep_index)
 {
