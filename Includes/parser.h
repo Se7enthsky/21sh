@@ -6,7 +6,7 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:49:07 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/20 16:20:19 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 17:49:35 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSER_H
 
 # include "tokenize.h"
+# include "readline.h"
 
 # define ARRAY_SIZE		13
 
@@ -51,6 +52,6 @@ void					ft_find_heredoc(t_ast *root);
 ** checking the quotes and double quotes
 */
 
-void					qdq_checker(char **cmd);
+void					qdq_checker(t_hist **his, char **cmd);
 
 #endif

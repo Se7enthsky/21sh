@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchri.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 18:25:01 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/20 14:35:12 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/20 17:30:14 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,8 @@ int		ft_strchri(const char *str, char c)
 	int i;
 
 	i = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			break ;
+	while (str[i] && str[i] != c)
 		i++;
-	}
 	if (str[i] == '\0')
 		return (-1);
 	return (i);

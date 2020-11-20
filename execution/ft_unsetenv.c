@@ -6,7 +6,7 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:41:00 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/20 10:51:30 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 18:43:54 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static int	to_remove(char *var_name, char *env_var)
 	temp = ft_get_varname(env_var);
 	if (ft_strcmp(var_name, temp) == 0)
 		remove = 1;
-	free(env_var);
 	free(temp);
 	return (remove);
 }
@@ -36,8 +35,10 @@ static void	ft_fill_env(char **env, char **new_env, char *to_delete)
 	while (env[i])
 	{
 		if (to_remove(to_delete, env[i]) == 0)
+		{
 			new_env[j] = ft_strdup(env[i]);
-		j++;
+			j++;
+		}
 		i++;
 	}
 	new_env[j] = NULL;

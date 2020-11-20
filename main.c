@@ -6,7 +6,7 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 02:02:23 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/20 16:17:34 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 19:28:42 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,26 @@ t_ast	*ft_build_ast(char *cmd, char **env)
 	return (root);
 }
 
-void	ft_prompt(t_hist *his, char **env)
+void	ft_prompt(t_hist *his)
 {
 	char		*cmd;
 	t_tokens	*head;
 	t_ast		*root;
+	char		**env;
+	char		*temp;
 
+	env = ft_envinit();
 	if (!term_set())
 	{
 		while (1)
 		{
-			if ((cmd = get_line(&his, NULL, 1)) && *cmd)
+			cmd = get_line(&his, NULL, 1);
+			temp = cmd;
+			cmd = ft_strtrim(cmd);
+			if (cmd && *cmd)
 			{
-				qdq_checker(&cmd);
+				qdq_checker(&his, &cmd);
+				add_to_history(&his, cmd);
 				write(1, "\n", 1);
 				if ((root = ft_build_ast(cmd, env)) == NULL)
 					ft_putendl_fd("21sh: parse error", 2);
@@ -99,12 +106,10 @@ void	ft_prompt(t_hist *his, char **env)
 void	init_prompt(void)
 {
 	t_hist		*his;
-	char		**env;
 
-	env = ft_envinit();
 	tcgetattr(0, &g_saved_attributes);
 	his = open_hist();
-	ft_prompt(his, env);
+	ft_prompt(his);
 }
 
 void	ft_sig_handler(int signo)
