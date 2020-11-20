@@ -6,7 +6,7 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:49:07 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/20 11:57:54 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/20 16:20:19 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,11 @@ int						ft_traverse_verify(t_ast *root);
 */
 
 void					ft_find_heredoc(t_ast *root);
+
+/*
+** checking the quotes and double quotes
+*/
+
+void					qdq_checker(char **cmd);
 
 #endif

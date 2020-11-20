@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 02:02:23 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/20 13:11:47 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/20 16:17:34 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_prompt(t_hist *his, char **env)
 		{
 			if ((cmd = get_line(&his, NULL, 1)) && *cmd)
 			{
-				
+				qdq_checker(&cmd);
 				write(1, "\n", 1);
 				if ((root = ft_build_ast(cmd, env)) == NULL)
 					ft_putendl_fd("21sh: parse error", 2);
