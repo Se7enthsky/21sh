@@ -6,7 +6,7 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 12:43:04 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/20 10:51:21 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/21 17:47:59 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_heredoc(char *value)
 	int		fd;
 	char	*doc_file;
 
-	doc_file = "/Users/mobounya/Library/.temp";
+	doc_file = ft_strjoin(getenv("HOME"), "/.temp");
 	fd = open(doc_file, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	write(fd, value, ft_strlen(value));
 	close(fd);

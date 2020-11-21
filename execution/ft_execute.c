@@ -6,11 +6,13 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/20 18:21:56 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/21 17:31:43 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
+
+int					g_pid;
 
 t_processes	*g_procs_lst = NULL;
 
@@ -40,15 +42,14 @@ void		ft_exec_command(t_tokens *lst, char **command, char **env)
 
 void		ft_bin_exec(t_tokens *lst, char **cmd, char **env)
 {
-	int		pid;
 
-	if ((pid = fork()) == 0)
+	if ((g_pid = fork()) == 0)
 	{
 		ft_exec_command(lst, cmd, env);
 		exit(g_exit_code);
 	}
 	else
-		waitpid(pid, &g_exit_code, 0);
+		waitpid(g_pid, &g_exit_code, 0);
 }
 
 int			ft_run_command(t_tokens *lst, char ***env)
@@ -86,12 +87,12 @@ int			ft_execute(t_tokens *lst, char ***env)
 ** Traverse AST and execute the token linked list.
 */
 
-void		ft_trav_exec(t_ast *root, char ***env)
+int		*ft_trav_exec(t_ast *root, char ***env)
 {
 	static int		and_or[2] = {-1, -1};
 
 	if (root == NULL)
-		return ;
+		return (and_or);
 	ft_trav_exec(root->left, env);
 	if (root->token->token_id == OR)
 		and_or[1] = 1;
@@ -110,4 +111,5 @@ void		ft_trav_exec(t_ast *root, char ***env)
 		}
 	}
 	ft_trav_exec(root->right, env);
+	return (and_or);
 }

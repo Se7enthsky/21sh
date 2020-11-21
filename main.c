@@ -6,7 +6,7 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 02:02:23 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/20 19:28:42 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/21 18:38:34 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,14 @@ void	ft_prompt(t_hist *his)
 	t_ast		*root;
 	char		**env;
 	char		*temp;
+	int			*and_or;
 
 	env = ft_envinit();
 	if (!term_set())
 	{
 		while (1)
 		{
-			cmd = get_line(&his, NULL, 1);
+			cmd = get_line(&his, NULL, g_exit_code);
 			temp = cmd;
 			cmd = ft_strtrim(cmd);
 			if (cmd && *cmd)
@@ -91,7 +92,10 @@ void	ft_prompt(t_hist *his)
 				if ((root = ft_build_ast(cmd, env)) == NULL)
 					ft_putendl_fd("21sh: parse error", 2);
 				else
-					ft_trav_exec(root, &env);
+				{
+					and_or = ft_trav_exec(root, &env);
+					ft_reset(and_or);
+				}
 				ft_free_ast(&root);
 				head = NULL;
 				ft_memdel((void **)&cmd);
@@ -110,11 +114,12 @@ void	init_prompt(void)
 	tcgetattr(0, &g_saved_attributes);
 	his = open_hist();
 	ft_prompt(his);
+	free_his(&his);
 }
 
 void	ft_sig_handler(int signo)
 {
-	if (signo == SIGINT)
+	if (signo == SIGINT && g_pid)
 	{
 		init_prompt();
 	}

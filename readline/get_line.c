@@ -6,7 +6,7 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 13:46:50 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/20 10:49:50 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/21 20:20:55 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int		display_prompt(int c)
 	char		*path;
 	static char	*tmp = NULL;
 
-	if (c)
+	if (!c)
 		col = GRN_COL;
 	else
 		col = RED_COL;
@@ -102,11 +102,11 @@ char			*get_line(t_hist **his, char *prom, int c)
 		read(0, &line.buf, 12);
 		if (line.buf != '\n' && line.buf != '\004')
 			store_print(his, &line);
-		else
+		else if (line.buf == '\n')
 			break ;
 	}
-	if (line.buf == '\004')
-		ret = NULL;
+	if (line.buf == '\004' && !line.str[0])
+		ret = ft_strdup("exit");
 	else
 		ret = ft_strdup(line.str);
 	ft_strdel(&line.str);
