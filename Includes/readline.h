@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 14:40:20 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/19 19:12:34 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/23 18:22:42 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ t_hist					*open_hist(void);
 void					add_to_history(t_hist **his, char *line);
 
 char					*get_line(t_hist **his, char *prom, int c);
+int						display_prompt(int c);
 void					reset_highlight(t_line *line);
 
 void					set_input_mode(void);

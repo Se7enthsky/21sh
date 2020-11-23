@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebou-nya <ebou-nya@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/06 17:37:46 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/22 22:54:56 by ebou-nya         ###   ########.fr       */
+/*   Created: 2020/11/23 17:14:28 by mobounya          #+#    #+#             */
+/*   Updated: 2020/11/23 17:16:44 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
 
-void ft_fill_ast(t_ast *root, t_tokens *left,
-				 t_tokens *current, t_tokens *right)
+void	ft_fill_ast(t_ast *root, t_tokens *left,
+		t_tokens *current, t_tokens *right)
 {
 	if (current->token_id == PIPE)
 	{
@@ -32,7 +32,7 @@ void ft_fill_ast(t_ast *root, t_tokens *left,
 **	and right half to the right tree node.
 */
 
-void ft_ast_split(t_ast **root, int token_id)
+void	ft_ast_split(t_ast **root, int token_id)
 {
 	t_tokens *lst;
 	t_tokens *temp;
@@ -46,7 +46,7 @@ void ft_ast_split(t_ast **root, int token_id)
 			ft_fill_ast(*root, temp, lst->next, lst->next->next);
 			lst->next->next = NULL;
 			lst->next = NULL;
-			break;
+			break ;
 		}
 		lst = lst->next;
 	}
@@ -57,20 +57,20 @@ void ft_ast_split(t_ast **root, int token_id)
 **	in the tree by (token_id)
 */
 
-void ft_ast_insert(t_ast **root, int token_id)
+void	ft_ast_insert(t_ast **root, int token_id)
 {
 	if (root == NULL || *root == NULL)
-		return;
+		return ;
 	ft_ast_insert(&(*root)->left, token_id);
 	ft_ast_split(root, token_id);
 	ft_ast_insert(&(*root)->right, token_id);
 }
 
-t_ast *ft_split_list(t_tokens *lst)
+t_ast	*ft_split_list(t_tokens *lst)
 {
-	t_ast *root;
-	const int seperators[4] = {SEMI, AND, OR, PIPE};
-	int i;
+	t_ast		*root;
+	const int	seperators[4] = {SEMI, AND, OR, PIPE};
+	int			i;
 
 	i = 0;
 	root = ft_new_astnode(lst);
@@ -82,7 +82,7 @@ t_ast *ft_split_list(t_tokens *lst)
 	return (root);
 }
 
-t_ast *ft_parse(t_tokens *lst)
+t_ast	*ft_parse(t_tokens *lst)
 {
 	t_ast *root;
 

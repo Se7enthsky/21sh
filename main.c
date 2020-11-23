@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebou-nya <ebou-nya@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 02:02:23 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/23 03:03:31 by ebou-nya         ###   ########.fr       */
+/*   Created: 2020/11/23 17:10:14 by mobounya          #+#    #+#             */
+/*   Updated: 2020/11/23 18:57:53 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,21 @@
 **  "echo "foo" >> bar | pwd cat -e << EOF && ls -l dir1 dir2"
 */
 
-static const t_id g_seperators[] =
-	{
-		{"&&", DGREAT, "Dgreat"},
-		{"||", OR, "OR"},
-		{"|", PIPE, "Pipe"},
-		{";", SEMI, "Semi"},
-		{NULL, 0, NULL},
+static const t_id	g_seperators[] =
+{
+	{"&&", DGREAT, "Dgreat"},
+	{"||", OR, "OR"},
+	{"|", PIPE, "Pipe"},
+	{";", SEMI, "Semi"},
+	{NULL, 0, NULL},
 };
 
-char **ft_envinit(void)
+char				**ft_envinit(void)
 {
-	char **new_env;
-	size_t size;
-	unsigned int i;
-	extern char **environ;
+	char			**new_env;
+	size_t			size;
+	unsigned int	i;
+	extern char		**environ;
 
 	g_exit_code = 0;
 	i = 0;
@@ -50,10 +50,10 @@ char **ft_envinit(void)
 	return (new_env);
 }
 
-t_ast *ft_build_ast(char *cmd, char **env)
+t_ast				*ft_build_ast(char *cmd, char **env)
 {
-	t_ast *root;
-	t_tokens *head;
+	t_ast		*root;
+	t_tokens	*head;
 
 	head = NULL;
 	root = NULL;
@@ -67,14 +67,14 @@ t_ast *ft_build_ast(char *cmd, char **env)
 	return (root);
 }
 
-void ft_prompt(t_hist *his)
+void				ft_prompt(t_hist *his)
 {
-	char *cmd;
-	t_tokens *head;
-	t_ast *root;
-	char **env;
-	char *temp;
-	int *and_or;
+	char		*cmd;
+	t_tokens	*head;
+	t_ast		*root;
+	char		**env;
+	char		*temp;
+	int			*and_or;
 
 	env = ft_envinit();
 	if (!term_set())
@@ -111,18 +111,24 @@ void ft_prompt(t_hist *his)
 	}
 }
 
-void ft_sig_handler(int signo)
+void				ft_sig_handler(int signo)
 {
-	if (signo == SIGINT)
+	(void)signo;
+	if (g_pid == 0)
 	{
-		if (g_pid)
-			printf("Parent\n");
-		else
-			printf("Child\n");
+		if (g_line.str)
+		{
+			g_line.str[0] = '\0';
+			g_line.len = 0;
+			g_line.idx = 0;
+			g_line.way = 0;
+		}
+		ft_putendl("");
+		display_prompt(1);
 	}
 }
 
-void init_prompt(void)
+void				init_prompt(void)
 {
 	t_hist *his;
 
@@ -132,9 +138,10 @@ void init_prompt(void)
 	free_his(&his);
 }
 
-int main(void)
+int					main(void)
 {
-	// signal(SIGINT, ft_sig_handler);
+	signal(SIGINT, ft_sig_handler);
+	g_pid = 0;
 	init_prompt();
 	return (0);
 }

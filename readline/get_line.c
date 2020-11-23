@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_line.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 13:46:50 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/21 20:20:55 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/23 19:27:12 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void		store_print(t_hist **his, t_line *line)
 		ccp(line);
 }
 
-static int		display_prompt(int c)
+int		display_prompt(int c)
 {
 	char		*col;
 	char		*path;
@@ -91,25 +91,25 @@ static t_line	line_ini(char *prom, int c)
 
 char			*get_line(t_hist **his, char *prom, int c)
 {
-	t_line			line;
 	char			*ret;
 
+
 	set_input_mode();
-	line = line_ini(prom, c);
+	g_line = line_ini(prom, c);
 	while (1)
 	{
-		line.buf = 0;
-		read(0, &line.buf, 12);
-		if (line.buf != '\n' && line.buf != '\004')
-			store_print(his, &line);
-		else if (line.buf == '\n')
+		g_line.buf = 0;
+		read(0, &g_line.buf, 12);
+		if (g_line.buf != '\n' && g_line.buf != '\004')
+			store_print(his, &g_line);
+		else if (g_line.buf == '\n' || (g_line.buf == '\004' && !g_line.str[0]))
 			break ;
 	}
-	if (line.buf == '\004' && !line.str[0])
+	if (g_line.buf == '\004' && !g_line.str[0])
 		ret = ft_strdup("exit");
 	else
-		ret = ft_strdup(line.str);
-	ft_strdel(&line.str);
+		ret = ft_strdup(g_line.str);
+	ft_strdel(&g_line.str);
 	reset_input_mode();
 	return (ret);
 }

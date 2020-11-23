@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   qdq_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 15:31:28 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/20 17:47:43 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/23 17:18:28 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	re_cmd(t_hist **his, char **cmd, char x)
 	char	*tmp;
 	char	*line;
 	int		ret;
-	
+
 	tmp = ft_strjoin(*cmd, "\n");
 	ret = ft_strlen(*cmd);
 	ft_strdel(cmd);
@@ -46,7 +46,8 @@ void		qdq_checker(t_hist **his, char **cmd)
 			re_cmd(his, cmd, x);
 		else if (((*cmd)[i] == '\'' || (*cmd)[i] == '\"') && !x)
 		{
-			n = ft_strchri(*cmd + i + 1, (x = (*cmd)[i]));
+			x = (*cmd)[i];
+			n = ft_strchri(*cmd + i + 1, x);
 			i += n + 1;
 			if (n == -1)
 				i = re_cmd(his, cmd, x);

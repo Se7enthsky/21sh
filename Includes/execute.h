@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:42:39 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/20 11:57:02 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/23 17:31:11 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,14 @@ int						*ft_handle_pipe(t_tokens *lst, int *pipefd,
 		char ***env);
 
 /*
-**  Function for handling different kinds of redirections, in redirs.c file
-**	with other helper functions.
+**  Function for handling different kinds of redirections, in redirs.c and
+**	ft_redirect_to_file.c files with other helper functions.
 */
 
 char					*access_bin(char *bin, char **env);
 int						ft_set_redirs(t_tokens *lst);
+int						ft_redirect_to_file(int oflag, int old_fd, \
+						char *filename, int rw);
 
 /*
 **	Builtin Functions

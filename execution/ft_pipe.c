@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebou-nya <ebou-nya@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/11 20:30:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/23 01:30:57 by ebou-nya         ###   ########.fr       */
+/*   Created: 2020/11/23 17:03:10 by mobounya          #+#    #+#             */
+/*   Updated: 2020/11/23 18:59:28 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 #define RD 0
 #define WR 1
 
-extern int g_exit_code;
-extern t_processes *g_procs_lst;
+extern	int g_exit_code;
+extern	t_processes *g_procs_lst;
 
-int *ft_create_pipe(void)
+int		*ft_create_pipe(void)
 {
-	int *newpipefd;
+	int	*newpipefd;
 
 	if ((newpipefd = malloc(sizeof(int) * 2)) == NULL)
 		exit(ENOMEM);
@@ -28,7 +28,7 @@ int *ft_create_pipe(void)
 	return (newpipefd);
 }
 
-void ft_set_pipe(int read_end, int write_end)
+void	ft_set_pipe(int read_end, int write_end)
 {
 	if (read_end > 0)
 		dup2(read_end, STDIN_FILENO);
@@ -36,18 +36,16 @@ void ft_set_pipe(int read_end, int write_end)
 		dup2(write_end, STDOUT_FILENO);
 }
 
-int ft_dup_exec(t_tokens *lst, int write_end,
-				int read_end, char ***env)
+int		ft_dup_exec(t_tokens *lst, int write_end,
+		int read_end, char ***env)
 {
-	pid_t pid;
-	char **command;
-	t_builtin_function *builtin;
+	char				**command;
+	t_builtin_function	*builtin;
 
 	command = ft_lsttoa(lst);
 	g_exit_code = 0;
-	if ((pid = fork()) == 0)
+	if ((g_pid = fork()) == 0)
 	{
-		g_pid = pid;
 		ft_set_pipe(read_end, write_end);
 		if ((builtin = is_builtin(command)) == NULL)
 			ft_exec_command(lst, command, *env);
@@ -56,11 +54,11 @@ int ft_dup_exec(t_tokens *lst, int write_end,
 		exit(g_exit_code);
 	}
 	else
-		waitpid(pid, &g_exit_code, 0);
-	g_pid = pid;
+		waitpid(g_pid, &g_exit_code, 0);
+	g_pid = 0;
 	if (write_end)
 		close(write_end);
-	return (pid);
+	return (g_pid);
 }
 
 /*
@@ -68,10 +66,10 @@ int ft_dup_exec(t_tokens *lst, int write_end,
 **	and pass it to ft_dupexecute for executing.
 */
 
-int *ft_handle_pipe(t_tokens *lst, int *pipefd, char ***env)
+int		*ft_handle_pipe(t_tokens *lst, int *pipefd, char ***env)
 {
-	int *newpipefd;
-	pid_t pid;
+	int		*newpipefd;
+	pid_t	pid;
 
 	newpipefd = NULL;
 	if (lst->pipe_before && lst->pipe_after)

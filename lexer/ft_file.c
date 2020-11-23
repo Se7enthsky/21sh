@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_file.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebou-nya <ebou-nya@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 17:13:11 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/22 21:12:30 by ebou-nya         ###   ########.fr       */
+/*   Updated: 2020/11/23 17:13:46 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
 
-void ft_set_filenames(t_tokens *list)
+void	ft_set_filenames(t_tokens *list)
 {
 	int token_id;
 
@@ -39,7 +39,7 @@ void ft_set_filenames(t_tokens *list)
 	}
 }
 
-void ft_substitution(t_tokens *list, char **env)
+void	ft_substitution(t_tokens *list, char **env)
 {
 	char *temp;
 
@@ -52,7 +52,7 @@ void ft_substitution(t_tokens *list, char **env)
 		{
 			if ((list->value[0] == '~' && ft_strlen(list->value) == 1) ||
 				(ft_strlen(list->value) > 1 && list->value[0] == '~' &&
-				 list->value[1] == '/'))
+				list->value[1] == '/'))
 			{
 				temp = list->value;
 				list->value = ft_replace_home(list->value, env);
@@ -63,7 +63,7 @@ void ft_substitution(t_tokens *list, char **env)
 	}
 }
 
-void ft_get_cmd(t_tokens *head, char **env)
+void	ft_get_cmd(t_tokens *head, char **env)
 {
 	while (head)
 	{
