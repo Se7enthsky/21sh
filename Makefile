@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+         #
+#    By: ebou-nya <ebou-nya@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/05 14:26:42 by aminewalial       #+#    #+#              #
-#    Updated: 2020/11/20 16:20:37 by awali-al         ###   ########.fr        #
+#    Updated: 2020/11/22 22:10:34 by ebou-nya         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ HDR_FILES = errors.h execute.h main.h parser.h readline.h tokenize.h
 ERR_FILES = ft_errors.c
 
 EXC_FILES = ft_builtins.c ft_env_func.c ft_env_helpers.c ft_execute.c redirs.c \
-ft_execute_helpers.c ft_list_to_array.c ft_pipe.c ft_process.c ft_unsetenv.c
+ft_execute_helpers.c ft_list_to_array.c ft_pipe.c ft_process.c ft_unsetenv.c \
+ft_setup_files.c
 
 LEX_FILES = ft_file.c ft_stageone_tokenizer.c ft_stagetwo_tokenizer.c \
 ft_tools.c ft_varsub.c qdq_checker.c

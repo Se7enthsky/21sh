@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ebou-nya <ebou-nya@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 13:54:30 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/20 10:52:06 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/23 02:36:33 by ebou-nya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
 
-const t_builtin_matcher	g_builtin_tab[7] =
-{
-	{"echo", &ft_echo},
-	{"exit", &ft_exit},
-	{"cd", &ft_changedir},
-	{"setenv", &ft_setenv},
-	{"unsetenv", &ft_unsetenv},
-	{"env", &ft_env},
-	{NULL, NULL},
+const t_builtin_matcher g_builtin_tab[7] =
+	{
+		{"echo", &ft_echo},
+		{"exit", &ft_exit},
+		{"cd", &ft_changedir},
+		{"setenv", &ft_setenv},
+		{"unsetenv", &ft_unsetenv},
+		{"env", &ft_env},
+		{NULL, NULL},
 };
 
-int						ft_echo(char **command, char ***env)
+int ft_echo(char **command, char ***env)
 {
-	unsigned int	index;
+	unsigned int index;
 
 	env = NULL;
 	index = 1;
@@ -40,10 +40,10 @@ int						ft_echo(char **command, char ***env)
 	return (1);
 }
 
-int						ft_exit(char **command, char ***env)
+int ft_exit(char **command, char ***env)
 {
-	unsigned int	i;
-	int				status;
+	unsigned int i;
+	int status;
 
 	i = 0;
 	status = 0;
@@ -61,10 +61,11 @@ int						ft_exit(char **command, char ***env)
 	return (0);
 }
 
-int						ft_changedir(char **command, char ***env)
+int ft_changedir(char **command, char ***env)
 {
-	unsigned int	size;
-	char			*path;
+	unsigned int size;
+	char *path;
+	char *var;
 
 	size = ft_arraysize(command);
 	if (size == 1)
@@ -74,6 +75,8 @@ int						ft_changedir(char **command, char ***env)
 		g_exit_code = 2;
 		return (g_exit_code);
 	}
+	else if (ft_strcmp(command[1], "-") == 0)
+		path = ft_getenv("OLDPWD", *env);
 	else
 		path = ft_strdup(command[1]);
 	if (path && *path)
@@ -83,13 +86,19 @@ int						ft_changedir(char **command, char ***env)
 		else if (access(path, X_OK) != 0)
 			g_exit_code = 3;
 		else
+		{
+			var = getcwd(NULL, 0);
+			var = ft_strjoin("OLDPWD=", var);
+			ft_replace_add_env(var, env);
 			chdir(path);
-		ft_memdel((void**)&path);
+			ft_memdel((void **)&var);
+		}
+		ft_memdel((void **)&path);
 	}
 	return (g_exit_code);
 }
 
-t_builtin_function		*is_builtin(char **cmd)
+t_builtin_function *is_builtin(char **cmd)
 {
 	uint i;
 
@@ -103,8 +112,8 @@ t_builtin_function		*is_builtin(char **cmd)
 	return (NULL);
 }
 
-void					ft_builtin_exec(t_builtin_function *builtin, \
-						t_tokens *lst, char **cmd, char ***env)
+void ft_builtin_exec(t_builtin_function *builtin,
+					 t_tokens *lst, char **cmd, char ***env)
 {
 	reset_stds(1, 0);
 	ft_set_redirs(lst);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ebou-nya <ebou-nya@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 02:02:23 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/21 18:38:34 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/23 03:03:31 by ebou-nya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,21 @@
 **  "echo "foo" >> bar | pwd cat -e << EOF && ls -l dir1 dir2"
 */
 
-static const t_id	g_seperators[] =
-{
-	{"&&", DGREAT, "Dgreat"},
-	{"||", OR, "OR"},
-	{"|", PIPE, "Pipe"},
-	{";", SEMI, "Semi"},
-	{NULL, 0, NULL},
+static const t_id g_seperators[] =
+	{
+		{"&&", DGREAT, "Dgreat"},
+		{"||", OR, "OR"},
+		{"|", PIPE, "Pipe"},
+		{";", SEMI, "Semi"},
+		{NULL, 0, NULL},
 };
 
-char	**ft_envinit(void)
+char **ft_envinit(void)
 {
-	char			**new_env;
-	size_t			size;
-	unsigned int	i;
-	extern char		**environ;
+	char **new_env;
+	size_t size;
+	unsigned int i;
+	extern char **environ;
 
 	g_exit_code = 0;
 	i = 0;
@@ -50,10 +50,10 @@ char	**ft_envinit(void)
 	return (new_env);
 }
 
-t_ast	*ft_build_ast(char *cmd, char **env)
+t_ast *ft_build_ast(char *cmd, char **env)
 {
-	t_ast		*root;
-	t_tokens	*head;
+	t_ast *root;
+	t_tokens *head;
 
 	head = NULL;
 	root = NULL;
@@ -67,14 +67,14 @@ t_ast	*ft_build_ast(char *cmd, char **env)
 	return (root);
 }
 
-void	ft_prompt(t_hist *his)
+void ft_prompt(t_hist *his)
 {
-	char		*cmd;
-	t_tokens	*head;
-	t_ast		*root;
-	char		**env;
-	char		*temp;
-	int			*and_or;
+	char *cmd;
+	t_tokens *head;
+	t_ast *root;
+	char **env;
+	char *temp;
+	int *and_or;
 
 	env = ft_envinit();
 	if (!term_set())
@@ -93,6 +93,7 @@ void	ft_prompt(t_hist *his)
 					ft_putendl_fd("21sh: parse error", 2);
 				else
 				{
+					setup_files(root);
 					and_or = ft_trav_exec(root, &env);
 					ft_reset(and_or);
 				}
@@ -101,15 +102,29 @@ void	ft_prompt(t_hist *his)
 				ft_memdel((void **)&cmd);
 			}
 			else
+			{
+				g_exit_code = 0;
 				ft_putchar('\n');
+			}
 		}
 		ft_free_arr(env);
 	}
 }
 
-void	init_prompt(void)
+void ft_sig_handler(int signo)
 {
-	t_hist		*his;
+	if (signo == SIGINT)
+	{
+		if (g_pid)
+			printf("Parent\n");
+		else
+			printf("Child\n");
+	}
+}
+
+void init_prompt(void)
+{
+	t_hist *his;
 
 	tcgetattr(0, &g_saved_attributes);
 	his = open_hist();
@@ -117,15 +132,7 @@ void	init_prompt(void)
 	free_his(&his);
 }
 
-void	ft_sig_handler(int signo)
-{
-	if (signo == SIGINT && g_pid)
-	{
-		init_prompt();
-	}
-}
-
-int		main(void)
+int main(void)
 {
 	// signal(SIGINT, ft_sig_handler);
 	init_prompt();

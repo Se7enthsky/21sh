@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ebou-nya <ebou-nya@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/21 17:31:43 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/23 01:32:46 by ebou-nya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
 
-int					g_pid;
+int g_pid;
 
-t_processes	*g_procs_lst = NULL;
+t_processes *g_procs_lst = NULL;
 
-void		ft_exec_command(t_tokens *lst, char **command, char **env)
+void ft_exec_command(t_tokens *lst, char **command, char **env)
 {
-	char	*executable;
+	char *executable;
 
 	ft_set_redirs(lst);
 	if (g_exit_code)
@@ -40,22 +40,25 @@ void		ft_exec_command(t_tokens *lst, char **command, char **env)
 	}
 }
 
-void		ft_bin_exec(t_tokens *lst, char **cmd, char **env)
+void ft_bin_exec(t_tokens *lst, char **cmd, char **env)
 {
+	int pid;
 
-	if ((g_pid = fork()) == 0)
+	if ((pid = fork()) == 0)
 	{
+		g_pid = pid;
 		ft_exec_command(lst, cmd, env);
 		exit(g_exit_code);
 	}
 	else
 		waitpid(g_pid, &g_exit_code, 0);
+	g_pid = pid;
 }
 
-int			ft_run_command(t_tokens *lst, char ***env)
+int ft_run_command(t_tokens *lst, char ***env)
 {
-	char				**command;
-	t_builtin_function	*builtin;
+	char **command;
+	t_builtin_function *builtin;
 
 	g_exit_code = 0;
 	command = ft_lsttoa(lst);
@@ -72,9 +75,9 @@ int			ft_run_command(t_tokens *lst, char ***env)
 ** else ft_run_command will execute the command.
 */
 
-int			ft_execute(t_tokens *lst, char ***env)
+int ft_execute(t_tokens *lst, char ***env)
 {
-	static int	*pipefd;
+	static int *pipefd;
 
 	if (lst->pipe_before || lst->pipe_after)
 		pipefd = ft_handle_pipe(lst, pipefd, env);
@@ -87,24 +90,31 @@ int			ft_execute(t_tokens *lst, char ***env)
 ** Traverse AST and execute the token linked list.
 */
 
-int		*ft_trav_exec(t_ast *root, char ***env)
+int *ft_trav_exec(t_ast *root, char ***env)
 {
-	static int		and_or[2] = {-1, -1};
+	static int and_or[2] = {-1, -1};
 
 	if (root == NULL)
 		return (and_or);
 	ft_trav_exec(root->left, env);
 	if (root->token->token_id == OR)
+	{
 		and_or[1] = 1;
+		if (g_exit_code)
+			setup_files(root->right);
+	}
 	else if (root->token->token_id == AND)
+	{
 		and_or[0] = 1;
+		if (g_exit_code == 0)
+			setup_files(root->right);
+	}
 	else if (root->token->token_id == SEMI)
 		ft_reset(and_or);
 	if (root->token->token_id == SIMPLE_COMMAND)
 	{
-		if ((and_or[0] == -1 && and_or[1] == -1) || \
-			((and_or[1] == 1 && g_exit_code != 0) \
-				|| (and_or[0] == 1 && g_exit_code == 0)))
+		if ((and_or[0] == -1 && and_or[1] == -1) ||
+			((and_or[1] == 1 && g_exit_code != 0) || (and_or[0] == 1 && g_exit_code == 0)))
 		{
 			ft_execute(root->token, env);
 			ft_reset(and_or);
