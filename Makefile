@@ -6,7 +6,7 @@
 #    By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/05 14:26:42 by aminewalial       #+#    #+#              #
-#    Updated: 2020/11/23 17:47:04 by mobounya         ###   ########.fr        #
+#    Updated: 2020/11/23 20:24:20 by mobounya         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ PRS_DIR = parser
 
 RDL_DIR = readline
 
-SRC_FILES = $(ERR) $(EXC) $(LEX) $(LNL) $(PRS) $(RDL) main.c ft_freemem.c
+SRC_FILES = $(ERR) $(EXC) $(LEX) $(LNL) $(PRS) $(RDL) main.c ft_freemem.c ft_signal_handler.c ft_prompt.c
 
 HDR_FILES = errors.h execute.h main.h parser.h readline.h tokenize.h
 

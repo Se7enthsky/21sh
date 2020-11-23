@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:49:07 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/20 17:49:35 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/23 20:29:23 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int						ft_compare_token(int token_id, int alt[]);
 void					ft_get_alernative_ids(int token_id, int alt[],
 		int size);
 t_ast					*ft_new_astnode(t_tokens *node);
+t_ast					*ft_build_ast(char *cmd, char **env);
 
 /*
 **	Functions to verify syntax in both stages

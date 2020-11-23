@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:51:10 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/23 18:34:33 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/23 20:30:07 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ void				ft_free_ast(t_ast **root);
 void				free_his(t_hist **his);
 void				setup_files(t_ast *root);
 void				init_prompt(void);
-
+void				ft_sig_handler(int signo);
+void				setup_andor(t_ast *root, int *and_or);
+void				ft_prompt(t_hist *his, char **env);
 #endif

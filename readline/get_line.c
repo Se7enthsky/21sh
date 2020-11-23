@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 13:46:50 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/23 19:27:12 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/23 20:13:14 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void		store_print(t_hist **his, t_line *line)
 		ccp(line);
 }
 
-int		display_prompt(int c)
+int				display_prompt(int c)
 {
 	char		*col;
 	char		*path;
@@ -92,7 +92,6 @@ static t_line	line_ini(char *prom, int c)
 char			*get_line(t_hist **his, char *prom, int c)
 {
 	char			*ret;
-
 
 	set_input_mode();
 	g_line = line_ini(prom, c);

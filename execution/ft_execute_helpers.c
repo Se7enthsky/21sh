@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_helpers.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:34:21 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/20 10:51:52 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/23 20:15:23 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,20 @@ char		*ft_find_executable(char *bin, char **env)
 	else
 		path_bin = ft_search_path(bin, env);
 	return (path_bin);
+}
+
+void		setup_andor(t_ast *root, int *and_or)
+{
+	if (root->token->token_id == OR)
+	{
+		and_or[1] = 1;
+		if (g_exit_code)
+			setup_files(root->right);
+	}
+	else if (root->token->token_id == AND)
+	{
+		and_or[0] = 1;
+		if (g_exit_code == 0)
+			setup_files(root->right);
+	}
 }

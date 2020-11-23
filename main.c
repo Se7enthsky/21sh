@@ -6,13 +6,11 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 17:10:14 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/23 18:57:53 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/23 20:29:42 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/main.h"
-#include <sys/errno.h>
-#include <unistd.h>
 
 /*
 **  Seperators for the full command, coming directly from user input.
@@ -67,75 +65,17 @@ t_ast				*ft_build_ast(char *cmd, char **env)
 	return (root);
 }
 
-void				ft_prompt(t_hist *his)
-{
-	char		*cmd;
-	t_tokens	*head;
-	t_ast		*root;
-	char		**env;
-	char		*temp;
-	int			*and_or;
-
-	env = ft_envinit();
-	if (!term_set())
-	{
-		while (1)
-		{
-			cmd = get_line(&his, NULL, g_exit_code);
-			temp = cmd;
-			cmd = ft_strtrim(cmd);
-			if (cmd && *cmd)
-			{
-				qdq_checker(&his, &cmd);
-				add_to_history(&his, cmd);
-				write(1, "\n", 1);
-				if ((root = ft_build_ast(cmd, env)) == NULL)
-					ft_putendl_fd("21sh: parse error", 2);
-				else
-				{
-					setup_files(root);
-					and_or = ft_trav_exec(root, &env);
-					ft_reset(and_or);
-				}
-				ft_free_ast(&root);
-				head = NULL;
-				ft_memdel((void **)&cmd);
-			}
-			else
-			{
-				g_exit_code = 0;
-				ft_putchar('\n');
-			}
-		}
-		ft_free_arr(env);
-	}
-}
-
-void				ft_sig_handler(int signo)
-{
-	(void)signo;
-	if (g_pid == 0)
-	{
-		if (g_line.str)
-		{
-			g_line.str[0] = '\0';
-			g_line.len = 0;
-			g_line.idx = 0;
-			g_line.way = 0;
-		}
-		ft_putendl("");
-		display_prompt(1);
-	}
-}
-
 void				init_prompt(void)
 {
-	t_hist *his;
+	t_hist	*his;
+	char	**env;
 
+	env = ft_envinit();
 	tcgetattr(0, &g_saved_attributes);
 	his = open_hist();
-	ft_prompt(his);
+	ft_prompt(his, env);
 	free_his(&his);
+	ft_free_arr(env);
 }
 
 int					main(void)

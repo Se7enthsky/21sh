@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/23 19:06:44 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/23 20:19:48 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,22 +82,6 @@ int			ft_execute(t_tokens *lst, char ***env)
 	return (0);
 }
 
-static void		ft(t_ast *root, int *and_or)
-{
-	if (root->token->token_id == OR)
-	{
-		and_or[1] = 1;
-		if (g_exit_code)
-			setup_files(root->right);
-	}
-	else if (root->token->token_id == AND)
-	{
-		and_or[0] = 1;
-		if (g_exit_code == 0)
-			setup_files(root->right);
-	}
-}
-
 /*
 ** Traverse AST and execute the token linked list.
 */
@@ -110,7 +94,7 @@ int			*ft_trav_exec(t_ast *root, char ***env)
 		return (and_or);
 	ft_trav_exec(root->left, env);
 	if (root->token->token_id == OR || root->token->token_id == AND)
-		ft(root, and_or);
+		setup_andor(root, and_or);
 	else if (root->token->token_id == SEMI)
 		ft_reset(and_or);
 	if (root->token->token_id == SIMPLE_COMMAND)
