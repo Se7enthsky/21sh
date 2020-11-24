@@ -6,7 +6,7 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:33:04 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/20 10:49:41 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/24 18:33:29 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void		file_save(t_hist *his, char *str)
 	if (his)
 		tmp = ft_itoa(his->i + 1);
 	else
-		tmp = ft_itoa(1);
+		tmp = ft_strdup("1");
 	idx = char_join(tmp, ' ');
 	ft_strdel(&tmp);
 	tmp = ft_strjoin(idx, str);

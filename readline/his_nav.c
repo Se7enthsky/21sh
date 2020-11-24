@@ -6,7 +6,7 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 01:29:39 by aminewalial       #+#    #+#             */
-/*   Updated: 2020/11/20 10:49:44 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/24 18:43:14 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ static void	prev_line(t_hist **his, t_line *line)
 		if (!line->tmp)
 			line->tmp = line->str;
 		else if ((*his)->prv)
+		{
+			ft_strdel(&line->str);
 			(*his) = (*his)->prv;
-		line->str = (*his)->cmd;
+		}
+		line->str = ft_strdup((*his)->cmd);
 		put_in_pos(line->str);
 		n = lines_in_cmd(line->str, line->prm, line->col) - n;
 		i = line->row - line->curp.row;
@@ -64,8 +67,9 @@ static void	next_line(t_hist **his, t_line *line)
 		home(line);
 		if ((*his)->nxt)
 		{
+			ft_strdel(&line->str);
 			(*his) = (*his)->nxt;
-			line->str = (*his)->cmd;
+			line->str = ft_strdup((*his)->cmd);
 		}
 		else
 		{

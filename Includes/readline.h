@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 14:40:20 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/23 18:22:42 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/24 17:30:29 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
 # define HOME			4741915
 # define END			4610843
 
-# define SEPARATOR		-1
+# define SEPARATOR		(char)-1
 
 typedef struct			s_pos
 {
@@ -92,6 +92,8 @@ void					free_2d(char ***dar);
 int						to_putstr(char *s);
 int						to_putchar(int c);
 int						is_ws(char c);
+
+t_line					line_ini(char *prom, int c);
 
 char					**my_envirenement(char **env);
 char					*value_of(char **env, char *key);
