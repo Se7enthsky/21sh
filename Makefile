@@ -6,7 +6,7 @@
 #    By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/05 14:26:42 by aminewalial       #+#    #+#              #
-#    Updated: 2020/11/23 20:24:20 by mobounya         ###   ########.fr        #
+#    Updated: 2020/11/25 16:41:25 by mobounya         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ all : $(NAME)
 $(NAME) : $(OBJ) $(HDR)
 	make -C libft/
 	gcc $(FLAGS) -ltermcap -I $(HDR_DIR) $(OBJ) $(LIB) -o $(NAME)
+	clear
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | $(OBJ_DIR)
 	gcc $(FLAGS) -c $< -I $(HDR_DIR) -o $@

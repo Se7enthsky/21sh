@@ -6,7 +6,7 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 18:05:47 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/20 10:50:27 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/24 19:01:18 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ void	ft_join_heredoc(char *line, char **doc_str)
 void	ft_heredoc_prompt(char *delimiter, char **doc_str)
 {
 	char	*line;
+	t_hist	*his;
 
+	his = open_hist();
 	while (1)
 	{
-		if ((line = get_line(NULL, "heredoc> ", 1)))
+		if ((line = get_line(&his, "heredoc> ", 1)))
 		{
 			write(1, "\n", 1);
 			if (ft_strcmp(delimiter, line))
@@ -44,6 +46,7 @@ void	ft_heredoc_prompt(char *delimiter, char **doc_str)
 		else
 			ft_putchar('\n');
 	}
+	free_his(&his);
 }
 
 void	ft_parse_heredoc(t_tokens *head)

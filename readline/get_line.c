@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 13:46:50 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/23 20:13:14 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/25 16:43:16 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int				display_prompt(int c)
 	return (ft_strlen(tmp) + 4);
 }
 
-static t_line	line_ini(char *prom, int c)
+t_line			line_ini(char *prom, int c)
 {
 	struct winsize	ws;
 	t_line			ret;
@@ -101,7 +101,8 @@ char			*get_line(t_hist **his, char *prom, int c)
 		read(0, &g_line.buf, 12);
 		if (g_line.buf != '\n' && g_line.buf != '\004')
 			store_print(his, &g_line);
-		else if (g_line.buf == '\n' || (g_line.buf == '\004' && !g_line.str[0]))
+		else if (g_line.buf == '\n' || (g_line.buf == '\004' && !g_line.str[0]
+				&& !prom))
 			break ;
 	}
 	if (g_line.buf == '\004' && !g_line.str[0])
