@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_freemem.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 02:21:13 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/24 19:05:34 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/25 16:44:42 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	free_his(t_hist **his)
 		return ;
 	tmp = (*his)->nxt;
 	ft_strdel(&((*his)->cmd));
-	// ft_memdel((void**)&((*his)->prv));
 	ft_memdel((void**)his);
 	free_his(&tmp);
 }
