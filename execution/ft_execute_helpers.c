@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:34:21 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/23 20:15:23 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/25 18:43:34 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,6 @@ void		setup_andor(t_ast *root, int *and_or)
 		if (g_exit_code == 0)
 			setup_files(root->right);
 	}
+	else
+		setup_files(root->right);
 }

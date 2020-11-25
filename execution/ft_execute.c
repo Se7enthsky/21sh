@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/23 20:19:48 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/25 18:45:23 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,10 @@ int			*ft_trav_exec(t_ast *root, char ***env)
 	if (root->token->token_id == OR || root->token->token_id == AND)
 		setup_andor(root, and_or);
 	else if (root->token->token_id == SEMI)
+	{
+		setup_andor(root, and_or);
 		ft_reset(and_or);
+	}
 	if (root->token->token_id == SIMPLE_COMMAND)
 	{
 		if ((and_or[0] == -1 && and_or[1] == -1) ||

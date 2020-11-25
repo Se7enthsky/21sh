@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 17:00:57 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/23 17:02:20 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/25 18:42:42 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static void	ft_create_files(t_tokens *token_lst)
 		if (token_id == GREAT || token_id == DGREAT ||
 			token_id == FD_GREAT || token_id == FD_FILE)
 		{
-			if (token_id == FD_GREAT)
-				filename = token_lst->next->value;
-			else
+			if (token_id == FD_FILE)
 				filename = ft_strdup((token_lst->value) + 2);
+			else
+				filename = token_lst->next->value;
 			oflag = O_WRONLY | O_APPEND | O_CREAT;
 			fd = open(filename, oflag, S_IRUSR | S_IWUSR);
 			close(fd);
