@@ -6,7 +6,7 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 18:05:47 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/24 19:01:18 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/25 18:17:33 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	ft_heredoc_prompt(char *delimiter, char **doc_str)
 		if ((line = get_line(&his, "heredoc> ", 1)))
 		{
 			write(1, "\n", 1);
-			if (ft_strcmp(delimiter, line))
-				ft_join_heredoc(line, doc_str);
-			else
+			if (!ft_strcmp(delimiter, line) || line[0] == '\004')
 			{
 				ft_memdel((void**)&line);
 				break ;
 			}
+			else
+				ft_join_heredoc(line, doc_str);
 		}
 		else
 			ft_putchar('\n');

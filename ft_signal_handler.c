@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_signal.c                                        :+:      :+:    :+:   */
+/*   ft_signal_handler.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 20:17:39 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/23 20:17:52 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/25 17:53:30 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void				ft_sig_handler(int signo)
 	(void)signo;
 	if (g_pid == 0)
 	{
-		if (g_line.str)
+		if (g_l.str)
 		{
-			g_line.str[0] = '\0';
-			g_line.len = 0;
-			g_line.idx = 0;
-			g_line.way = 0;
+			g_l.str[0] = '\0';
+			g_l.len = 0;
+			g_l.idx = 0;
+			g_l.way = 0;
 		}
 		ft_putendl("");
 		display_prompt(1);

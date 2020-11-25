@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_line.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 13:46:50 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/25 16:43:16 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/25 18:17:41 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,27 +89,30 @@ t_line			line_ini(char *prom, int c)
 	return (ret);
 }
 
-char			*get_line(t_hist **his, char *prom, int c)
+char			*get_line(t_hist **his, char *prm, int c)
 {
 	char			*ret;
 
 	set_input_mode();
-	g_line = line_ini(prom, c);
+	g_l = line_ini(prm, c);
 	while (1)
 	{
-		g_line.buf = 0;
-		read(0, &g_line.buf, 12);
-		if (g_line.buf != '\n' && g_line.buf != '\004')
-			store_print(his, &g_line);
-		else if (g_line.buf == '\n' || (g_line.buf == '\004' && !g_line.str[0]
-				&& !prom))
+		g_l.buf = 0;
+		read(0, &g_l.buf, 12);
+		if (g_l.buf != '\n' && g_l.buf != '\004')
+			store_print(his, &g_l);
+		else if (g_l.buf == '\n' || (g_l.buf == '\004' && !g_l.str[0]
+				&& (!prm || !ft_strcmp(prm, "heredoc> "))))
 			break ;
 	}
-	if (g_line.buf == '\004' && !g_line.str[0])
-		ret = ft_strdup("exit");
+	if (g_l.buf == '\004' && !g_l.str[0] && !prm)
+		exit(0);
+	else if (g_l.buf == '\004' && !g_l.str[0] &&
+			!ft_strcmp(prm, "heredoc> "))
+		ret = ft_strdup("\004");
 	else
-		ret = ft_strdup(g_line.str);
-	ft_strdel(&g_line.str);
+		ret = ft_strdup(g_l.str);
+	ft_strdel(&g_l.str);
 	reset_input_mode();
 	return (ret);
 }
