@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 12:43:04 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/23 17:27:30 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/26 04:13:55 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_heredoc(char *value)
 	int		fd;
 	char	*doc_file;
 
-	doc_file = ft_strjoin(getenv("HOME"), "/.temp");
+	doc_file = ft_strjoin("/tmp", "/.temp");
 	fd = open(doc_file, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	write(fd, value, ft_strlen(value));
 	close(fd);
