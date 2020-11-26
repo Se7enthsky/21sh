@@ -6,7 +6,7 @@
 #    By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/05 14:26:42 by aminewalial       #+#    #+#              #
-#    Updated: 2020/11/25 16:41:25 by mobounya         ###   ########.fr        #
+#    Updated: 2020/11/25 22:57:36 by mobounya         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ ft_reset.c ft_verify_syntx.c
 
 RDL_FILES = envirenement.c get_line.c term_set.c edit_in_pos.c \
 arrow_movement.c navigation.c extra.c his_nav.c history.c curmove.c ccp.c \
-positions.c highlight.c get_curpos.c
+positions.c highlight.c get_curpos.c ret_line.c
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 

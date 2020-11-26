@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 14:40:20 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/25 17:58:28 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/26 00:39:17 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@
 
 # define ALT_UPAR		1096489755
 # define ALT_DOWN		1113266971
-# define ALT_RGHT		1130044187
-# define ALT_LEFT		1146821403
+# define ALT_RGHT		10848738
+# define ALT_LEFT		10783202
 
 # define ALT_UPLN		895163163
 # define ALT_DNLN		911940379
 
-# define PRV_WRD		10783202
-# define NXT_WRD		10848738
+# define PRV_WRD		1146821403
+# define NXT_WRD		1130044187
 
 # define PST			10127586
 # define CUT			8948194
@@ -94,6 +94,7 @@ int						to_putchar(int c);
 int						is_ws(char c);
 
 t_line					line_ini(char *prm, int c);
+char					*ret_line(char *prm, t_line line);
 
 char					**my_envirenement(char **env);
 char					*value_of(char **env, char *key);

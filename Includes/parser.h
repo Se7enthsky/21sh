@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:49:07 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/23 20:29:23 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/26 00:09:25 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int						ft_traverse_verify(t_ast *root);
 ** other helper functions are in /parser/ft_heredoc.c
 */
 
-void					ft_find_heredoc(t_ast *root);
+int						ft_find_heredoc(t_ast *root, int c);
 
 /*
 ** checking the quotes and double quotes

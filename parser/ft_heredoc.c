@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 18:05:47 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/25 18:17:33 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/26 00:55:19 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,54 +24,67 @@ void	ft_join_heredoc(char *line, char **doc_str)
 	*doc_str = temp;
 }
 
-void	ft_heredoc_prompt(char *delimiter, char **doc_str)
+char	*ft_heredoc_prompt(char *delimiter, t_hist *his)
 {
 	char	*line;
-	t_hist	*his;
+	char	*doc_str;
 
-	his = open_hist();
+	doc_str = ft_strdup("");
 	while (1)
 	{
 		if ((line = get_line(&his, "heredoc> ", 1)))
 		{
 			write(1, "\n", 1);
-			if (!ft_strcmp(delimiter, line) || line[0] == '\004')
+			if (*line == 3 || !ft_strcmp(delimiter, line) || line[0] == '\004')
 			{
 				ft_memdel((void**)&line);
+				if (*line == 3)
+					ft_memdel((void**)&doc_str);
 				break ;
 			}
 			else
-				ft_join_heredoc(line, doc_str);
+				ft_join_heredoc(line, &doc_str);
 		}
 		else
 			ft_putchar('\n');
 	}
-	free_his(&his);
+	return (doc_str);
 }
 
-void	ft_parse_heredoc(t_tokens *head)
+int		ft_parse_heredoc(t_tokens *head)
 {
 	char		*delimiter;
+	char		*here_doc;
+	t_hist		*his;
 
+	his = open_hist();
 	while (head)
 	{
 		if (head->next && head->next->token_id == DLESS)
 		{
 			if (head->next->next)
 				delimiter = head->next->next->value;
-			head->next->heredoc = ft_strdup("");
-			ft_heredoc_prompt(delimiter, &(head->next->heredoc));
+			here_doc = ft_heredoc_prompt(delimiter, his);
+			if (here_doc == NULL)
+			{
+				free_his(&his);
+				return (1);
+			}
+			head->next->heredoc = here_doc;
 		}
 		head = head->next;
 	}
+	free_his(&his);
+	return (0);
 }
 
-void	ft_find_heredoc(t_ast *root)
+int		ft_find_heredoc(t_ast *root, int c)
 {
-	if (root == NULL)
-		return ;
-	ft_find_heredoc(root->left);
-	if (root->token->token_id == SIMPLE_COMMAND)
-		ft_parse_heredoc(root->token->command_tokens);
-	ft_find_heredoc(root->right);
+	if (root == NULL || c == 1)
+		return (c);
+	c = ft_find_heredoc(root->left, c);
+	if (root->token->token_id == SIMPLE_COMMAND || c == 0)
+		c = ft_parse_heredoc(root->token->command_tokens);
+	c = ft_find_heredoc(root->right, c);
+	return (c);
 }

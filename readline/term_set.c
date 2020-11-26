@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 14:44:40 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/23 18:15:34 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/25 22:53:34 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	set_input_mode(void)
 	term_type = getenv("TERM");
 	ret = tgetent(0, term_type);
 	tcgetattr(0, &tattr);
-	tattr.c_lflag &= ~(ICANON | ECHO);
+	tattr.c_lflag &= ~(ICANON | ECHO | ISIG);
 	tattr.c_cc[VMIN] = 1;
 	tattr.c_cc[VTIME] = 0;
 	tcsetattr(0, TCSAFLUSH, &tattr);

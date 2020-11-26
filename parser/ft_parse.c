@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 17:14:28 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/23 17:16:44 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/26 00:21:08 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,5 @@ t_ast	*ft_parse(t_tokens *lst)
 	root = ft_split_list(lst);
 	if (ft_traverse_verify(root) == 0)
 		return (NULL);
-	ft_find_heredoc(root);
 	return (root);
 }

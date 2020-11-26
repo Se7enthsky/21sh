@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/25 18:45:23 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/25 20:28:14 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int			*ft_trav_exec(t_ast *root, char ***env)
 {
 	static int	and_or[2] = {-1, -1};
 
-	if (root == NULL)
+	if (root == NULL || g_con)
 		return (and_or);
 	ft_trav_exec(root->left, env);
 	if (root->token->token_id == OR || root->token->token_id == AND)
