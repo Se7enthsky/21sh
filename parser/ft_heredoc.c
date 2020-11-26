@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 18:05:47 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/26 00:55:19 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/26 01:57:09 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ char	*ft_heredoc_prompt(char *delimiter, t_hist *his)
 			write(1, "\n", 1);
 			if (*line == 3 || !ft_strcmp(delimiter, line) || line[0] == '\004')
 			{
-				ft_memdel((void**)&line);
 				if (*line == 3)
 					ft_memdel((void**)&doc_str);
+				ft_memdel((void**)&line);
 				break ;
 			}
 			else

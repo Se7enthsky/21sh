@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:51:10 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/25 20:08:09 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/26 01:47:18 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include "readline.h"
 
 t_line				g_l;
-int					g_con;
 int					g_pid;
+
 typedef struct		s_env
 {
 	char			**env;

@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 22:50:56 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/26 00:36:58 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/26 02:35:58 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ char		*ret_line(char *prm, t_line line)
 	if (line.buf == 3)
 		ret = ft_strcdup(3);
 	else if (line.buf == '\004' && !line.str[0] && !prm)
+	{
+		reset_input_mode();
 		exit(0);
+	}
 	else if (line.buf == '\004' && !g_l.str[0] &&
 			!ft_strcmp(prm, "heredoc> "))
 		ret = ft_strdup("\004");
