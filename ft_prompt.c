@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_prompt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 20:24:00 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/26 04:21:20 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/26 18:38:17 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,18 @@ static char		*get_trimmed_line(t_hist **his)
 
 	command = get_line(his, NULL, g_exit_code);
 	if (*command == 3)
+	{
+		g_exit_code = 1;
 		return (NULL);
+	}
 	temp = ft_strtrim(command);
 	ft_memdel((void**)&command);
 	qdq_checker(his, &temp);
 	if (*temp == 3)
+	{
+		g_exit_code = 1;
 		return (NULL);
+	}
 	add_to_history(his, temp);
 	return (temp);
 }

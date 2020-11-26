@@ -6,7 +6,7 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:33:04 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/24 18:33:29 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/26 18:35:18 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void		file_save(t_hist *his, char *str)
 	char	*tmp;
 	int		fd;
 
-	idx = ft_strjoin(getenv("HOME"), "/.history");
+	idx = ft_strdup("/tmp/.history");
 	fd = open(idx, O_WRONLY | O_APPEND);
 	ft_strdel(&idx);
 	if (his)
@@ -109,7 +109,7 @@ t_hist			*open_hist(void)
 	char	*str;
 	int		fd;
 
-	str = ft_strjoin(getenv("HOME"), "/.history");
+	str = ft_strdup("/tmp/.history");
 	fd = open(str, O_RDONLY | O_CREAT, S_IRWXU);
 	ft_strdel(&str);
 	str = next_cmd(fd);
