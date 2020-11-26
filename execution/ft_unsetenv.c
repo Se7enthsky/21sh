@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unsetenv.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:41:00 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/20 18:43:54 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/26 03:40:56 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,26 @@ static void	ft_fill_env(char **env, char **new_env, char *to_delete)
 		if (to_remove(to_delete, env[i]) == 0)
 		{
 			new_env[j] = ft_strdup(env[i]);
+			ft_memdel((void**)&(env[i]));
 			j++;
 		}
 		i++;
 	}
 	new_env[j] = NULL;
+}
+
+static int	find_var(char **env, char *var_name)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		if (to_remove(var_name, env[i]))
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 int			ft_unsetenv(char **command, char ***env)
@@ -62,7 +77,9 @@ int			ft_unsetenv(char **command, char ***env)
 		return (1);
 	}
 	size = ft_arraysize(*env);
-	if ((new_env = malloc(sizeof(char *) * size)) == NULL)
+	if (find_var(*env, command[1]))
+		size = size - 1;
+	if ((new_env = malloc(sizeof(char *) * (size + 1))) == NULL)
 		exit(ENOMEM);
 	ft_fill_env(*env, new_env, command[1]);
 	free(*env);
