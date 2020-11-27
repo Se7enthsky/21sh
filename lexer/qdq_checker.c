@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   qdq_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 15:31:28 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/26 00:47:50 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/27 22:32:57 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ static int	re_cmd(t_hist **his, char **cmd, char x)
 		line = get_line(his, "dquote> ", 1);
 	if (*line == 3)
 	{
-		*cmd = line;
+		*cmd = ft_strdup(line);
+		ft_strdel(&line);
+		ft_strdel(&tmp);
 		return (ret);
 	}
 	*cmd = ft_strjoin(tmp, line);
