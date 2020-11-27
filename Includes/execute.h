@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:42:39 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/23 20:18:53 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/27 22:00:41 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int						ft_find_replace(char *var, char *new_value, char **env);
 int						ft_append_env(char *var_name, char *value, char ***env);
 int						ft_replace_add_env(char *cmd, char ***env);
 char					**ft_getpath(char **env);
+void					change_env_path(char ***env, char *cwd);
 
 /*
 **	Functions for dealing with processes created with pipes.

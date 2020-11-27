@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_line.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 13:46:50 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/25 23:10:38 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/27 21:06:19 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ char			*get_line(t_hist **his, char *prm, int c)
 	{
 		g_l.buf = 0;
 		read(0, &g_l.buf, 12);
-		if (g_l.buf != '\n' && g_l.buf != '\004' && g_l.buf != 3)
+		if ((g_l.buf != '\n' && g_l.buf != '\004' && g_l.buf != 3) ||
+				(g_l.buf == '\004' && g_l.idx != (int)ft_strlen(g_l.str)))
 			store_print(his, &g_l);
 		else if (g_l.buf == 3 || g_l.buf == '\n' || (g_l.buf == '\004' &&
 				!g_l.str[0] && (!prm || !ft_strcmp(prm, "heredoc> "))))

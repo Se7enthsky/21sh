@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ret_line.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 22:50:56 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/26 02:35:58 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:52:03 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,16 @@ char		*ret_line(char *prm, t_line line)
 	else if (line.buf == '\004' && !line.str[0] && !prm)
 	{
 		reset_input_mode();
+		write(1, "\n", 1);
 		exit(0);
 	}
-	else if (line.buf == '\004' && !g_l.str[0] &&
+	else if (line.buf == '\004' && !line.str[0] &&
 			!ft_strcmp(prm, "heredoc> "))
 		ret = ft_strdup("\004");
 	else
-		ret = ft_strdup(g_l.str);
+	{
+		end(&line);
+		ret = ft_strdup(line.str);
+	}
 	return (ret);
 }

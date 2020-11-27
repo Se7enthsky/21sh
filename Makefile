@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+         #
+#    By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/05 14:26:42 by aminewalial       #+#    #+#              #
-#    Updated: 2020/11/26 01:46:51 by mobounya         ###   ########.fr        #
+#    Updated: 2020/11/27 22:01:59 by awali-al         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ ERR_FILES = ft_errors.c
 
 EXC_FILES = ft_builtins.c ft_env_func.c ft_env_helpers.c ft_execute.c redirs.c \
 ft_execute_helpers.c ft_list_to_array.c ft_pipe.c ft_process.c ft_unsetenv.c \
-ft_setup_files.c ft_redirect_to_file.c ft_cd.c
+ft_setup_files.c ft_redirect_to_file.c ft_cd.c change_directory.c
 
 LEX_FILES = ft_file.c ft_stageone_tokenizer.c ft_stagetwo_tokenizer.c \
 ft_tools.c ft_varsub.c qdq_checker.c

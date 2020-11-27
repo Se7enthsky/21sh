@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:51:10 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/26 01:47:18 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/27 21:54:14 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "execute.h"
 # include "parser.h"
 # include "readline.h"
+# include <sys/stat.h>
 
 t_line				g_l;
 int					g_pid;

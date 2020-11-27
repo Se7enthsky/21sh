@@ -6,7 +6,7 @@
 /*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 19:56:41 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/20 10:50:03 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/27 21:01:26 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,17 @@ void		del_in_pos(t_line *line)
 	put_in_pos(line->str + line->idx);
 }
 
+static void	del_cur_char(t_line *line)
+{
+	go_right(line);
+	del_in_pos(line);
+}
+
 int			edit_in_pos(t_line *line)
 {
-	if (ft_isprint(line->buf))
+	if (line->buf == '\004')
+		del_cur_char(line);
+	else if (ft_isprint(line->buf))
 		add_in_pos(line);
 	else if (line->buf == BACKSPACE && line->idx)
 		del_in_pos(line);
