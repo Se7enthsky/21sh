@@ -67,21 +67,16 @@ t_ast				*ft_build_ast(char *cmd, char **env)
 
 void				init_prompt(void)
 {
-	t_hist	*his;
 	char	**env;
 
 	env = ft_envinit();
-	tcgetattr(0, &g_saved_attributes);
-	his = open_hist();
-	ft_prompt(his, env);
-	free_his(&his);
+	ft_prompt(env);
 	ft_free_arr(env);
 }
 
 int					main(void)
 {
 	signal(SIGINT, ft_sig_handler);
-	g_pid = 0;
 	init_prompt();
 	return (0);
 }

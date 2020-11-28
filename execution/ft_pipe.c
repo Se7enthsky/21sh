@@ -41,10 +41,11 @@ int		ft_dup_exec(t_tokens *lst, int write_end,
 {
 	char				**command;
 	t_builtin_function	*builtin;
+	int					pid;
 
 	command = ft_lsttoa(lst);
 	g_exit_code = 0;
-	if ((g_pid = fork()) == 0)
+	if ((pid = fork()) == 0)
 	{
 		ft_set_pipe(read_end, write_end);
 		if ((builtin = is_builtin(command)) == NULL)
@@ -53,12 +54,11 @@ int		ft_dup_exec(t_tokens *lst, int write_end,
 			ft_builtin_exec(builtin, lst, command, env);
 		exit(g_exit_code);
 	}
-	else
-		waitpid(g_pid, &g_exit_code, 0);
-	g_pid = 0;
-	if (write_end)
+	if (write_end != -1)
 		close(write_end);
-	return (g_pid);
+	if (read_end != -1)
+		close(read_end);
+	return (pid);
 }
 
 /*

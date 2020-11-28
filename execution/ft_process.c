@@ -49,7 +49,7 @@ void				ft_lstprocs_wait(t_processes *lst)
 {
 	while (lst)
 	{
-		waitpid(lst->pid, NULL, 0);
+		waitpid(lst->pid, &g_exit_code, 0);
 		lst = lst->next;
 	}
 }

@@ -12,7 +12,6 @@
 
 #include "../includes/main.h"
 
-int			g_pid;
 t_processes	*g_procs_lst = NULL;
 
 void		ft_exec_command(t_tokens *lst, char **command, char **env)
@@ -29,26 +28,31 @@ void		ft_exec_command(t_tokens *lst, char **command, char **env)
 	}
 	else
 	{
-		if ((command[0][0] != '.' && command[0][0] != '/') && g_exit_code == 1)
+		if (!ft_strchr(command[0], '/') && g_exit_code == 1)
 		{
 			ft_putstr_fd("21sh: command not found: ", 2);
 			ft_putendl_fd(command[0], 2);
 		}
 		else if (g_exit_code > 0)
+		{
+			ft_putstr_fd(command[0], 2);
+			ft_putstr_fd(": ", 2);
 			ft_errors();
+		}
 	}
 }
 
 void		ft_bin_exec(t_tokens *lst, char **cmd, char **env)
 {
-	if ((g_pid = fork()) == 0)
+	int		pid;
+
+	if ((pid = fork()) == 0)
 	{
 		ft_exec_command(lst, cmd, env);
 		exit(g_exit_code);
 	}
 	else
-		waitpid(g_pid, &g_exit_code, 0);
-	g_pid = 0;
+		waitpid(pid, &g_exit_code, 0);
 }
 
 int			ft_run_command(t_tokens *lst, char ***env)

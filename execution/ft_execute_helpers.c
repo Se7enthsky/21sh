@@ -80,10 +80,11 @@ char		*ft_find_executable(char *bin, char **env)
 {
 	char	*path_bin;
 
-	if (bin && (*bin == '.' || *bin == '/'))
+	path_bin = NULL;
+	if (bin && ft_strchr(bin, '/'))
 	{
 		if (ft_permission(bin) == 0)
-			return (ft_strdup(bin));
+			path_bin = ft_strdup(bin);
 		else
 			return (NULL);
 	}

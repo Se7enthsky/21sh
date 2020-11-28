@@ -12,6 +12,13 @@
 
 #include "../includes/main.h"
 
+int		is_ws(char c)
+{
+	if ((c >= 9 && c <= 13) || c == ' ')
+		return (1);
+	return (0);
+}
+
 char		*cut_append_qstring(t_tokens **head, char *command)
 {
 	char	*temp;

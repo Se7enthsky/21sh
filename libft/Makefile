@@ -12,7 +12,7 @@ $(NAME) : $(objs)
 	ar rc $(NAME) $(objs)
 
 %.o : %.c
-	gcc -Wall -Werror -Wextra -c $< -o $@
+	gcc -c $< -o $@
 
 clean :
 	rm -f *.o 

@@ -14,7 +14,6 @@
 # define PARSER_H
 
 # include "tokenize.h"
-# include "readline.h"
 
 # define ARRAY_SIZE		13
 
@@ -52,7 +51,5 @@ int						ft_find_heredoc(t_ast *root, int c);
 /*
 ** checking the quotes and double quotes
 */
-
-void					qdq_checker(t_hist **his, char **cmd);
 
 #endif

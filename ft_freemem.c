@@ -54,14 +54,3 @@ void	ft_free_ast(t_ast **root)
 	ft_memdel((void**)root);
 }
 
-void	free_his(t_hist **his)
-{
-	t_hist *tmp;
-
-	if (his == NULL || *his == NULL)
-		return ;
-	tmp = (*his)->nxt;
-	ft_strdel(&((*his)->cmd));
-	ft_memdel((void**)his);
-	free_his(&tmp);
-}

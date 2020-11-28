@@ -15,9 +15,4 @@
 void				ft_sig_handler(int signo)
 {
 	(void)signo;
-	if (g_pid == 0)
-	{
-		ft_putendl("");
-		g_l = line_ini(NULL, 1);
-	}
 }

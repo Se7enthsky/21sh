@@ -48,7 +48,7 @@ int				ft_redirect_to_file(int oflag, int old_fd, \
 	int		new_fd;
 
 	g_exit_code = 0;
-	path = ((*filename == '.' || *filename == '/')) ? \
+	path = (ft_strchr(filename, '/')) ? \
 			ft_strdup(filename) : ft_strjoin("./", filename);
 	ft_permission_checker(oflag, path, filename, rw);
 	if (g_exit_code)
