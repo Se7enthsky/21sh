@@ -42,6 +42,7 @@ void				setup_files(t_ast *root);
 void				init_prompt(void);
 void				ft_sig_handler(int signo);
 void				setup_andor(t_ast *root, int *and_or);
-void			ft_prompt(char **env);
-void		change_env_path(char ***env, char *cwd);
+void				ft_prompt(char **env);
+void				change_env_path(char ***env, char *cwd);
+void				ft_free_procs(t_processes **lst);
 #endif

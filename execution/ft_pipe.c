@@ -15,12 +15,12 @@
 #define RD 0
 #define WR 1
 
-extern	int g_exit_code;
-extern	t_processes *g_procs_lst;
+extern int g_exit_code;
+extern t_processes *g_procs_lst;
 
-int		*ft_create_pipe(void)
+int *ft_create_pipe(void)
 {
-	int	*newpipefd;
+	int *newpipefd;
 
 	if ((newpipefd = malloc(sizeof(int) * 2)) == NULL)
 		exit(ENOMEM);
@@ -28,7 +28,7 @@ int		*ft_create_pipe(void)
 	return (newpipefd);
 }
 
-void	ft_set_pipe(int read_end, int write_end)
+void ft_set_pipe(int read_end, int write_end)
 {
 	if (read_end > 0)
 		dup2(read_end, STDIN_FILENO);
@@ -36,12 +36,12 @@ void	ft_set_pipe(int read_end, int write_end)
 		dup2(write_end, STDOUT_FILENO);
 }
 
-int		ft_dup_exec(t_tokens *lst, int write_end,
-		int read_end, char ***env)
+int ft_dup_exec(t_tokens *lst, int write_end,
+								int read_end, char ***env)
 {
-	char				**command;
-	t_builtin_function	*builtin;
-	int					pid;
+	char **command;
+	t_builtin_function *builtin;
+	int pid;
 
 	command = ft_lsttoa(lst);
 	g_exit_code = 0;
@@ -66,10 +66,10 @@ int		ft_dup_exec(t_tokens *lst, int write_end,
 **	and pass it to ft_dupexecute for executing.
 */
 
-int		*ft_handle_pipe(t_tokens *lst, int *pipefd, char ***env)
+int *ft_handle_pipe(t_tokens *lst, int *pipefd, char ***env)
 {
-	int		*newpipefd;
-	pid_t	pid;
+	int *newpipefd;
+	pid_t pid;
 
 	newpipefd = NULL;
 	if (lst->pipe_before && lst->pipe_after)
@@ -88,9 +88,14 @@ int		*ft_handle_pipe(t_tokens *lst, int *pipefd, char ***env)
 	else if (lst->pipe_before)
 	{
 		pid = ft_dup_exec(lst->command_tokens, -1, pipefd[RD], env);
-		ft_add_process(&g_procs_lst, pid);
+		waitpid(pid, 0, 0);
 		ft_lstprocs_wait(g_procs_lst);
+		ft_free_procs(&g_procs_lst);
 		ft_memdel((void **)&pipefd);
 	}
 	return (newpipefd);
 }
+// base64 /dev/urandom | head -c 100
+// cat | echo "njima"
+// ls | cat -e
+// ls | grep "21sh" | wc -c

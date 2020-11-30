@@ -54,3 +54,17 @@ void	ft_free_ast(t_ast **root)
 	ft_memdel((void**)root);
 }
 
+void	ft_free_procs(t_processes **lst)
+{
+	t_processes *tmp;
+	t_processes *cur;
+
+	cur = *lst;
+	while (cur)
+	{
+		tmp = cur->next;
+		free(cur);
+		cur = tmp;
+	}
+	*lst = NULL;
+}

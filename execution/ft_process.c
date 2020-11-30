@@ -47,9 +47,11 @@ void				ft_add_process(t_processes **lst, pid_t pid)
 
 void				ft_lstprocs_wait(t_processes *lst)
 {
+	int		status;
+
 	while (lst)
 	{
-		waitpid(lst->pid, &g_exit_code, 0);
+		kill(lst->pid, SIGKILL);
 		lst = lst->next;
 	}
 }

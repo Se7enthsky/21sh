@@ -37,6 +37,7 @@ void			ft_prompt(char **env)
 {
 	char		*cmd;
 	t_ast		*root;
+	int			pid;
 
 	while (1)
 	{
