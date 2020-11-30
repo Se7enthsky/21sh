@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 17:33:00 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/30 16:37:47 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/30 17:27:42 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,27 +58,25 @@ static char	*path_correc(char **line, char **env)
 		return (ft_strdup(line[1]));
 }
 
-static void	check_file(char *tmp)
+static void	check_file(char *cmd, char *tmp)
 {
 	struct stat	s;
 
 	lstat(tmp, &s);
 	if (access(tmp, F_OK))
-	{
 		g_exit_code = 1;
-		ft_putstr_fd("cd: no such file or directory: ", 2);
-	}
 	else if (!S_ISDIR(s.st_mode))
-	{
 		g_exit_code = 4;
-		ft_putstr_fd("cd: not a directory: ", 2);
-	}
 	else if (access(tmp, X_OK))
-	{
 		g_exit_code = 3;
-		ft_putstr_fd("cd: permission denied: ", 2);
+	else
+		g_exit_code = 0;
+	if (g_exit_code)
+	{
+		ft_putstr_fd("cd: ", 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": ", 2);
 	}
-	ft_putendl_fd(tmp, 2);
 }
 
 int			ft_changedir(char **command, char ***env)
@@ -98,7 +96,7 @@ int			ft_changedir(char **command, char ***env)
 	else if ((tmp = path_correc(command, *env)))
 	{
 		if (chdir(tmp))
-			check_file(tmp);
+			check_file(command[1], tmp);
 		else
 			change_env_path(env, tmp);
 		ft_strdel(&tmp);

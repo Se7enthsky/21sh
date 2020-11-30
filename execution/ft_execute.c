@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/26 02:42:43 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/30 17:32:59 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,12 @@ void		ft_exec_command(t_tokens *lst, char **command, char **env)
 			ft_putstr_fd("21sh: command not found: ", 2);
 			ft_putendl_fd(command[0], 2);
 		}
-		else if (g_exit_code > 0)
+		else if (g_exit_code > 0 && g_exit_code <= 4)
+		{
+			ft_putstr_fd(command[0], 2);
+			ft_putstr_fd(": ", 2);
 			ft_errors();
+		}
 	}
 }
 
@@ -76,7 +80,11 @@ int			ft_execute(t_tokens *lst, char ***env)
 	static int *pipefd;
 
 	if (lst->pipe_before || lst->pipe_after)
+	{
 		pipefd = ft_handle_pipe(lst, pipefd, env);
+		if (pipefd == NULL)
+			ft_free_procs(&g_procs_lst);
+	}
 	else
 		ft_run_command(lst->command_tokens, env);
 	return (0);

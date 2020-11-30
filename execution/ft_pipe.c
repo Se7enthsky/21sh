@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 17:03:10 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/23 18:59:28 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/30 17:31:49 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 #define RD 0
 #define WR 1
 
-extern	int g_exit_code;
-extern	t_processes *g_procs_lst;
+extern int			g_exit_code;
+extern t_processes	*g_procs_lst;
 
 int		*ft_create_pipe(void)
 {
-	int	*newpipefd;
+	int *newpipefd;
 
 	if ((newpipefd = malloc(sizeof(int) * 2)) == NULL)
 		exit(ENOMEM);
@@ -37,14 +37,15 @@ void	ft_set_pipe(int read_end, int write_end)
 }
 
 int		ft_dup_exec(t_tokens *lst, int write_end,
-		int read_end, char ***env)
+								int read_end, char ***env)
 {
 	char				**command;
 	t_builtin_function	*builtin;
+	int					pid;
 
 	command = ft_lsttoa(lst);
 	g_exit_code = 0;
-	if ((g_pid = fork()) == 0)
+	if ((pid = fork()) == 0)
 	{
 		ft_set_pipe(read_end, write_end);
 		if ((builtin = is_builtin(command)) == NULL)
@@ -53,12 +54,11 @@ int		ft_dup_exec(t_tokens *lst, int write_end,
 			ft_builtin_exec(builtin, lst, command, env);
 		exit(g_exit_code);
 	}
-	else
-		waitpid(g_pid, &g_exit_code, 0);
-	g_pid = 0;
-	if (write_end)
+	if (write_end != -1)
 		close(write_end);
-	return (g_pid);
+	if (read_end != -1)
+		close(read_end);
+	return (pid);
 }
 
 /*
@@ -88,7 +88,7 @@ int		*ft_handle_pipe(t_tokens *lst, int *pipefd, char ***env)
 	else if (lst->pipe_before)
 	{
 		pid = ft_dup_exec(lst->command_tokens, -1, pipefd[RD], env);
-		ft_add_process(&g_procs_lst, pid);
+		waitpid(pid, &g_exit_code, 0);
 		ft_lstprocs_wait(g_procs_lst);
 		ft_memdel((void **)&pipefd);
 	}

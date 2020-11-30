@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:34:21 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/25 18:43:34 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/30 17:16:32 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,19 @@ void		reset_stds(int save, int reset)
 
 int			ft_permission(char *path_bin)
 {
+	struct stat	s;
+
+	lstat(path_bin, &s);
 	g_exit_code = 0;
 	if (access(path_bin, F_OK))
 		g_exit_code = 1;
+	else if (S_ISDIR(s.st_mode))
+	{
+		g_exit_code = 5;
+		ft_putstr_fd("21sh: ", 2);
+		ft_putstr_fd(path_bin, 2);
+		ft_putendl_fd(" is a directory", 2);
+	}
 	else if (access(path_bin, X_OK))
 		g_exit_code = 3;
 	else
@@ -78,9 +88,10 @@ char		*ft_search_path(char *binary, char **env)
 
 char		*ft_find_executable(char *bin, char **env)
 {
-	char	*path_bin;
+	char			*path_bin;
 
-	if (bin && (*bin == '.' || *bin == '/'))
+	if (bin && (bin[0] == '/' || ft_strstr(bin, "./") == bin
+			|| ft_strstr(bin, "../") == bin))
 	{
 		if (ft_permission(bin) == 0)
 			return (ft_strdup(bin));

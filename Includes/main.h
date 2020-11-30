@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:51:10 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/27 21:54:14 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/30 17:28:56 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "parser.h"
 # include "readline.h"
 # include <sys/stat.h>
+# include <signal.h>
 
 t_line				g_l;
 int					g_pid;
@@ -39,4 +40,5 @@ void				init_prompt(void);
 void				ft_sig_handler(int signo);
 void				setup_andor(t_ast *root, int *and_or);
 void				ft_prompt(t_hist *his, char **env);
+void				ft_free_procs(t_processes **lst);
 #endif

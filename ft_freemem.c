@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 02:21:13 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/25 16:44:42 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/11/30 16:48:26 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,19 @@ void	free_his(t_hist **his)
 	ft_strdel(&((*his)->cmd));
 	ft_memdel((void**)his);
 	free_his(&tmp);
+}
+
+void	ft_free_procs(t_processes **lst)
+{
+	t_processes *tmp;
+	t_processes *cur;
+
+	cur = *lst;
+	while (cur)
+	{
+		tmp = cur->next;
+		free(cur);
+		cur = tmp;
+	}
+	*lst = NULL;
 }

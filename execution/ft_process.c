@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:07:40 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/20 10:51:35 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/11/30 16:51:06 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void				ft_lstprocs_wait(t_processes *lst)
 {
 	while (lst)
 	{
-		waitpid(lst->pid, NULL, 0);
+		kill(lst->pid, SIGKILL);
 		lst = lst->next;
 	}
 }
