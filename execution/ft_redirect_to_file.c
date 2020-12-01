@@ -6,11 +6,12 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 17:22:04 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/23 17:41:07 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/12/01 04:13:32 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
+#include "errno.h"
 
 #define READING 1
 #define WRITING 2

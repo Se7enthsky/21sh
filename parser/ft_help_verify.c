@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_help_verify.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 12:43:24 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/20 10:50:30 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/12/01 04:42:29 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
 
-int		starter_ids(int alt[])
+static int		starter_ids(int alt[])
 {
 	int		i;
 
@@ -28,7 +28,7 @@ int		starter_ids(int alt[])
 	return (i);
 }
 
-int		seperators_id(int alt[])
+static int		seperators_id(int alt[])
 {
 	int		i;
 
@@ -40,7 +40,7 @@ int		seperators_id(int alt[])
 	return (i);
 }
 
-int		function(int alt[])
+static int		tokens_ids(int alt[])
 {
 	int		i;
 
@@ -60,7 +60,7 @@ int		function(int alt[])
 	return (i);
 }
 
-void	ft_get_alernative_ids(int token_id, int alt[], int size)
+void			ft_get_alernative_ids(int token_id, int alt[], int size)
 {
 	int	i;
 
@@ -80,12 +80,12 @@ void	ft_get_alernative_ids(int token_id, int alt[], int size)
 		i = 1;
 	}
 	else if (token_id >= 12 && token_id <= 19)
-		i = function(alt);
+		i = tokens_ids(alt);
 	while (i < size)
 		alt[i++] = 0;
 }
 
-int		ft_compare_token(int token_id, int alt[])
+int				ft_compare_token(int token_id, int alt[])
 {
 	unsigned int	i;
 

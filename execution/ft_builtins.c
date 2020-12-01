@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 16:53:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/23 17:33:12 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/12/01 04:36:21 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void						ft_builtin_exec(t_builtin_function *builtin,
 							t_tokens *lst, char **cmd, char ***env)
 {
 	reset_stds(1, 0);
+	g_exit_code = 0;
 	ft_set_redirs(lst);
 	if (g_exit_code)
 		ft_errors();

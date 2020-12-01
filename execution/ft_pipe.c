@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 17:03:10 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/30 17:31:49 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/12/01 04:19:22 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int		ft_dup_exec(t_tokens *lst, int write_end,
 			ft_builtin_exec(builtin, lst, command, env);
 		exit(g_exit_code);
 	}
+	ft_free_arr(command);
 	if (write_end != -1)
 		close(write_end);
 	if (read_end != -1)

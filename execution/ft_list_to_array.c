@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:36:08 by mobounya          #+#    #+#             */
-/*   Updated: 2020/12/01 00:28:46 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/12/01 04:20:49 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		fill_array(t_tokens *list, char **command)
 			string = ft_remove_quote(list->value);
 			free(list->value);
 			list->value = string;
-			command[index] = string;
+			command[index] = ft_strdup(string);
 			index++;
 		}
 		else if (list->token_id == WORD)

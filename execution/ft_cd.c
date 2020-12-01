@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 17:33:00 by mobounya          #+#    #+#             */
-/*   Updated: 2020/12/01 02:53:29 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/12/01 03:01:58 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static int	ft_check_permissions(char *path)
 {
 	struct stat	s;
 
-	stat(path, &s);
+	if (stat(path, &s))
+		return (1);
 	if (ft_strcmp(path, ".") == 0)
 		return (1);
 	if (access(path, F_OK) != 0)

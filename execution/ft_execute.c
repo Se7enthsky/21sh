@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/12/01 00:25:05 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/12/01 04:36:29 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void		ft_exec_command(t_tokens *lst, char **command, char **env)
 {
 	char *executable;
 
+	g_exit_code = 0;
 	ft_set_redirs(lst);
 	if (g_exit_code)
 		ft_errors();
@@ -28,7 +29,7 @@ void		ft_exec_command(t_tokens *lst, char **command, char **env)
 	}
 	else
 	{
-		if ((command[0][0] != '.' && command[0][0] != '/') && g_exit_code == 1)
+		if (ft_strchr(command[0], '/') == NULL && g_exit_code == 1)
 		{
 			ft_putstr_fd("21sh: command not found: ", 2);
 			ft_putendl_fd(command[0], 2);
@@ -66,6 +67,7 @@ int			ft_run_command(t_tokens *lst, char ***env)
 		ft_bin_exec(lst, command, *env);
 	else
 		ft_builtin_exec(builtin, lst, command, env);
+	ft_free_arr(command);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:34:21 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/30 17:16:32 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/12/01 03:09:46 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char		*ft_search_path(char *binary, char **env)
 	i = 0;
 	path_bin = NULL;
 	paths = ft_getpath(env);
-	if (paths != NULL)
+	if (paths != NULL && paths[0])
 	{
 		while (paths[i])
 		{
@@ -90,8 +90,7 @@ char		*ft_find_executable(char *bin, char **env)
 {
 	char			*path_bin;
 
-	if (bin && (bin[0] == '/' || ft_strstr(bin, "./") == bin
-			|| ft_strstr(bin, "../") == bin))
+	if (bin && ft_strchr(bin, '/'))
 	{
 		if (ft_permission(bin) == 0)
 			return (ft_strdup(bin));

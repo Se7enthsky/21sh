@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 12:43:04 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/26 04:13:55 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/12/01 04:36:43 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_heredoc(char *value)
 
 int		ft_set_redirs(t_tokens *lst)
 {
-	while (lst)
+	while (lst && !g_exit_code)
 	{
 		if ((lst->token_id == GREAT) || (lst->token_id == DGREAT))
 		{
