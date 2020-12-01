@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list_to_array.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:36:08 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/20 10:51:45 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/12/01 00:28:46 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void		fill_array(t_tokens *list, char **command)
 			index++;
 		}
 		else if (list->token_id == WORD)
-			command[index++] = list->value;
+			command[index++] = ft_strdup(list->value);
 		list = list->next;
 	}
 }
@@ -58,9 +58,9 @@ char		**ft_lsttoa(t_tokens *list)
 			size++;
 		temp = temp->next;
 	}
-	if ((cmd = malloc(sizeof(char *) * (size + 1))) == NULL)
+	if ((cmd = ft_memalloc(sizeof(char *) * (size + 1))) == NULL)
 		exit(ENOMEM);
-	cmd[size] = NULL;
 	fill_array(list, cmd);
+	cmd[size] = NULL;
 	return (cmd);
 }

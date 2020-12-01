@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:51:10 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/30 17:28:56 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/12/01 01:32:38 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <signal.h>
 
 t_line				g_l;
-int					g_pid;
 
 typedef struct		s_env
 {
@@ -41,4 +40,6 @@ void				ft_sig_handler(int signo);
 void				setup_andor(t_ast *root, int *and_or);
 void				ft_prompt(t_hist *his, char **env);
 void				ft_free_procs(t_processes **lst);
+void				change_env_path(char ***env, char *cwd);
+char				*par_fol(void);
 #endif

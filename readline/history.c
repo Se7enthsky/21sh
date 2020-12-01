@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:33:04 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/26 18:35:18 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/12/01 02:15:44 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ t_hist			*open_hist(void)
 	t_hist	*ret;
 	char	*str;
 	int		fd;
+	char	*tmp;
 
 	str = ft_strdup("/tmp/.history");
 	fd = open(str, O_RDONLY | O_CREAT, S_IRWXU);
@@ -116,16 +117,24 @@ t_hist			*open_hist(void)
 	ret = NULL;
 	if (str && str[0])
 	{
-		ret = new_node(ft_strchr(str, ' ') + 1);
-		ret ? ret->i = ft_atoi(str) : 0;
-		ft_strdel(&str);
-		while (ret && (str = next_cmd(fd)))
+		tmp = ft_strchr(str, ' ');
+		if (tmp)
 		{
-			ret->nxt = new_node(ft_strchr(str, ' ') + 1);
-			ret->nxt->i = ft_atoi(str);
-			ret->nxt->prv = ret;
-			ret = ret->nxt;
+			ret = new_node(tmp + 1);
+			ret ? ret->i = ft_atoi(str) : 0;
 			ft_strdel(&str);
+			while (ret && (str = next_cmd(fd)))
+			{
+				tmp = ft_strchr(str, ' ');
+				if (tmp)
+				{
+					ret->nxt = new_node(ft_strchr(str, ' ') + 1);
+					ret->nxt->i = ft_atoi(str);
+					ret->nxt->prv = ret;
+					ret = ret->nxt;
+					ft_strdel(&str);
+				}
+			}
 		}
 	}
 	close(fd);

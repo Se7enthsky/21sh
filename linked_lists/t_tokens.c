@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_tokens.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 02:31:32 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/20 10:50:32 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/12/01 00:05:51 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void		ft_lstappend_token(t_tokens **node, int token, char *value)
 {
 	t_tokens	*lst;
 
-	lst = *node;
 	if (node == NULL)
 		return ;
 	else if (*node == NULL)
 		*node = ft_lstnew_token(token, value);
 	else
 	{
+		lst = *node;
 		while (lst)
 		{
 			if (lst->next == NULL)

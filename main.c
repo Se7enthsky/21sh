@@ -6,7 +6,7 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 17:10:14 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/26 02:25:22 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/12/01 01:32:27 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void				init_prompt(void)
 int					main(void)
 {
 	signal(SIGINT, ft_sig_handler);
-	g_pid = 0;
 	init_prompt();
 	return (0);
 }

@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   change_directory.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 21:58:12 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/27 22:01:11 by awali-al         ###   ########.fr       */
+/*   Updated: 2020/12/01 02:24:44 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
+
+char		*par_fol(void)
+{
+	char	*cwd;
+	char	*tmp;
+
+	cwd = getcwd(NULL, 0);
+	tmp = ft_strrchr(cwd, '/');
+	if (tmp && tmp != cwd)
+		return (ft_strndup(cwd, tmp - cwd));
+	else if (tmp && tmp == cwd)
+		return (ft_strdup("/"));
+	else
+		return (NULL);
+}
 
 static void	bigger_env(char ***env, char *var, int i, int n)
 {
@@ -72,6 +87,13 @@ void		change_env_path(char ***env, char *cwd)
 	int		o;
 
 	fixing_env(env);
+	if (ft_strstr(cwd, "../") == cwd &&
+		ft_strlen(cwd) >= 5 && cwd[3] == '.' &&
+			(cwd[4] == '/' || cwd[4] == '.'))
+	{
+		free(cwd);
+		cwd = ft_strdup(getcwd(NULL, 0));
+	}
 	p = 0;
 	while (ft_strstr((*env)[p], "PWD=") != (*env)[p])
 		p++;

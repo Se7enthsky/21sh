@@ -6,13 +6,12 @@
 /*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 17:25:33 by mobounya          #+#    #+#             */
-/*   Updated: 2020/11/30 17:32:59 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/12/01 00:25:05 by mobounya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
 
-int			g_pid;
 t_processes	*g_procs_lst = NULL;
 
 void		ft_exec_command(t_tokens *lst, char **command, char **env)
@@ -45,14 +44,15 @@ void		ft_exec_command(t_tokens *lst, char **command, char **env)
 
 void		ft_bin_exec(t_tokens *lst, char **cmd, char **env)
 {
-	if ((g_pid = fork()) == 0)
+	int		pid;
+
+	if ((pid = fork()) == 0)
 	{
 		ft_exec_command(lst, cmd, env);
 		exit(g_exit_code);
 	}
 	else
-		waitpid(g_pid, &g_exit_code, 0);
-	g_pid = 0;
+		waitpid(pid, &g_exit_code, 0);
 }
 
 int			ft_run_command(t_tokens *lst, char ***env)
