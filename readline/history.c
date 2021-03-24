@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:33:04 by awali-al          #+#    #+#             */
-/*   Updated: 2020/12/01 04:45:17 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/12/01 11:42:34 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ static void		file_save(t_hist *his, char *str)
 	char	*tmp;
 	int		fd;
 
-	idx = ft_strdup("/tmp/.history");
-	fd = open(idx, O_WRONLY | O_APPEND);
-	ft_strdel(&idx);
+	idx = NULL;
+	fd = open(HISTORY_FILE, O_WRONLY | O_APPEND);
+	tmp = NULL;
 	if (his)
 		tmp = ft_itoa(his->i + 1);
 	else
@@ -109,7 +109,7 @@ t_hist			*open_hist(void)
 	char	*str;
 	int		fd;
 
-	fd = open("/tmp/.history", O_RDONLY | O_CREAT, S_IRWXU);
+	fd = open(HISTORY_FILE, O_RDONLY | O_CREAT, S_IRWXU);
 	ret = NULL;
 	if ((str = next_cmd(fd)) && str[0])
 	{

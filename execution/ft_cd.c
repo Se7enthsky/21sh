@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 17:33:00 by mobounya          #+#    #+#             */
-/*   Updated: 2020/12/01 05:22:35 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:22:16 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	ft_check_permissions(char *path)
 {
 	struct stat	s;
 
+	stat(path, &s);
 	if (ft_strcmp(path, ".") == 0)
 		return (1);
 	if (access(path, F_OK) != 0)
@@ -63,22 +64,40 @@ static void	ft_update_pwd(char ***env)
 	}
 }
 
-int			ft_changedir(char **command, char ***env)
+static char	*get_path(char **command, char **env)
 {
-	unsigned int	size;
-	char			*path;
+	char	*path;
 
-	if ((size = ft_arraysize(command)) == 1)
-		path = ft_getenv("HOME", *env);
-	else if (size > 2)
+	path = NULL;
+	if (!command[1])
+	{
+		path = ft_getenv("HOME", env);
+		if (!(path))
+			ft_putendl_fd("21sh: cd: HOME not set", 2);
+	}
+	else if (command[2])
 	{
 		g_exit_code = 2;
-		return (g_exit_code);
+		ft_putstr_fd("21sh: cd: ", 2);
 	}
-	else if (ft_strcmp(command[1], "-") == 0)
-		path = ft_getenv("OLDPWD", *env);
+	else if (!ft_strcmp(command[1], "-"))
+	{
+		path = ft_getenv("OLDPWD", env);
+		if (!(path))
+			ft_putendl_fd("21sh: cd: OLDPWD not set", 2);
+	}
 	else
 		path = ft_strdup(command[1]);
+	if (!path && !g_exit_code)
+		g_exit_code = 5;
+	return (path);
+}
+
+int			ft_changedir(char **command, char ***env)
+{
+	char			*path;
+
+	path = get_path(command, *env);
 	if (path && *path)
 	{
 		if (ft_check_permissions(path) == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 14:40:20 by awali-al          #+#    #+#             */
-/*   Updated: 2020/11/26 00:39:17 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/12/01 11:42:58 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@
 # define END			4610843
 
 # define SEPARATOR		-1
+# define HISTORY_FILE	"/tmp/.history"
 
 typedef struct			s_pos
 {

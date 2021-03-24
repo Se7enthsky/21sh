@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobounya <mobounya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: awali-al <awali-al@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 18:51:10 by awali-al          #+#    #+#             */
-/*   Updated: 2020/12/01 01:32:38 by mobounya         ###   ########.fr       */
+/*   Updated: 2020/12/01 11:10:26 by awali-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,5 @@ void				ft_sig_handler(int signo);
 void				setup_andor(t_ast *root, int *and_or);
 void				ft_prompt(t_hist *his, char **env);
 void				ft_free_procs(t_processes **lst);
-void				change_env_path(char ***env, char *cwd);
 char				*par_fol(void);
 #endif
